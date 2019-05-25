@@ -1,5 +1,5 @@
 # Ephemeris
-Ephemeris javascript calculations
+Javascript library for calendar and astronomy calculations
 
 For this library applies the following MIT License:
 
@@ -13,12 +13,11 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 FILES
 =====
-	mathext.js - JavaScript Math Object Polyfill
-	mathext.html - JavaScript Math Object Polyfill documentation and test suite
-	UTCDate.js - Defines UTCDate. Date object extensions for astronomy calculations
-	UTCDatePanel.js - Definitions for UTCDate Panel
-	UTCDate.html - UTCDate Panel
-	location.js - Geolocation Extension for Javascript
-	locationPanel.js - Definitions for Geolocation Panel
-	location.html - Geolocation Panel
-	locationUTCDate.html - Geolocation and UTCDate Panel together
+	Math.js - JavaScript Math Object Polyfill
+	Math.html - JavaScript Math Object Polyfill documentation and test suite
+	DateTime.js - Defines DateTime. Date object extensions with time zones support for astronomy calculations
+	DateTimePanel.js - Definitions for DateTime Panel
+	DateTimePanel.html - UTCDate Panel
+	GeoLocation.js - Geolocation Extension for Javascript
+	GeoLocationPanel.js - Definitions for Geolocation Panel
+	GeoLocationPanel.html - Geolocation Panel
