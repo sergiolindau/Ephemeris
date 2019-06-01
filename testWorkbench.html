@@ -1,0 +1,713 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<script language="javascript" src="Math.js"></script>
+<script language="javascript" src="fastiCircuitum.js"></script>
+<script language="javascript" src="classes.js"></script>
+<script language="javascript" src="GeoLocation.js"></script>
+<script language="javascript" src="interface.js"></script>
+<script language="javascript" src="StringData.js"></script>
+<script language="javascript" src="language.js"></script>
+
+<script language="javascript" src="GeoLocationPanel.js"></script>
+
+<script type="text/javascript" src="XMLHttpRequest.js"></script>
+<script type="text/javascript" src="TimeZone.js"></script>
+<script type="text/javascript" src="TimeZonePanel.js"></script>
+
+
+<script language="javascript" src="Tick.js"></script>
+<script language="javascript" src="DateTimeTick.js"></script>
+<script language="javascript" src="DateTimePanel.js"></script>
+<script language="javascript" src="astronomy.js"></script>
+<script language="javascript" src="Constellation.js"></script>
+<script language="javascript" src="sunPanel.js"></script>
+<script language="javascript" src="weekHeptagram.js"></script>
+<script type="text/javascript" src="Cookies.js"></script>
+
+<script>
+function setJ2000() {
+	console.log("Start Test...");
+	dateUTC.stop();
+	dateUTC.setJulianDate(2451545);
+	mylocation.lat.dec = -21.3569547;
+	mylocation.lng.dec = -46.147017399999996;
+	TheLocation.setPosition({lat:mylocation.lat.dec,lng:mylocation.lng.dec});
+	updateCoordSelect("lat");
+	updateCoordSelect("lng");
+	panelUpdate(dateUTC);
+//	console.log(DateTime.DJ70);
+//	console.log(Date.UTC(1970,0,1,0));
+	console.log(DateTime.DJ70+DateTime.D7020);
+	console.log(Date.UTC(2000,0,1,12)/(24*60*60*1e3));
+	console.log(DateTime.dayNumber(Date.UTC(1990,3,19,0)));
+}
+function RefreshAction(){
+	console.log("====== DateTimePanelRefresh ======");
+	console.log("==================================");
+}
+addPanelRefreshAction(RefreshAction);
+</script>
+
+<title>Test WorkBench</title>
+</head>
+<body>
+<p><input type="button" value="J2000.0 (0,0)" onclick="setJ2000();" /></p>
+<table width="0%" border="1">
+  <tr>
+    <td><strong><span id="translation_languageLabel_t01">translation_languageLabel_t01</span><script>makeTranslation("translation_languageLabel_t01");</script></strong> <span id="select_language"> select_language </span><script>makeTranslation("select_language");</script> (<span id="translation_shortLanguageDescription_t01">translation_shortLanguageDescription_t01</span><script>makeTranslation("translation_shortLanguageDescription_t01");</script>)</td>
+  </tr>
+  <tr>
+    <td>
+	<table>
+	  <tr>
+	    <td colspan="10" align="left"><strong><span id="translation_locationLabel_t01"> translation_locationLabel_t01 </span><script>makeTranslation("translation_locationLabel_t01");</script></strong> (<span id="glossary_GPL_g01"> glossary_GPL_g01 </span><script>makeTranslation("glossary_GPL_g01");</script>)</td>
+        <td rowspan="3">
+          <input type="checkbox" id="isLocationResponse" disabled="disabled" /><span id="translation_currentLocationLabel_t01">translation_currentLocationLabel_t01</span><script>makeTranslation("translation_currentLocationLabel_t01");</script><br />
+          <input type="checkbox" id="isLocationResponseWaiting" disabled="disabled" /><span id="translation_locationResponseWaitingLabel_t01">translation_locationResponseWaitingLabel_t01</span><script>makeTranslation("translation_locationResponseWaitingLabel_t01");</script>
+        </td>
+	    </tr>
+	  <tr>
+	    <td rowspan="2"><input type="button" value="Get Location" onclick="clickGetLocation()" /></td>
+	    <td align="right"><span id="glossary_Latitude_g01"> glossary_Latitude_g01 </span><script>makeTranslation("glossary_Latitude_g01");</script>:</td>
+	    <td><select id="latdeg" onchange="changeCoordElement('lat','deg')"></select></td>
+	    <td>º</td>
+	    <td><select id="latmin" onchange="changeCoordElement('lat','min')"></select></td>
+	    <td>'</td>
+	    <td><select id="latsec" onchange="changeCoordElement('lat','sec')"></select></td>
+	    <td>''</td>
+	    <td><select id="latdir" onchange="changeCoordElement('lat','dir')">
+	      <option>N</option>
+	      <option>S</option>
+	    </select></td>
+	    <td><input type="text" id="latdec" onchange="changeCoordElement('lat','dec')"/></td>
+	    </tr>
+	  <tr>
+	    <td align="right"><span id="glossary_Longitude_g01"> glossary_Longitude_g01 </span><script>makeTranslation("glossary_Longitude_g01");</script>:</td>
+	    <td><select id="lngdeg" onchange="changeCoordElement('lng','deg')"></select></td>
+	    <td>º</td>
+	    <td><select id="lngmin" onchange="changeCoordElement('lng','min')"></select></td>
+	    <td>'</td>
+	    <td><select id="lngsec" onchange="changeCoordElement('lng','sec')"></select></td>
+	    <td>''</td>
+	    <td><select id="lngdir" onchange="changeCoordElement('lng','dir')">
+	      <option>E</option>
+	      <option>W</option>
+	    </select></td>
+	    <td><input type="text" id="lngdec" onchange="changeCoordElement('lng','dec')" /></td>
+	    </tr>
+  </table>
+    </td>
+  </tr>
+  <tr>
+    <td>
+      <strong><span id="glossary_Timezone_t01"> glossary_timezone_t01 </span><script>makeTranslation("glossary_Timezone_t01");</script></strong>: <span id="select_timezone"> select_timezone </span><script>makeTimeZoneMenu("select_timezone");</script> (<span id="translation_shortTimezoneDescription_t01">translation_shortTimezoneDescription_t01</span><script>makeTranslation("translation_shortTimezoneDescription_t01");</script>)
+  </td>
+  </tr>
+<tr>
+<td>  
+<table>
+  <tr>
+    <td colspan="4">
+<strong>UTC</strong> (<span id="glossary_UTC_g01">glossary_UTC_g01</span><script>makeTranslation("glossary_UTC_g01");</script>): <span id="translation_shortUTCDescription_t01">translation_shortUTCDescription_t01</span><script>makeTranslation("translation_shortUTCDescription_t01");</script>
+    </td>
+  </tr>
+  <tr>
+    <td colspan="4">
+    
+    
+    
+<table>
+
+  <tr>
+    <td align="right">&nbsp;</td>
+    <td colspan="13"><span id="UTCString">UTCString</span></td>
+    </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="2"><input type="checkbox" id="UTCLeapYear" disabled="disabled" />
+      <span id="glossary_LeapYear_g01"> glossary_LeapYear_g01 </span><script>makeTranslation("glossary_LeapYear_g01");</script></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right">UTC:</td>
+    <td align="right"><input type="text" id="UTCYear" onchange="changeUTCYear()" size="4"/></td>
+    <td><select id="UTCEra" onchange="changeUTCEra()">
+        <option>BCE</option>
+        <option selected="selected">CE</option>
+    </select></td>
+    <td><span id="select_month_UTCMonth">select_month_UTCMonth</span><script>makeTranslation("select_month_UTCMonth","onchange=\"changeUTCMonth()\"");</script></td>
+    <td><select id="UTCDate" onchange="changeUTCDate()"></select></td>
+    <td>-</td>
+    <td><select id="UTCHours" onchange="changeUTCHours()"></select></td>
+    <td>:</td>
+    <td><select id="UTCMinutes" onchange="changeUTCMinutes()"></select></td>
+    <td>:</td>
+    <td><select id="UTCSeconds" onchange="changeUTCSeconds()"></select></td>
+    <td>,</td>
+    <td><input type="text" id="UTCMilliseconds" onchange="changeUTCMilliseconds()" size="3" /></td>
+    <td><span id="select_week_UTCDay">select_week_UTCDay</span><script>makeTranslation("select_week_UTCDay","disabled=\"disabled\"");</script></td>
+  </tr>
+  <tr>
+    <td align="right">Local:</td>
+    <td align="right"><input type="text" id="LocalYear" onchange="changeLocalYear()" size="4" /></td>
+    <td><select id="LocalEra" onchange="changeLocalEra()">
+      <option>BCE</option>
+      <option selected="selected">CE</option>
+    </select></td>
+    <td><span id="select_month_LocalMonth">select_month_LocalMonth</span><script>makeTranslation("select_month_LocalMonth","onchange=\"changeLocalMonth()\"");</script></td>
+    <td><select id="LocalDate" onchange="changeLocalDate()"></select></td>
+    <td>-</td>
+    <td><select id="LocalHours" onchange="changeLocalHours()"></select></td>
+    <td>:</td>
+    <td><select id="LocalMinutes" onchange="changeLocalMinutes()"></select></td>
+    <td>:</td>
+    <td><select id="LocalSeconds" onchange="changeLocalSeconds()"></select></td>
+    <td>,</td>
+    <td><input type="text" id="LocalMilliseconds" onchange="changeLocalMilliseconds()" size="3" /></td>
+    <td><span id="select_week_LocalDay">select_week_LocalDay</span><script>makeTranslation("select_week_LocalDay","disabled=\"disabled\"");</script></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="2"><input type="checkbox" id="LocalLeapYear" disabled="disabled" />
+      <span id="glossary_LeapYear_g02"> glossary_LeapYear_g02 </span><script>makeTranslation("glossary_LeapYear_g02");</script></td>
+    <td colspan="11"><input type="checkbox" id="DaylightSavingTime" disabled="disabled" onchange="changeDaylightSavingTime()"/>
+      <span id="glossary_DaylightSavingTime_g01"> glossary_DaylightSavingTime_g01 </span><script>makeTranslation("glossary_DaylightSavingTime_g01");</script></td>
+    </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td colspan="11"><span id="translation_timezoneAdjustLabel_t01">translation_timezoneAdjustLabel_t01</span><script>makeTranslation("translation_timezoneAdjustLabel_t01");</script>: <input type="text" id="TimezoneAdjust" size="4" onfocus="focusTZAdjust()" onchange="changeTZAdjust()" /> (<span id="translation_minutesLabel_t01">translation_minutesLabel_t01</span><script>makeTranslation("translation_minutesLabel_t01");</script>)</td>
+    </tr>
+  <tr>
+    <td align="right">&nbsp;</td>
+    <td colspan="13"><span id="LocalString">LocalString</span></td>
+    </tr>
+  <tr>
+    <td align="right"><label for="checkbox">Now:
+      <input name="runmode" type="radio" id="rNow" value="radio" checked="checked" onclick="clickSetRunModeNow(true)" />
+    </label></td>
+    <td align="right">&nbsp;</td>
+    <td align="left"><a href="https://en.wikipedia.org/wiki/Daylight_saving_time"></a></td>
+    <td colspan="8" align="left">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right">Step:<input type="radio" name="runmode" id="rStep" value="radio" onclick="clickSetRunModeNow(false)" /></td>
+    <td colspan="2" align="center"><input type="radio" name="step" id="sYear" value="radio" onchange="changeStepPanelValue()" /></td>
+    <td align="center"><input type="radio" name="step" id="sMonth" value="radio"  onchange="changeStepPanelValue()"/></td>
+    <td align="center"><input name="step" type="radio" id="sDay" value="radio" checked="checked" onchange="changeStepPanelValue()" /></td>
+    <td>&nbsp;</td>
+    <td align="center"><input type="radio" name="step" id="sHours" value="radio" onchange="changeStepPanelValue()" /></td>
+    <td>&nbsp;</td>
+    <td align="center"><input type="radio" name="step" id="sMinutes" value="radio" onchange="changeStepPanelValue()" /></td>
+    <td>&nbsp;</td>
+    <td align="center"><input type="radio" name="step" id="sSeconds" value="radio" onchange="changeStepPanelValue()" /></td>
+    <td>&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="14" align="center"><input type="button" id="RunStop" value="Run" onclick="clickRunStop()" /></td>
+  </tr>
+  <tr>
+    <td colspan="14" align="center">
+      <input type="button" id="Prev" value="-" onclick="clickPrev()" />
+      <input type="button" value="Now" onclick="clickNow()" />
+      <input type="button" id="Next" value="+" onclick="clickNext()" />
+    </td>
+  </tr>
+</table>    
+    
+    
+    
+    </td>
+  </tr>
+  <tr>
+    <td colspan="4"><span id="UTCISOString">UTCISOString</span></td>
+    </tr>
+  <tr>
+    <td align="right"><span id="glossary_JulianDate_g01"> glossary_JulianDate_g01 </span><script>makeTranslation("glossary_JulianDate_g01");</script>:</td>
+    <td><input type="text" id="JulianDate" onchange="changeJulianDate()"/></td>
+    <td align="right"><span id="glossary_ModifiedJulianDate_g01"> glossary_ModifiedJulianDate_g01 </span><script>makeTranslation("glossary_ModifiedJulianDate_g01");</script>:</td>
+    <td><input type="text" id="ModifiedJulianDate" onchange="changeModifiedJulianDate()" /></td>
+  </tr>
+  <tr>
+    <td align="right"><span id="glossary_JulianDayNumber_g01"> glossary_JulianDayNumber_g01 </span><script>makeTranslation("glossary_JulianDayNumber_g01");</script>:</td>
+    <td><input type="text" id="JulianDay" onchange="changeJulianDay()"/></td>
+    <td align="right"><span id="glossary_UT_g01"> glossary_UT_g01 </span><script>makeTranslation("glossary_UT_g01");</script>:</td>
+    <td><input type="text" id="UT" onchange="changeUT()" /></td>
+  </tr>
+  <tr>
+    <td align="right"><span id="glossary_Epoch_g01"> glossary_Epoch_g01 </span><script>makeTranslation("glossary_Epoch_g01");</script>:</td>
+    <td><input type="text" id="Epoch" onchange="changeEpoch()"/></td>
+    <td align="right"><span id="glossary_Century_g01"> glossary_Century_g01 </span><script>makeTranslation("glossary_Century_g01");</script> (<span id="glossary_J2000_g01"> glossary_J200_g01 </span><script>makeTranslation("glossary_J2000_g01");</script>):</td>
+    <td align="left"><input type="text" id="JulianCentury" onchange="changeJulianCentury()" /></td>
+  </tr>
+</table>
+
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <table>
+
+
+
+  <tr>
+    <td colspan="4"><strong>TAI</strong> (<span id="glossary_TAI_g01">glossary_TAI_g01</span><script>makeTranslation("glossary_TAI_g01");</script>): <span id="translation_shortTAIDescription_t01">translation_shortTAIDescription_t01</span><script>makeTranslation("translation_shortTAIDescription_t01");</script></td>
+  </tr>
+  <tr>
+    <td colspan="4"><span id="TAIISOString">TAIISOString</span></td>
+  </tr>
+  <tr>
+    <td align="right"><span id="glossary_JulianDate_g02"> glossary_JulianDate_g02 </span><script>makeTranslation("glossary_JulianDate_g02");</script>:</td>
+    <td><input type="text" id="TAIJulianDate" onchange="changeTAIJulianDate()"/></td>
+    <td align="right"><span id="glossary_ModifiedJulianDate_g02"> glossary_ModifiedJulianDate_g02 </span><script>makeTranslation("glossary_ModifiedJulianDate_g02");</script>:</td>
+    <td><input type="text" id="TAIModifiedJulianDate" onchange="changeTAIModifiedJulianDate()" /></td>
+  </tr>
+  <tr>
+    <td align="right"><span id="glossary_JulianDayNumber_g02"> glossary_JulianDayNumber_g02 </span><script>makeTranslation("glossary_JulianDayNumber_g02");</script>:</td>
+    <td ><input type="text" id="TAIJulianDay" onchange="changeTAIJulianDay()"/></td>
+    <td align="right"><span id="glossary_UT_g02"> glossary_UT_g02 </span><script>makeTranslation("glossary_UT_g02");</script>:</td>
+    <td><input type="text" id="TAIUT" onchange="changeTAIUT()" /></td>
+  </tr>
+  <tr>
+    <td align="right"><span id="glossary_Epoch_g02"> glossary_Epoch_g02 </span><script>makeTranslation("glossary_Epoch_g02");</script>:</td>
+    <td><input type="text" id="TAIEpoch" onchange="changeTAIEpoch()"/></td>
+    <td align="right"><span id="glossary_Century_g02"> glossary_Century_g02 </span><script>makeTranslation("glossary_Century_g02");</script> (<span id="glossary_J2000_g02"> glossary_J200_g02 </span><script>makeTranslation("glossary_J2000_g02");</script>):</td>
+    <td align="left"><input type="text" id="TAIJulianCentury" onchange="changeTAIJulianCentury()" /></td>
+  </tr>
+
+
+  </table>
+  </td>
+  </tr>
+  <tr>
+    <td>
+<table>
+  <tr>
+    <td colspan="4"><strong>TT</strong> (<span id="glossary_TT_g01">glossary_TT_g01</span><script>makeTranslation("glossary_TT_g01");</script>): <span id="translation_shortTTDescription_t01">translation_shortTTDescription_t01</span><script>makeTranslation("translation_shortTTDescription_t01");</script></td>
+  </tr>
+  <tr>
+    <td colspan="4"><span id="TTISOString">TTISOString</span></td>
+  </tr>
+  <tr>
+    <td align="right"><span id="glossary_JulianDate_g03"> glossary_JulianDate_g03 </span><script>makeTranslation("glossary_JulianDate_g03");</script>:</td>
+    <td><input type="text" id="TTJulianDate" onchange="changeTTJulianDate()"/></td>
+    <td align="right"><span id="glossary_ModifiedJulianDate_g03"> glossary_ModifiedJulianDate_g03 </span><script>makeTranslation("glossary_ModifiedJulianDate_g03");</script>:</td>
+    <td><input type="text" id="TTModifiedJulianDate" onchange="changeTTModifiedJulianDate()" /></td>
+  </tr>
+  <tr>
+    <td align="right"><span id="glossary_JulianDayNumber_g03"> glossary_JulianDayNumber_g03 </span><script>makeTranslation("glossary_JulianDayNumber_g03");</script>:</td>
+    <td><input type="text" id="TTJulianDay" onchange="changeTTJulianDay()"/></td>
+    <td align="right"><span id="glossary_UT_g03"> glossary_UT_g03 </span><script>makeTranslation("glossary_UT_g03");</script>:</td>
+    <td><input type="text" id="TTUT" onchange="changeTTUT()" /></td>
+  </tr>
+  <tr>
+    <td align="right"><span id="glossary_Epoch_g03"> glossary_Epoch_g03 </span><script>makeTranslation("glossary_Epoch_g03");</script>:</td>
+    <td><input type="text" id="TTEpoch" onchange="changeTTEpoch()"/></td>
+    <td align="right"><span id="glossary_Century_g03"> glossary_Century_g03 </span><script>makeTranslation("glossary_Century_g03");</script> (<span id="glossary_J2000_g03"> glossary_J200_g03 </span><script>makeTranslation("glossary_J2000_g03");</script>):</td>
+    <td align="left"><input type="text" id="TTJulianCentury" onchange="changeTTJulianCentury()" /></td>
+  </tr>
+
+</table>
+    </td>
+  </tr>
+  <tr>
+  <td>
+  
+<table>  
+  <tr>
+    <td colspan="4"><strong>TCG</strong> (<span id="glossary_TCG_g01">glossary_TCG_g01</span><script>makeTranslation("glossary_TCG_g01");</script>): <span id="translation_shortTCGDescription_t01">translation_shortTCGDescription_t01</span><script>makeTranslation("translation_shortTCGDescription_t01");</script></td>
+  </tr>
+  <tr>
+    <td colspan="4"><span id="TCGISOString">TCGISOString</span></td>
+  </tr>
+  <tr>
+    <td align="right"><span id="glossary_JulianDate_g04"> glossary_JulianDate_g04 </span><script>makeTranslation("glossary_JulianDate_g04");</script>:</td>
+    <td><input type="text" id="TCGJulianDate" onchange="changeTCGJulianDate()"/></td>
+    <td align="right"><span id="glossary_ModifiedJulianDate_g04"> glossary_ModifiedJulianDate_g04 </span><script>makeTranslation("glossary_ModifiedJulianDate_g04");</script>:</td>
+    <td><input type="text" id="TCGModifiedJulianDate" onchange="changeTCGModifiedJulianDate()" /></td>
+  </tr>
+  <tr>
+    <td align="right"><span id="glossary_JulianDayNumber_g04"> glossary_JulianDayNumber_g04 </span><script>makeTranslation("glossary_JulianDayNumber_g04");</script>:</td>
+    <td><input type="text" id="TCGJulianDay" onchange="changeTCGJulianDay()"/></td>
+    <td align="right"><span id="glossary_UT_g04"> glossary_UT_g04 </span><script>makeTranslation("glossary_UT_g04");</script>:</td>
+    <td><input type="text" id="TCGUT" onchange="changeTCGUT()" /></td>
+  </tr>
+  <tr>
+    <td align="right"><span id="glossary_Epoch_g04"> glossary_Epoch_g04 </span><script>makeTranslation("glossary_Epoch_g04");</script>:</td>
+    <td><input type="text" id="TCGEpoch" onchange="changeTCGEpoch()"/></td>
+    <td align="right"><span id="glossary_Century_g04"> glossary_Century_g04 </span><script>makeTranslation("glossary_Century_g04");</script> (<span id="glossary_J2000_g04"> glossary_J200_g04 </span><script>makeTranslation("glossary_J2000_g04");</script>):</td>
+    <td align="left"><input type="text" id="TCGJulianCentury" onchange="changeTCGJulianCentury()" /></td>
+  </tr>
+</table>  
+  
+  
+  </td>
+  </tr>
+<tr>
+<td>
+<table>
+          <tr>
+            <td colspan="6"><strong><a href="https://en.wikipedia.org/wiki/Sol_Invictus">Solar</a> Information</strong></td>
+          </tr>
+          <tr>
+            <td colspan="2" align="right"><span id="glossary_EquationOfTime_g01">glossary_EquationOfTime_g01</span><script>makeTranslation("glossary_EquationOfTime_g01");</script>:</td>
+            <td><input type="text" id="eqTimeDay" size="8" /></td>
+            <td><input type="text" id="eqTime" size="8" /></td>
+            <td align="right"><a href="https://en.wikipedia.org/wiki/Declination">Declination</a>:</td>
+            <td><input type="text" id="solarDec" size="8" /></td>
+          </tr>
+          <tr>
+            <td align="right"><a href="https://en.wikipedia.org/wiki/Azimuth">Azimuth</a>:</td>
+            <td><input type="text" id="azimuth" size="8" /></td>
+            <td align="right"><a href="https://en.wikipedia.org/wiki/Horizontal_coordinate_system">Elevation</a>:</td>
+            <td><input type="text" id="elevation" size="8" /></td>
+            <td align="right"><a href="https://en.wikipedia.org/wiki/Solar_zenith_angle">cosine of zenith angle</a>:</td>
+            <td><input type="text" id="coszen" size="8" /></td>
+          </tr>
+          <tr>
+            <td align="right">UTC <a href="https://en.wikipedia.org/wiki/Sunrise">Apparent Sunrise</a>:</td>
+            <td><input type="text" id="utcsunrise" size="13" /></td>
+            <td align="right">UTC <a href="https://en.wikipedia.org/wiki/Hour_angle">Noon</a>:</td>
+            <td><input type="text" id="utcsolnoon" size="8" /></td>
+            <td align="right">UTC <a href="https://en.wikipedia.org/wiki/Sunset">Apparent Sunset</a>:</td>
+            <td><input type="text" id="utcsunset" size="13" /></td>
+          </tr>
+          <tr>
+            <td align="right">Local <a href="https://en.wikipedia.org/wiki/Sunrise">Apparent Sunrise</a>:</td>
+            <td><input type="text" id="sunrise" size="13" /></td>
+            <td align="right">Local <a href="https://en.wikipedia.org/wiki/Hour_angle">Noon</a>:</td>
+            <td><input type="text" id="solnoon" size="8" /></td>
+            <td align="right">Local <a href="https://en.wikipedia.org/wiki/Sunset">Apparent Sunset</a>:</td>
+            <td><input type="text" id="sunset" size="13" /></td>
+          </tr>
+      </table>
+</td>
+</tr>
+  <tr>
+  <td>
+<strong>Ephemeris</strong>
+      <p>
+          <input type="checkbox" id="checkbox_BrightObjectsOnly" onClick="OnVisibilityChange()">
+          Show only those objects bright enough to be seen with the naked eye.<br>
+          
+          <input type="checkbox" id="checkbox_RisenObjectsOnly" onClick="OnVisibilityChange()">
+          Show only objects that are above the horizon.<br>
+          
+          <input type="checkbox" id="checkbox_ShowComets" onClick="OnVisibilityChange()">
+          Include comets.<br>
+          
+          <input type="checkbox" id="checkbox_ShowMinor" onClick="OnVisibilityChange()">
+          Include minor asteroids.<br>
+      </p>
+<table>     <!-- begin outer table for coordinate controls -->
+      <tbody><tr valign="top">
+              <td>        <!-- begin cartesian coordinate column -->
+                  <table cellspacing="0">
+                      <tbody><tr>
+                          <td></td>
+                          <td class="OptionHeader">Cartesian&nbsp;coordinates</td>
+                      </tr>
+  
+                      <tr id="row_Heliocentric" style="background-color: rgb(255, 255, 159);">
+                          <td title="Select this option to see cartesian coordinates and distances relative to the center of the Sun.">
+                              <input type="radio" name="rbGroup_Cartesian" id="rb_Cartesian_Heliocentric" onClick="OnRadioButton_Cartesian(this.id)">
+                          </td>
+                          <td title="Select this option to see cartesian coordinates and distances relative to the center of the Sun.">Heliocentric</td>
+                      </tr>
+  
+                      <tr id="row_Geocentric" style="">
+                          <td title="Select this option to see cartesian coordinates and distances relative to the center of the Earth.">
+                              <input type="radio" name="rbGroup_Cartesian" id="rb_Cartesian_Geocentric" onClick="OnRadioButton_Cartesian(this.id)">
+                          </td>
+                          <td title="Select this option to see cartesian coordinates and distances relative to the center of the Earth.">Geocentric</td>
+                      </tr>
+  
+                      <tr id="row_None">
+                          <td title="Select this option to hide the cartesian coordinates and distances.">
+                              <input type="radio" name="rbGroup_Cartesian" id="rb_Cartesian_None" onClick="OnRadioButton_Cartesian(this.id)">
+                          </td>
+                          <td title="Select this option to hide the cartesian coordinates and distances.">(none)</td>
+                      </tr>
+                  </tbody></table>
+              </td>       <!-- end cartesian coordinate column -->
+  
+              <td></td>
+  
+              <td>        <!-- begin angular coordinate column -->
+                  <table cellspacing="0">
+                      <tbody><tr>
+                          <td></td>
+                          <td class="OptionHeader">Angular&nbsp;coordinates</td>
+                      </tr>
+  
+                      <tr id="row_Ecliptic" title="Angles relative to plane of Earth&#39;s orbit around the Sun." style="background-color: rgb(255, 223, 128);">
+                          <td>
+                              <input type="radio" name="rbGroup_Angular" id="rb_Angular_Ecliptic" onClick="OnRadioButton_Angular(this.id)">
+                          </td>
+                          <td><a href="http://en.wikipedia.org/wiki/Ecliptic_coordinate_system" target="_blank">Ecliptic</a></td>
+                      </tr>
+  
+                      <tr id="row_Equatorial" title="Angles relative to Earth&#39;s equator." style="">
+                          <td>
+                              <input type="radio" name="rbGroup_Angular" id="rb_Angular_Equatorial" onClick="OnRadioButton_Angular(this.id)">
+                          </td>
+                          <td><a href="http://en.wikipedia.org/wiki/Equatorial_coordinate_system" target="_blank">Equatorial</a></td>
+                      </tr>
+  
+                      <tr id="row_Horizontal" title="Angles relative to observer&#39;s horizon." style="">
+                          <td>
+                              <input type="radio" name="rbGroup_Angular" id="rb_Angular_Horizontal" onClick="OnRadioButton_Angular(this.id)">
+                          </td>
+                          <td><a href="http://en.wikipedia.org/wiki/Horizontal_coordinate_system" target="_blank">Horizontal</a></td>
+                      </tr>
+                  </tbody></table>
+              </td>       <!-- end angular coordinate column -->
+  
+              <td></td>
+  
+              <td>        <!-- begin ............ column -->
+<table border="1" cellpadding="2" cellspacing="0">     <!-- extra info table: rise/set/culm/etc -->
+                      <tbody><tr>
+                          <td colspan="2" style="text-align:center;">
+                              <select id="selectBody" onChange="OnSelectBody()">
+                                  <option value="Sun">Sun</option>
+                                  <option value="Moon">Moon</option>
+                                  <option value="Mercury">Mercury</option>
+                                  <option value="Venus">Venus</option>
+                                  <option value="Mars">Mars</option>
+                                  <option value="Ceres">Ceres</option>
+                                  <option value="Pallas">Pallas</option>
+                                  <option value="Juno">Juno</option>
+                                  <option value="Vesta">Vesta</option>
+                                  <option value="Jupiter">Jupiter</option>
+                                  <option value="Saturn">Saturn</option>
+                                  <option value="Uranus">Uranus</option>
+                                  <option value="Neptune">Neptune</option>
+                                  <option value="Pluto">Pluto</option>
+                              </select>
+                              <input type="button" value="Details..." onClick="OnDetailsButton()">
+                          </td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:center;">Rise</td>
+                          <td><div id="divRiseTime" class="EventTimeData">Thu 03:29:20</div></td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:center;">Culm</td>
+                          <td><div id="divCulmTime" class="EventTimeData">Thu 09:19:26</div></td>
+                      </tr>
+                      <tr>
+                          <td style="text-align:center;">Set</td>
+                          <td><div id="divSetTime" class="EventTimeData">Thu 15:09:33</div></td>
+                      </tr>
+                  </tbody></table>              </td>       
+              <!-- end geographic coordinate column -->
+          </tr>
+    </tbody></table>
+  <div id="divDateTime"><code>Wed May 29 2019 23:55:40 GMT-0300 (Horário Padrão de Brasília)</code><br><code>Day Value = 7090.12199</code><br></div>
+<table id="planetTable" border="1" cellpadding="2" cellspacing="0">
+  <tbody>
+  <tr>
+    <th class="TableHeader" style="width: 8em;" title="Names of brighter objects are dark, and names of dimmer objects (invisible to the naked eye) are gray.">Object</th>
+    <th id="th_x" title="heliocentric x-coordinate in AU" style="background-color: rgb(255, 255, 159);">H<sub>x</sub></th>
+    <th id="th_y" title="heliocentric y-coordinate in AU" style="background-color: rgb(255, 255, 159);">H<sub>y</sub></th>
+    <th id="th_z" title="heliocentric z-coordinate in AU" style="background-color: rgb(255, 255, 159);">H<sub>z</sub></th>
+    <th id="th_distance" class="TableHeader" title="Distance of the object from the center of the Earth (when in geocentric mode) or the Sun (when in heliocentric mode), expressed in AU." style="background-color: rgb(255, 255, 159);">distance in <a href="http://en.wikipedia.org/wiki/Astronomical_units" target="_blank">AU</a></th>
+    <th class="TableHeader" title="Visual Magnitude">Mag</th>
+    <th class="TableHeader" title="Elongation: the angle between the object and the Sun, as seen from Earth.">Elong</th>
+    <th class="TableHeader" title="Constellation">Con</th>
+    <th class="TableHeader" id="th_Angle1" title="Ecliptic longitude." style="background-color: rgb(255, 223, 128);"><a href="http://en.wikipedia.org/wiki/Ecliptic_longitude" target="_blank">Ecl. Long.</a></th>
+    <th class="TableHeader" id="th_Angle2" title="Ecliptic latitude." style="background-color: rgb(255, 223, 128);"><a href="http://en.wikipedia.org/wiki/Ecliptic_latitude" target="_blank">Ecl. Lat.</a></th>
+  </tr>
+  <tr id="Sun_row" style="">
+    <td class="" id="Sun_name" style="background-color: rgb(255, 255, 159);"><div style="text-align:center; color:#000000;" id="Sun_namediv">Sun</div></td>
+    <td class="NumericData" id="Sun_x" style="background-color: rgb(255, 255, 159);">0.0000000</td>
+    <td class="NumericData" id="Sun_y" style="background-color: rgb(255, 255, 159);">0.0000000</td>
+    <td class="NumericData" id="Sun_z" style="background-color: rgb(255, 255, 159);">0.0000000</td>
+    <td class="NumericData" id="Sun_distance" style="background-color: rgb(255, 255, 159);">0.0000000</td>
+    <td class="SmallNumericData" id="Sun_mag" style="">-26.70</td>
+    <td class="SmallNumericData" id="Sun_SA" style="">0.0°</td>
+    <td class="SmallNumericData" id="Sun_const" style=""><div style="text-align:center;" id="Sun_constdiv"><span title="Taurus">Tau</span></div></td>
+    <td class="NumericData" id="Sun_RA" style="">&nbsp;</td><td class="NumericData" id="Sun_DEC" style="">&nbsp;</td>
+  </tr>
+  <tr id="Mercury_row" style="">
+    <td class="" id="Mercury_name" style=""><div style="text-align:center; color:#000000;" id="Mercury_namediv">Mercury</div></td>
+    <td class="NumericData" id="Mercury_x" style="">-0.1269568</td>
+    <td class="NumericData" id="Mercury_y" style="">0.2893193</td>
+    <td class="NumericData" id="Mercury_z" style="">0.0352220</td>
+    <td class="NumericData" id="Mercury_distance" style="">0.3179061</td>
+    <td class="SmallNumericData" id="Mercury_mag" style="">-1.40</td>
+    <td class="SmallNumericData" id="Mercury_SA" style="">10.4°</td>
+    <td class="SmallNumericData" id="Mercury_const" style=""><div style="text-align:center;" id="Mercury_constdiv"><span title="Taurus">Tau</span></div></td>
+    <td class="NumericData" id="Mercury_RA" style="">&nbsp;113°&nbsp;41'&nbsp;32.8"</td>
+    <td class="NumericData" id="Mercury_DEC" style="">&nbsp;006°&nbsp;21'&nbsp;39.9"</td>
+  </tr>
+  <tr id="Venus_row" style="">
+    <td class="" id="Venus_name" style=""><div style="text-align:center; color:#000000;" id="Venus_namediv">Venus</div></td>
+    <td class="NumericData" id="Venus_x" style="">0.6869723</td>
+    <td class="NumericData" id="Venus_y" style="">0.2295910</td>
+    <td class="NumericData" id="Venus_z" style="">-0.0365859</td>
+    <td class="NumericData" id="Venus_distance" style="">0.7252458</td>
+    <td class="SmallNumericData" id="Venus_mag" style="">-3.65</td>
+    <td class="SmallNumericData" id="Venus_SA" style="">20.6°</td>
+    <td class="SmallNumericData" id="Venus_const" style=""><div style="text-align:center;" id="Venus_constdiv"><span title="Aries">Ari</span></div></td>
+    <td class="NumericData" id="Venus_RA" style="">&nbsp;018°&nbsp;28'&nbsp;48.0"</td>
+    <td class="NumericData" id="Venus_DEC" style="">&#8722;002°&nbsp;53'&nbsp;29.7"</td>
+  </tr>
+  <tr id="Earth_row" style="">
+    <td class="" id="Earth_name" style=""><div style="text-align:center; color:#000000;" id="Earth_namediv">Earth</div></td>
+    <td class="NumericData" id="Earth_x" style="">-0.3722807</td>
+    <td class="NumericData" id="Earth_y" style="">-0.9427784</td>
+    <td class="NumericData" id="Earth_z" style="">0.0000000</td>
+    <td class="NumericData" id="Earth_distance" style="">1.0136192</td>
+    <td class="SmallNumericData" id="Earth_mag" style="">&nbsp;</td>
+    <td class="SmallNumericData" id="Earth_SA" style="">&nbsp;</td>
+    <td class="SmallNumericData" id="Earth_const" style="">&nbsp;</td>
+    <td class="NumericData" id="Earth_RA" style="">&nbsp;248°&nbsp;27'&nbsp;07.6"</td>
+    <td class="NumericData" id="Earth_DEC" style="">&nbsp;000°&nbsp;00'&nbsp;00.0"</td>
+  </tr>
+  <tr id="Moon_row" style=""><td class="" id="Moon_name" style=""><div style="text-align:center; color:#000000;" id="Moon_namediv">Moon</div></td><td class="NumericData" id="Moon_x" style="">-0.3697499</td><td class="NumericData" id="Moon_y" style="">-0.9420287</td><td class="NumericData" id="Moon_z" style="">-0.0002380</td><td class="NumericData" id="Moon_distance" style="">1.0119946</td><td class="SmallNumericData" id="Moon_mag" style="">-8.24</td><td class="SmallNumericData" id="Moon_SA" style="">52.1°</td><td class="SmallNumericData" id="Moon_const" style=""><div style="text-align:center;" id="Moon_constdiv"><span title="Cetus">Cet</span></div></td><td class="NumericData" id="Moon_RA" style="">&nbsp;248°&nbsp;34'&nbsp;11.3"</td><td class="NumericData" id="Moon_DEC" style="">&#8722;000°&nbsp;00'&nbsp;48.5"</td></tr><tr id="Mars_row"><td class="" id="Mars_name" style=""><div style="text-align:center; color:#000000;" id="Mars_namediv">Mars</div></td><td class="NumericData" id="Mars_x" style="">-0.7514013</td><td class="NumericData" id="Mars_y" style="">1.4442801</td><td class="NumericData" id="Mars_z" style="">0.0486691</td><td class="NumericData" id="Mars_distance" style="">1.6287780</td><td class="SmallNumericData" id="Mars_mag" style="">1.76</td><td class="SmallNumericData" id="Mars_SA" style="">30.6°</td><td class="SmallNumericData" id="Mars_const" style=""><div style="text-align:center;" id="Mars_constdiv"><span title="Gemini">Gem</span></div></td><td class="NumericData" id="Mars_RA" style="">&nbsp;117°&nbsp;29'&nbsp;10.2"</td><td class="NumericData" id="Mars_DEC" style="">&nbsp;001°&nbsp;42'&nbsp;44.3"</td></tr><tr id="Ceres_row" style="display: none;"><td class="" id="Ceres_name" style=""><div style="text-align:center; color:#808060;" id="Ceres_namediv">Ceres</div></td><td class="NumericData" id="Ceres_x" style="">-1.0640785</td><td class="NumericData" id="Ceres_y" style="">-2.5519250</td><td class="NumericData" id="Ceres_z" style="">0.1160062</td><td class="NumericData" id="Ceres_distance" style="">2.7673167</td><td class="SmallNumericData" id="Ceres_mag" style="">7.61</td><td class="SmallNumericData" id="Ceres_SA" style="">175.8°</td><td class="SmallNumericData" id="Ceres_const" style=""><div style="text-align:center;" id="Ceres_constdiv"><span title="Scorpius">Sco</span></div></td><td class="NumericData" id="Ceres_RA" style="">&nbsp;247°&nbsp;21'&nbsp;55.0"</td><td class="NumericData" id="Ceres_DEC" style="">&nbsp;002°&nbsp;24'&nbsp;09.2"</td></tr><tr id="Pallas_row" style="display: none;"><td class="" id="Pallas_name" style=""><div style="text-align:center; color:#808060;" id="Pallas_namediv">Pallas</div></td><td class="NumericData" id="Pallas_x" style="">-2.0975440</td><td class="NumericData" id="Pallas_y" style="">-1.2606411</td><td class="NumericData" id="Pallas_z" style="">1.0466461</td><td class="NumericData" id="Pallas_distance" style="">2.6616489</td><td class="SmallNumericData" id="Pallas_mag" style="">8.83</td><td class="SmallNumericData" id="Pallas_SA" style="">117.1°</td><td class="SmallNumericData" id="Pallas_const" style=""><div style="text-align:center;" id="Pallas_constdiv"><span title="Coma Berenices">Com</span></div></td><td class="NumericData" id="Pallas_RA" style="">&nbsp;211°&nbsp;00'&nbsp;22.4"</td><td class="NumericData" id="Pallas_DEC" style="">&nbsp;023°&nbsp;09'&nbsp;20.8"</td></tr><tr id="Juno_row" style="display: none;"><td class="" id="Juno_name" style=""><div style="text-align:center; color:#808060;" id="Juno_namediv">Juno</div></td><td class="NumericData" id="Juno_x" style="">-1.3031744</td><td class="NumericData" id="Juno_y" style="">1.8190503</td><td class="NumericData" id="Juno_z" style="">-0.3599792</td><td class="NumericData" id="Juno_distance" style="">2.2664493</td><td class="SmallNumericData" id="Juno_mag" style="">10.03</td><td class="SmallNumericData" id="Juno_SA" style="">40.7°</td><td class="SmallNumericData" id="Juno_const" style=""><div style="text-align:center;" id="Juno_constdiv"><span title="Gemini">Gem</span></div></td><td class="NumericData" id="Juno_RA" style="">&nbsp;125°&nbsp;37'&nbsp;04.6"</td><td class="NumericData" id="Juno_DEC" style="">&#8722;009°&nbsp;08'&nbsp;20.3"</td></tr><tr id="Vesta_row" style="display: none;"><td class="" id="Vesta_name" style=""><div style="text-align:center; color:#808060;" id="Vesta_namediv">Vesta</div></td><td class="NumericData" id="Vesta_x" style="">2.3828318</td><td class="NumericData" id="Vesta_y" style="">0.3725357</td><td class="NumericData" id="Vesta_z" style="">-0.3009971</td><td class="NumericData" id="Vesta_distance" style="">2.4304875</td><td class="SmallNumericData" id="Vesta_mag" style="">8.03</td><td class="SmallNumericData" id="Vesta_SA" style="">43.2°</td><td class="SmallNumericData" id="Vesta_const" style=""><div style="text-align:center;" id="Vesta_constdiv"><span title="Pisces">Psc</span></div></td><td class="NumericData" id="Vesta_RA" style="">&nbsp;008°&nbsp;53'&nbsp;08.8"</td><td class="NumericData" id="Vesta_DEC" style="">&#8722;007°&nbsp;06'&nbsp;50.1"</td></tr><tr id="Ida_row" style="display: none;"><td class="" id="Ida_name" style=""><div style="text-align:center; color:#808060;" id="Ida_namediv">Ida</div></td><td class="NumericData" id="Ida_x" style="">2.2133499</td><td class="NumericData" id="Ida_y" style="">-1.8862666</td><td class="NumericData" id="Ida_z" style="">-0.0044752</td><td class="NumericData" id="Ida_distance" style="">2.9080818</td><td class="SmallNumericData" id="Ida_mag" style="">14.46</td><td class="SmallNumericData" id="Ida_SA" style="">88.5°</td><td class="SmallNumericData" id="Ida_const" style=""><div style="text-align:center;" id="Ida_constdiv"><span title="Aquarius">Aqr</span></div></td><td class="NumericData" id="Ida_RA" style="">&nbsp;319°&nbsp;33'&nbsp;41.8"</td><td class="NumericData" id="Ida_DEC" style="">&#8722;000°&nbsp;05'&nbsp;17.4"</td></tr><tr id="Gaspra_row" style="display: none;"><td class="" id="Gaspra_name" style=""><div style="text-align:center; color:#808060;" id="Gaspra_namediv">Gaspra</div></td><td class="NumericData" id="Gaspra_x" style="">-0.5450443</td><td class="NumericData" id="Gaspra_y" style="">2.0222447</td><td class="NumericData" id="Gaspra_z" style="">-0.0794209</td><td class="NumericData" id="Gaspra_distance" style="">2.0959137</td><td class="SmallNumericData" id="Gaspra_mag" style="">15.43</td><td class="SmallNumericData" id="Gaspra_SA" style="">24.9°</td><td class="SmallNumericData" id="Gaspra_const" style=""><div style="text-align:center;" id="Gaspra_constdiv"><span title="Gemini">Gem</span></div></td><td class="NumericData" id="Gaspra_RA" style="">&nbsp;105°&nbsp;05'&nbsp;03.0"</td><td class="NumericData" id="Gaspra_DEC" style="">&#8722;002°&nbsp;10'&nbsp;17.9"</td></tr><tr id="9P/T1_row" style="display: none;"><td class="" id="9P/T1_name" style=""><div style="text-align:center; color:#808060;" id="9P/T1_namediv">9P/T1</div></td><td class="NumericData" id="9P/T1_x" style="">1.6874105</td><td class="NumericData" id="9P/T1_y" style="">4.4356831</td><td class="NumericData" id="9P/T1_z" style="">0.0044608</td><td class="NumericData" id="9P/T1_distance" style="">4.7458044</td><td class="SmallNumericData" id="9P/T1_mag" style="">20.28</td><td class="SmallNumericData" id="9P/T1_SA" style="">0.6°</td><td class="SmallNumericData" id="9P/T1_const" style=""><div style="text-align:center;" id="9P/T1_constdiv"><span title="Taurus">Tau</span></div></td><td class="NumericData" id="9P/T1_RA" style="">&nbsp;069°&nbsp;10'&nbsp;20.4"</td><td class="NumericData" id="9P/T1_DEC" style="">&nbsp;000°&nbsp;03'&nbsp;13.9"</td></tr><tr id="19P/B_row" style="display: none;"><td class="" id="19P/B_name" style=""><div style="text-align:center; color:#808060;" id="19P/B_namediv">19P/B</div></td><td class="NumericData" id="19P/B_x" style="">-1.2232270</td><td class="NumericData" id="19P/B_y" style="">-5.5989128</td><td class="NumericData" id="19P/B_z" style="">-0.1343615</td><td class="NumericData" id="19P/B_distance" style="">5.7325528</td><td class="SmallNumericData" id="19P/B_mag" style="">16.07</td><td class="SmallNumericData" id="19P/B_SA" style="">168.7°</td><td class="SmallNumericData" id="19P/B_const" style=""><div style="text-align:center;" id="19P/B_constdiv"><span title="Ophiuchus">Oph</span></div></td><td class="NumericData" id="19P/B_RA" style="">&nbsp;257°&nbsp;40'&nbsp;33.3"</td><td class="NumericData" id="19P/B_DEC" style="">&#8722;001°&nbsp;20'&nbsp;34.9"</td></tr><tr id="67P/C-G_row" style="display: none;"><td class="" id="67P/C-G_name" style=""><div style="text-align:center; color:#808060;" id="67P/C-G_namediv">67P/C-G</div></td><td class="NumericData" id="67P/C-G_x" style="">-1.7105131</td><td class="NumericData" id="67P/C-G_y" style="">-5.2769326</td><td class="NumericData" id="67P/C-G_z" style="">-0.2554974</td><td class="NumericData" id="67P/C-G_distance" style="">5.5531209</td><td class="SmallNumericData" id="67P/C-G_mag" style="">20.56</td><td class="SmallNumericData" id="67P/C-G_SA" style="">174.6°</td><td class="SmallNumericData" id="67P/C-G_const" style=""><div style="text-align:center;" id="67P/C-G_constdiv"><span title="Scorpius">Sco</span></div></td><td class="NumericData" id="67P/C-G_RA" style="">&nbsp;252°&nbsp;02'&nbsp;23.8"</td><td class="NumericData" id="67P/C-G_DEC" style="">&#8722;002°&nbsp;38'&nbsp;13.5"</td></tr><tr id="81P/W2_row" style="display: none;"><td class="" id="81P/W2_name"><div style="text-align:center; color:#808060;" id="81P/W2_namediv">81P/W2</div></td><td class="NumericData" id="81P/W2_x" style="">5.1891962</td><td class="NumericData" id="81P/W2_y" style="">-0.8378429</td><td class="NumericData" id="81P/W2_z" style="">-0.1693579</td><td class="NumericData" id="81P/W2_distance" style="">5.2591273</td><td class="SmallNumericData" id="81P/W2_mag">15.93</td><td class="SmallNumericData" id="81P/W2_SA">67.4°</td><td class="SmallNumericData" id="81P/W2_const"><div style="text-align:center;" id="81P/W2_constdiv"><span title="Pisces">Psc</span></div></td><td class="NumericData" id="81P/W2_RA">&nbsp;350°&nbsp;49'&nbsp;41.6"</td><td class="NumericData" id="81P/W2_DEC">&#8722;001°&nbsp;50'&nbsp;43.4"</td></tr><tr id="Jupiter_row"><td class="" id="Jupiter_name" style=""><div style="text-align:center; color:#000000;" id="Jupiter_namediv">Jupiter</div></td><td class="NumericData" id="Jupiter_x" style="">-1.0722211</td><td class="NumericData" id="Jupiter_y" style="">-5.1952558</td><td class="NumericData" id="Jupiter_z" style="">0.0456174</td><td class="NumericData" id="Jupiter_distance" style="">5.3049432</td><td class="SmallNumericData" id="Jupiter_mag" style="">-2.42</td><td class="SmallNumericData" id="Jupiter_SA" style="">167.8°</td><td class="SmallNumericData" id="Jupiter_const" style=""><div style="text-align:center;" id="Jupiter_constdiv"><span title="Ophiuchus">Oph</span></div></td><td class="NumericData" id="Jupiter_RA" style="">&nbsp;258°&nbsp;20'&nbsp;19.5"</td><td class="NumericData" id="Jupiter_DEC" style="">&nbsp;000°&nbsp;29'&nbsp;33.7"</td></tr><tr id="Saturn_row" style=""><td class="" id="Saturn_name" style=""><div style="text-align:center; color:#000000;" id="Saturn_namediv">Saturn</div></td><td class="NumericData" id="Saturn_x" style="">2.7724298</td><td class="NumericData" id="Saturn_y" style="">-9.6811735</td><td class="NumericData" id="Saturn_z" style="">0.0585004</td><td class="NumericData" id="Saturn_distance" style="">10.0704970</td><td class="SmallNumericData" id="Saturn_mag" style="">0.17</td><td class="SmallNumericData" id="Saturn_SA" style="">138.7°</td><td class="SmallNumericData" id="Saturn_const" style=""><div style="text-align:center;" id="Saturn_constdiv"><span title="Sagittarius">Sgr</span></div></td><td class="NumericData" id="Saturn_RA" style="">&nbsp;285°&nbsp;58'&nbsp;49.1"</td><td class="NumericData" id="Saturn_DEC" style="">&nbsp;000°&nbsp;19'&nbsp;58.2"</td></tr><tr id="Uranus_row" style="display: none;"><td class="" id="Uranus_name" style=""><div style="text-align:center; color:#808060;" id="Uranus_namediv">Uranus</div></td><td class="NumericData" id="Uranus_x" style="">16.7013139</td><td class="NumericData" id="Uranus_y" style="">10.7199161</td><td class="NumericData" id="Uranus_z" style="">-0.1766127</td><td class="NumericData" id="Uranus_distance" style="">19.8464525</td><td class="SmallNumericData" id="Uranus_mag" style="">5.92</td><td class="SmallNumericData" id="Uranus_SA" style="">34.1°</td><td class="SmallNumericData" id="Uranus_const" style=""><div style="text-align:center;" id="Uranus_constdiv"><span title="Aries">Ari</span></div></td><td class="NumericData" id="Uranus_RA" style="">&nbsp;032°&nbsp;41'&nbsp;41.3"</td><td class="NumericData" id="Uranus_DEC" style="">&#8722;000°&nbsp;30'&nbsp;35.6"</td></tr><tr id="Neptune_row" style="display: none;"><td class="" id="Neptune_name" style=""><div style="text-align:center; color:#808060;" id="Neptune_namediv">Neptune</div></td><td class="NumericData" id="Neptune_x" style="">29.1132450</td><td class="NumericData" id="Neptune_y" style="">-6.8805467</td><td class="NumericData" id="Neptune_z" style="">-0.5258407</td><td class="NumericData" id="Neptune_distance" style="">29.9198841</td><td class="SmallNumericData" id="Neptune_mag" style="">7.87</td><td class="SmallNumericData" id="Neptune_SA" style="">79.8°</td><td class="SmallNumericData" id="Neptune_const" style=""><div style="text-align:center;" id="Neptune_constdiv"><span title="Aquarius">Aqr</span></div></td><td class="NumericData" id="Neptune_RA" style="">&nbsp;346°&nbsp;42'&nbsp;10.3"</td><td class="NumericData" id="Neptune_DEC" style="">&#8722;001°&nbsp;00'&nbsp;25.3"</td></tr><tr id="Pluto_row" style="display: none;"><td class="" id="Pluto_name" style=""><div style="text-align:center; color:#808060;" id="Pluto_namediv">Pluto</div></td><td class="NumericData" id="Pluto_x" style="">12.4507950</td><td class="NumericData" id="Pluto_y" style="">-31.3530678</td><td class="NumericData" id="Pluto_z" style="">-0.1985655</td><td class="NumericData" id="Pluto_distance" style="">33.7353907</td><td class="SmallNumericData" id="Pluto_mag" style="">14.18</td><td class="SmallNumericData" id="Pluto_SA" style="">135.6°</td><td class="SmallNumericData" id="Pluto_const" style=""><div style="text-align:center;" id="Pluto_constdiv"><span title="Sagittarius">Sgr</span></div></td><td class="NumericData" id="Pluto_RA" style="">&nbsp;291°&nbsp;39'&nbsp;31.7"</td><td class="NumericData" id="Pluto_DEC" style="">&#8722;000°&nbsp;20'&nbsp;14.1"</td></tr></tbody></table>
+
+  </td>
+  </tr>
+  <tr>
+    <td><strong>Planetarium</strong>
+<center>                        
+<div id="frame_visor" style="width:1030px;position:relative;background-color:#000000;padding-top:20px;padding-bottom:20px">                                 
+</div>
+</center>
+    </td>
+  </tr>
+</table>
+
+ <hr />
+ <div>
+ <h1 align="center">Javascript Technical Routines<br />Test WorkBench</h1>
+<h2>HTML Files</h2>
+<script>
+var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","Tick.html","DateTimeTick.html","CanvasGraph.html","TimeZone.html"];
+function MakeFileMenu(Menu){
+	document.writeln("<ol>");
+	for(var i=0; i<Menu.length; i++) {
+		document.writeln("<li><a href=\""+Menu[i]+"\">"+Menu[i]+"</a><br /><details><summary>View File</summary>");
+		document.writeln("<div id=\""+Menu[i]+"_container\"><center><iframe width=\"1024\" height=\"768\" src=\"file:///X:/"+Menu[i]+"\"></iframe></center></div>");
+		document.writeln("</details></li>");
+	}
+	document.writeln("</ol>");
+}
+MakeFileMenu(htmlfiles);
+</script>
+<h2>JavaScript Files</h2>
+<script>
+var jsfiles = ["Math.js","GeoLocation.js","interface.js","StringData.js","language.js","GeoLocationPanel.js","DateTime.js","fastiCircuitum.js","Tick.js","DateTimeTick.js","astronomy.js","sunPanel.js","weekHeptagram.js","XMLHttpRequest.js","CanvasGraph.js","TimeZone.js"];
+MakeFileMenu(jsfiles);
+
+for(var i in Date.prototype){
+	alert(i);
+}
+
+</script>
+<h2>References</h2>
+
+ </div>
+ 
+ <hr />
+ <div id="TimeZoneContainer">  
+<input type="button" value="Time zone" onclick="document.getElementById('TimeZone').hidden=false"/>
+<div id="TimeZone" hidden="true">
+ <div>
+ <h1 align="center">Time zone Information</h1>
+ <p align="center"><a href="https://zoneinfo-ssl.tzdata-javascript.org/zoneinfo/" title="tzdata-javascript.org" target="_blank">https://zoneinfo-ssl.tzdata-javascript.org/zoneinfo/</a></p>
+ <div id="test_tz">test_tz</div>
+ </div>
+ </div>
+<hr />
+<div id="DominicalContainer">  
+<input type="button" value="Dominical" onclick="document.getElementById('Dominical').hidden=false"/>
+<div id="Dominical" hidden="true">
+	<script>printDominicalTable()</script>
+    <script>printSolarCycleTable()</script>  
+  </div></div>
+<hr />
+<div id="ComputusContainer">
+<input type="button" value="Computus" onclick="document.getElementById('Computus').hidden=false"/>
+    <div id="Computus" hidden="true">
+<h1 align="center">Computus</h1>
+  <p><strong>dominicaPaschae()</strong></p>
+  <p><span id="dominicaPaschaeFunction">dominicaPaschaeFunction</span></p>
+  <script>document.getElementById("dominicaPaschaeFunction").innerHTML = "<code style=\"white-space:pre\">"+eval(fastiCircuitum.dominicaPaschae)+"</code>\n";</script>
+  <p><a href="https://fr.wikipedia.org/wiki/Calcul_de_la_date_de_P%C3%A2ques">[FR] Calcul de la date de Pâques</a><br />
+    <a href="https://fr.wikipedia.org/wiki/Histoire_du_calcul_de_la_date_de_P%C3%A2ques">[FR] Histoire du calcul de la date de Pâques</a><br />
+    <a href="https://fr.wikipedia.org/wiki/Comput">[FR] Comput</a><br />
+    <a href="https://fr.wikipedia.org/wiki/%C3%89quation_lunaire">[FR] Équation lunaire</a><br />
+    <a href="https://fr.wikipedia.org/wiki/Nombre_d%27or_(astronomie)">[FR] Nombre d'or (astronomie)</a><br />
+    <a href="https://fr.wikipedia.org/wiki/Proemptose">[FR] Proemptose</a><br />
+    <a href="https://fr.wikipedia.org/wiki/M%C3%A9temptose">[FR] Métemptose</a><br/>
+    <a href="https://fr.wikipedia.org/wiki/Calcul_canonique_de_la_date_de_P%C3%A2ques_julienne">[FR] Calcul canonique de la date de Pâques julienne</a><br />
+    <a href="https://fr.wikipedia.org/wiki/Calcul_canonique_de_la_date_de_P%C3%A2ques_gr%C3%A9gorienne">[FR] Calcul canonique de la date de Pâques grégorienne</a><br />
+    <a href="https://fr.wikipedia.org/wiki/Calcul_de_la_date_de_P%C3%A2ques_selon_la_m%C3%A9thode_de_Gauss">[FR] Calcul de la date de Pâques selon la méthode de Gauss</a><br />
+    <a href="https://fr.wikipedia.org/wiki/Calcul_de_la_date_de_P%C3%A2ques_selon_la_m%C3%A9thode_de_Conway">[FR] Calcul de la date de Pâques selon la méthode de Conway
+    </a><br />
+    <a href="https://fr.wikipedia.org/wiki/Lune_pascale">[FR] Lune pascale</a><br />
+    <a href="https://pt.wikipedia.org/wiki/Ciclo_met%C3%B3nico">[PT] Ciclo metónico<br />
+    </a>
+     <a href="https://pt.wikipedia.org/wiki/C%C3%A1lculo_da_P%C3%A1scoa">[PT] Cálculo da Páscoa</a><br />
+     <a href="https://pt.wikipedia.org/wiki/Calend%C3%A1rio_judaico">[PT] Calendário judaico</a><br />
+    <a href="https://en.wikipedia.org/wiki/Epact">[EN] Epact</a><br />
+    <a href="https://pt.wikipedia.org/wiki/Epacta">[PT] Epacta</a><br />
+    <a href="https://fr.wikipedia.org/wiki/Cycle_solaire_calendaire">[FR] Cycle solaire calendaire</a><br />
+    <a href="https://en.wikipedia.org/wiki/Dominical_letter">[EN] Dominical letter</a><br />
+    <a href="https://pt.wikipedia.org/wiki/Letra_dominical">[PT] Letra dominical</a><br />
+    <a href="https://it.wikipedia.org/wiki/Lettera_dominicale">[IT] Lettera dominicale</a><br />
+    <a href="https://en.wikipedia.org/wiki/Lunar_calendar">[EN] Lunar calendar</a><br />
+    <a href="https://en.wikipedia.org/wiki/Lunar_month">[EN] Lunar month</a><br />
+    <a href="https://en.wikipedia.org/wiki/Computus">[EN] Computus</a></p>
+  <p><a href="https://en.wikipedia.org/wiki/List_of_symbols">List of Symbols</a></p>
+  <p><br />
+    <a href="https://www.ecma-international.org/ecma-262/6.0/#sec-date-objects">ecma-262 date objects</a><br />
+    <a href="https://play.google.com/store/books/details?id=t_cDAAAAQAAJ&amp;rdid=book-t_cDAAAAQAAJ&amp;rdot=1">The seaman's new guide, revised by J.S. Hobbs</a><br />
+    <a href="https://mozilla-comm.github.io/ical.js/api/time.js.html">Mozilla  iCalendar Time representation</a><br />
+    <a href="https://medium.com/@nitinpatel_20236/challenge-of-building-a-calendar-with-pure-javascript-a86f1303267d">Challenge of building a Calendar with Pure JavaScript</a></p>
+    </div></div>
+<hr />
+<div id="MagickFormulaContainer"><input type="button" value="Magick Formula" onclick="document.getElementById('MagickFormula').hidden=false;"/>
+    <div id="MagickFormula" hidden="true"><center><iframe width="1024" height="768" src="file:///X:/aeon.html"></iframe></center></div>
+    </div>
+  </div>
+</div></div>
+<hr />
+<div id="WeekHeptagramContainer"><input type="button" value="Week Heptagram" onclick="document.getElementById('WeekHeptagram').hidden=false;"/>
+<div id="WeekHeptagram" hidden="true">
+<h1>Week Heptagram</h1>
+<center>
+<script>drawWeekHeptagram("weekHeptagram")</script>
+</center>
+</div> </div>
+<script language="javascript">
+	initLocationPanel();
+	initDateTimePanel();
+	addPanelRefreshAction(updateSunPanel);
+	addPanelRefreshAction(updateLocationPanel);
+	clickNow();
+	clickRunStop();
+</script>
+</body>
+</html>

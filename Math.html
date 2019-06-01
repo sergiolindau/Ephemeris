@@ -1,0 +1,1468 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script language="javascript" src="Math.js"></script>
+<script>
+var library_implemented = new Array(); for (var o in Math) { library_implemented.push(o.toString()); }
+var library_filename = "Math.js";
+var library_filename_link = "<a href=\""+library_filename+"\">"+library_filename+"</a>";
+var library_documentation_filename = "Math.html";
+var library_copyright_html = "2017 <a href=\"mailto:sergiolindau@gmail.com\">Sergio Lindau</a>";
+var library_copyright = library_copyright_html.replace(/<\/?[^>]+(>|$)/g, "");
+document.writeSectionBreak = function() {
+	for(var i=0;i<8;i++) document.write("<br />");
+	document.write("<hr />");
+}
+</script>
+<style type="text/css">
+.JavascriptCode {
+	font-family: Lucida Console, Monaco, monospace;
+	color:#066;
+}
+.FunctionCode {
+	font-family: Lucida Console, Monaco, monospace;
+	color: #000;
+	font-size: 12px;
+}
+.HTMLCode {
+	font-family: Lucida Console, Monaco, monospace;
+	color:#03F
+}
+</style>
+</head>
+
+<body>
+
+<div id="content">
+<h1 id="title" align="center">JavaScript <span class="JavascriptCode">Math</span> Object<br /> 
+Polyfill
+</h1>
+<br />
+<p align="center"><code id="copyrightadv"><a href="#License">Copyright &copy;&nbsp;<span id=copyr_1>copyr_1</span></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#License">[License]</a></code></p>
+<script>
+var library_html_name = document.getElementById("title").innerHTML;
+var library_name = library_html_name.replace(/<\/?[^>]+(>|$)/g, ""); 
+document.title = library_filename+" - "+library_name;
+document.getElementById("copyr_1").innerHTML = library_copyright;
+</script>
+<br />
+<p>The file <a href="Math.js">Math.js</a> implements a javascript <span class="JavascriptCode">Math</span> object polyfill from <a href="#References">Mozilla<sup>&reg;</sup> Developer Network web docs</a> and <a href="#References">others</a> providing properties and methods defined in <a href="#References">ECMAScript<sup>&reg;</sup> 2018 Language Specification</a> standard.</p>
+<p>This file (<a href="Math.html">Math.html</a>) is a documentation and test portion for <a href="Math.js">Math.js</a> library.</p>
+<script>document.writeSectionBreak();</script>
+
+<h2 align="center"><a name="Contents" id="Contents"></a>Contents</h2>
+<ul>
+  <li><a href="#Usage">Usage</a></li>
+  <li><a href="#Description">Description</a></li>
+<li><a href="#Properties">Properties</a></li>
+<li><a href="#Methods">Methods</a></li>
+<li><a href="#Implementation">Implementation</a></li>
+<li><a href="#License">License</a></li>
+<li><a href="#References">References</a></li>
+</ul>
+<script>document.writeSectionBreak();</script>
+
+<h2 align="center"><a name="Usage" id="Usage"></a>Usage</h2>
+<p>To use this extensions include in the <span class="HTMLCode">header</span> section of your HTML file the script include:</p>
+<p><span class="HTMLCode">&lt;script language=&quot;javascript&quot; src=&quot;Math.js&quot;&gt;&lt;/script&gt;</span></p>
+<script>document.writeSectionBreak();</script>
+
+<h2 align="center"><a name="Description" id="Description"></a>Description</h2>
+<p><span class="JavascriptCode">Math</span> is a built-in object that has properties and methods for mathematical constants and functions. Not a function object.</p>
+Unlike the other global objects, <span class="JavascriptCode">Math</span> is not a constructor. All properties and methods of <span class="JavascriptCode">Math</span> are static. You refer to the constant pi as <span class="JavascriptCode">Math.PI</span> and you call the sine function as <span class="JavascriptCode">Math.sin(x)</span>, where <span class="JavascriptCode">x</span> is the method's argument. Constants are defined with the full precision of real numbers in JavaScript.
+<p>To extend the <span class="JavascriptCode">Math</span> object, you do not use 'prototype'. Instead you directly extend <span class="JavascriptCode">Math</span>:</p>
+<p class="JavascriptCode">Math.propName = propValue;</p>
+<p class="JavascriptCode">Math.methodName = methodfRef;</p>
+<p><strong>Notes:</strong> &#x2299; indicates always native implementation, &#x2606; indicates polyfill implemented in <a href="Math.js">Math.js</a>, but this navigator uses native, and &#x2605; indicates polyfill implementation in <a href="Math.js">Math.js</a>. See <a href="#Implementation">Implementation</a> for navigator dependant details.</p>
+<script>document.writeSectionBreak();</script>
+
+<h2 align="center"><a name="Properties" id="Properties"></a>Properties</h2>
+<div id="properties_menu">Properties Menu</div>
+<table id="ptable" hidden="true">
+<tr>
+  <td>Property</td>
+  <td>Implementation</td>
+  <td>Description</td>
+</tr>
+<tr><td>Math.E</td>
+  <td>&#x2299;</td>
+  <td>The Number value for Euler's constant  <em><strong>e</strong></em>, the base of natural logarithms, approximately <code>2.718281828459045.</code></td></tr>
+<tr><td>Math.LN2</td>
+  <td>&#x2299;</td>
+  <td> The Number value for natural logarithm of <code>2</code>, approximately <code>0.6931471805599453</code>.</td></tr>
+<tr><td>Math.LN10</td>
+  <td>&#x2299;</td>
+  <td>The Number value for natural logarithm of <code>10</code>, approximately <code>2.302585092994046</code>.</td></tr>
+<tr><td>Math.LOG2E</td>
+  <td>&#x2299;</td>
+  <td> The Number value for base <code>2</code> logarithm of <em><strong>e</strong></em>, approximately <code>1.4426950408889633</code>.</td></tr>
+<tr><td>Math.LOG10E</td>
+  <td>&#x2299;</td>
+  <td> The Number value for base <code>10</code> logarithm of <em><strong>e</strong></em>, approximately <code>0.4342944819032518</code>.</td></tr>
+<tr><td>Math.PI</td>
+  <td>&#x2299;</td>
+  <td>The Number value for ratio of the circumference of a circle to its diameter, approximately <code>3.141592653589793</code>.</td></tr>
+<tr><td>Math.PI2</td>
+  <td>&#x2605;</td>
+  <td>The two times the number value for ratio of the circumference of a circle to its diameter, approximately <code>6.283185307179586</code>.</td></tr>
+<tr><td>Math.RADEG</td>
+  <td>&#x2605;</td>
+  <td> The Number value for radian to degree factor <code>(180.0/Math.PI)</code>, approximately <code>57.29577951308232</code>.</td></tr>
+<tr><td>Math.DEGRAD</td>
+  <td>&#x2605;</td>
+  <td>The Number value for degree to radian factor <code>(Math.PI/180.0)</code>, approximately <code>1.7453292519943295e-2</code>.</td></tr>
+<tr><td>Math.R2AS</td>
+  <td>&#x2605;</td>
+  <td>The Number value of arcseconds in a radian, approximately <code>2.0626480624709633e+5</code>.</td></tr>
+<tr><td>Math.AS2R</td>
+  <td>&#x2605;</td>
+  <td>The Number value of radian in a arcseconds, approximately <code>4.84813681109536e-6</code>.</td></tr>
+<tr><td>Math.DS2R</td>
+  <td>&#x2605;</td>
+  <td>The Number value of radian in a seconds of time, approximately <code>7.272205216643039903848712e-5</code>.</td></tr>
+<tr><td>Math.TURNAS</td>
+  <td>&#x2605;</td>
+  <td>The Number value of arcseconds in a full circle, exactly <code>1296000</code>.</td></tr>
+<tr><td>Math.SQRT1_2</td>
+  <td>&#x2299;</td>
+  <td> The Number value for square root of <code>1/2</code>; equivalently, <code>1</code> over the square root of <code>2</code>, approximately <code>0.7071067811865476</code>.<br />
+       NOTE: The value of <code>Math.SQRT1_2</code> is approximately the reciprocal of the value of <code>Math.SQRT2</code>.</td></tr>
+<tr><td>Math.SQRT2</td>
+  <td>&#x2299;</td>
+  <td> The Number value for square root of <code>2</code>, approximately <code>1.4142135623730951</code>.</td></tr>
+<tr>
+  <td>Math.FACTSEQ</td>
+  <td>&#x2605;</td>
+  <td>Factorial sequence. Array containing factorial sequence from <code>0</code> to <code>Math.GFACTPRE</code></td>
+</tr>
+<tr>
+  <td>Math.GFACTPRE</td>
+  <td>&#x2605;</td>
+  <td>Greater factorial precalculation. Length of <code>Math.FACTSEQ + 1</code>.</td>
+</tr>
+<tr>
+  <td>Math.ADJUSTF</td>
+  <td>&#x2605;</td>
+  <td>Array containing adjustment function names.</td>
+</tr>
+</table>
+<script>
+	function strcomp(a,b) {
+		if (a < b) return -1;
+		if (a > b) return 1;
+		return 0;
+	}
+	function findName(a,n){
+		var i=0;
+		for(;i<a.length;i++){
+			if (a[i].name==n) break;
+		}
+		if (i<a.length) return i;
+		else return -1;
+	}
+	function getPM(p,m,n){
+		var ip, im;
+		ip = findName(p,"Math."+n);
+		if (ip>-1) return "<a href=\"#Math."+n+"\">(P"+(ip+1)+") Math."+n+"</a>";
+		im = findName(m,"Math."+n);
+		if (im>-1) return "<a href=\"#Math."+n+"\">(M"+(im+1)+") Math."+n+"</a>";
+		return -1;
+	}
+  	var ptable = document.getElementById("ptable");
+  	var library_properties = new Array();
+	for (var i=1; i<ptable.rows.length; i++) {
+		var prop = ptable.rows[i].cells[0].innerHTML;
+		var pimplementation = ptable.rows[i].cells[1].innerHTML.trim();
+		var pdescription = ptable.rows[i].cells[2].innerHTML;
+		library_properties.push({name:prop, description:pdescription, implementation:pimplementation});
+	}
+	library_properties.sort(function(a, b){return strcomp(a.name,b.name)});
+	document.writeln("<hr />");
+	var properties_menu = "<ul>\n";
+	for (var i=0; i<library_properties.length; i++) {
+//		console.log(library_properties[i].name,library_properties[i].description,eval(library_properties[i].name));
+		document.write("<h3><a name=\""+library_properties[i].name+"\" id=\""+library_properties[i].name+"\"></a>"+library_properties[i].implementation+"P"+(i+1)+". <span class=\"JavascriptCode\">"+library_properties[i].name+"</h3>\n");
+		document.write(library_properties[i].description+"\n");
+		document.write("<p>Defined as <span class=\"JavascriptCode\">" + library_properties[i].name + " = " + eval(library_properties[i].name) +"</span></p>\n<hr>\n");
+		properties_menu += "<li><a href=\"#"+library_properties[i].name+"\">"+library_properties[i].implementation+" P"+(i+1)+") <code>"+library_properties[i].name+"</code></a></li>\n";
+	}
+	properties_menu += "</ul>\n";
+	document.getElementById("properties_menu").innerHTML = properties_menu;
+  </script>
+<script>document.writeSectionBreak();</script>
+
+<h2 align="center"><a name="Methods" id="Methods"></a>Methods</h2>
+<p>Note that the trigonometric functions (sin(), cos(), tan(), asin(), acos(), atan(), atan2()) expect or return angles in radians. To convert radians to degrees, multiply by <span class="JavascriptCode">Math.RADEG</span>, and multiply by <span class="JavascriptCode">Math.DEGRAD</span>  to convert the other way.</p>
+<p>Note that many math functions have a precision that's implementation-dependent. This means that different browsers can give a different result, and even the same JS engine on a different OS or architecture can give different results.</p>
+<div id="methods_menu">Methods Menu</div>
+<table id="mtable" hidden="true">
+    <tr>
+      <td>Method</td>
+      <td>Implementation</td>
+    <td>Description</td>
+    <td colspan="10">Test</td>
+    </tr>
+    <tr><td>Math.abs(x)</td>
+      <td>&#x2299;</td>
+    <td><p>Returns the absolute value of <var>x</var>; the result has the same magnitude as <var>x</var> but has positive sign.</p>
+    <ul>
+     <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+     <li>If <var>x</var> is -0, the result is +0.</li>
+     <li>If <var>x</var> is -&infin;, the result is +&infin;.</li>
+    </ul>
+</td>
+    <td>-8</td>
+    <td>3</td>
+    <td>NaN</td>
+    <td>-0</td>
+    <td>-Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.rad2deg(x)</td>
+      <td>&#x2605;</td>
+      <td> Returns  the value of <var>x</var> converted from radians to degrees.</td>
+      <td>Math.PI</td>
+      <td>Math.PI/2</td>
+      <td>Math.PI/3</td>
+      <td>Math.PI/4</td>
+      <td>Math.PI/6</td>
+    </tr>
+    <tr>
+      <td>Math.deg2rad(x)</td>
+      <td>&#x2605;</td>
+      <td> Returns  the value of <var>x</var> converted from degrees to radians.</td>
+      <td>180</td>
+      <td>90</td>
+      <td>60</td>
+      <td>45</td>
+      <td>30</td>
+    </tr>
+    <tr>
+      <td>Math.acos(x)</td>
+      <td>&#x2299;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the arc cosine of <var>x</var>. The result is expressed in radians and ranges from +0 to +&pi;.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is greater than 1, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is less than -1, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is exactly 1, the result is +0.</li>
+      </ul>
+      </td>
+      <td>-1</td>
+      <td>0</td>
+      <td>0.5</td>
+      <td>NaN</td>
+      <td>1.1</td>
+      <td>-1.1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>Math.acosh(x)</td>
+      <td>&#x2605;</td>
+      <td><p>Returns an implementation-dependent approximation to the inverse hyperbolic cosine of <var>x</var>.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is less than 1, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is 1, the result is +0.</li>
+        <li>If <var>x</var> is +&infin;, the result is &infin;.</li>
+      </ul>
+      </td>
+      <td>2</td>
+      <td>NaN</td>
+      <td>0.5</td>
+      <td>1</td>
+      <td>+Infinity</td>
+    </tr>
+    <tr><td>Math.asinh(x)</td>
+      <td>&#x2605;</td>
+    <td>
+      <p>Returns an implementation-dependent approximation to the inverse hyperbolic sine of <var>x</var>.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>x</var> is -0, the result is -0.</li>
+        <li>If <var>x</var> is +&infin;, the result is +&infin;.</li>
+        <li>If <var>x</var> is -&infin;, the result is -&infin;.</li>
+      </ul>
+    </td>
+    <td>1/2</td>
+    <td>NaN</td>
+    <td>0</td>
+    <td>-0</td>
+    <td>+Infinity</td>
+    <td>-Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.atanh(x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the inverse hyperbolic tangent of <var>x</var>.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>. 
+        <li>If <var>x</var> is less than -1, the result is <code>NaN</code>. 
+        <li>If <var>x</var> is greater than 1, the result is <code>NaN</code>. 
+        <li>If <var>x</var> is -1, the result is -&infin;. 
+        <li>If <var>x</var> is +1, the result is +&infin;. 
+        <li>If <var>x</var> is +0, the result is +0. 
+        <li>If <var>x</var> is -0, the result is -0. 
+      </ul>
+      </td>
+      <td>1/2</td>
+      <td>NaN</td>
+      <td>-1.1</td>
+      <td>1.1</td>
+      <td>-1</td>
+      <td>+1</td>
+      <td>+0</td>
+      <td>-0</td>
+    </tr>
+    <tr>
+      <td>Math.sinh(x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the hyperbolic sine of <var>x</var>.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>x</var> is -0, the result is -0.</li>
+        <li>If <var>x</var> is +&infin;, the result is +&infin;.</li>
+        <li>If <var>x</var> is -&infin;, the result is -&infin;.</li>
+      </ul>
+      <p>NOTE: The value of sinh(x) is the same as <code>(exp(x) - exp(-x))/2</code>.</p>
+      </td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>+0</td>
+      <td>-0</td>
+      <td>+Infinity</td>
+      <td>-Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.cosh(x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the hyperbolic cosine of <var>x</var>.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is 1.</li>
+        <li>If <var>x</var> is -0, the result is 1.</li>
+        <li>If <var>x</var> is +&infin;, the result is +&infin;.</li>
+        <li>If <var>x</var> is -&infin;, the result is +&infin;.</li>
+      </ul>
+      <p>NOTE: The value of <code>cosh(x)</code> is the same as <code>(exp(x) + exp(-x))/2</code>.</p>
+      </td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>+0</td>
+      <td>-0</td>
+      <td>+Infinity</td>
+      <td>-Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.tanh(x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the hyperbolic tangent of <var>x</var>.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>x</var> is -0, the result is -0.</li>
+        <li>If <var>x</var> is +&infin;, the result is +1.</li>
+        <li>If <var>x</var> is -&infin;, the result is -1.</li>
+      </ul>
+      <p>NOTE: The value of <code>tanh(x)</code> is the same as <code>(exp(x) - exp(-x))/(exp(x) + exp(-x))</code>.</p>
+      </td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>+0</td>
+      <td>-0</td>
+      <td>+Infinity</td>
+      <td>-Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.sin(x)</td>
+      <td>&#x2299;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the sine of <var>x</var>. The argument is expressed in radians.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>x</var> is -0, the result is -0.</li>
+        <li>If <var>x</var> is +&infin; or -&infin;, the result is <code>NaN</code>.</li>
+      </ul>
+      </td>
+      <td>Math.PI/6</td>
+      <td>NaN</td>
+      <td>+0</td>
+      <td>-0</td>
+      <td>+Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.cos(x)</td>
+      <td>&#x2299;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the cosine of <var>x</var>. The argument is expressed in radians.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is 1.</li>
+        <li>If <var>x</var> is -0, the result is 1.</li>
+        <li>If <var>x</var> is +&infin;, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is -&infin;, the result is <code>NaN</code>.</li>
+      </ul>
+      </td>
+      <td>Math.PI/3</td>
+      <td>NaN</td>
+      <td>+0</td>
+      <td>-0</td>
+      <td>+Infinity</td>
+      <td>-Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.tan(x)</td>
+      <td>&#x2299;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the tangent of <var>x</var>. The argument is expressed in radians.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>x</var> is -0, the result is -0.</li>
+        <li>If <var>x</var> is +&infin; or -&infin;, the result is <code>NaN</code>.</li>
+      </ul>
+      </td>
+      <td>Math.PI/4</td>
+      <td>NaN</td>
+      <td>+0</td>
+      <td>-0</td>
+      <td>+Infinity</td>
+      <td>-Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.asin(x)</td>
+      <td>&#x2299;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the arc sine of <var>x</var>. The result is expressed in radians and ranges from -&pi;/2 to +&pi;/2.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is greater than 1, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is less than -1, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>x</var> is -0, the result is -0.</li>
+      </ul>
+      </td>
+      <td>1/2</td>
+      <td>NaN</td>
+      <td>1.1</td>
+      <td>-1.1</td>
+      <td>+0</td>
+      <td>-0</td>
+    </tr>
+    <tr>
+      <td>Math.atan(x)</td>
+      <td>&#x2299;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the arc tangent of <var>x</var>. The result is expressed in radians and ranges from -&pi;/2 to +&pi;/2.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>x</var> is -0, the result is -0.</li>
+        <li>If <var>x</var> is +&infin;, the result is an implementation-dependent approximation to +&pi;/2.</li>
+        <li>If <var>x</var> is -&infin;, the result is an implementation-dependent approximation to -&pi;/2.</li>
+      </ul>
+      </td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>+0</td>
+      <td>-0</td>
+      <td>+Infinity</td>
+      <td>-Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.atan2(y, x)</td>
+      <td>&#x2299;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the arc tangent of the quotient <var>y</var>/<var>x</var> of the arguments <var>y</var> and <var>x</var>, where the signs of <var>y</var> and <var>x</var> are used to determine the quadrant of the result. Note that it is intentional and traditional for the two-argument arc tangent function that the argument named <var>y</var> be first and the argument named <var>x</var> be second. The result is expressed in radians and ranges from -&pi; to +&pi;.</p>
+      <ul>
+        <li>If either <var>x</var> or <var>y</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>y</var>>0 and <var>x</var> is +0, the result is an implementation-dependent approximation to +&pi;/2.</li>
+        <li>If <var>y</var>>0 and <var>x</var> is -0, the result is an implementation-dependent approximation to +&pi;/2.</li>
+        <li>If <var>y</var> is +0 and <var>x</var>&gt;0, the result is +0.</li>
+        <li>If <var>y</var> is +0 and <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>y</var> is +0 and <var>x</var> is -0, the result is an implementation-dependent approximation to +&pi;.</li>
+        <li>If <var>y</var> is +0 and <var>x</var>&lt;0, the result is an implementation-dependent approximation to +&pi;.</li>
+        <li>If <var>y</var> is -0 and <var>x</var>&gt;0, the result is -0.</li>
+        <li>If <var>y</var> is -0 and <var>x</var> is +0, the result is -0.</li>
+        <li>If <var>y</var> is -0 and <var>x</var> is -0, the result is an implementation-dependent approximation to -&pi;.</li>
+        <li>If <var>y</var> is -0 and <var>x</var>&lt;0, the result is an implementation-dependent approximation to -&pi;.</li>
+        <li>If <var>y</var>&lt;0 and <var>x</var> is +0, the result is an implementation-dependent approximation to -&pi;/2.</li>
+        <li>If <var>y</var>&lt;0 and <var>x</var> is -0, the result is an implementation-dependent approximation to -&pi;/2.</li>
+        <li>If <var>y</var>&gt;0 and <var>y</var> is finite and <var>x</var> is +&infin;, the result is +0.</li>
+        <li>If <var>y</var>&gt;0 and <var>y</var> is finite and <var>x</var> is -&infin;, the result is an implementation-dependent approximation to +&pi;.</li>
+        <li>If <var>y</var>&lt;0 and <var>y</var> is finite and <var>x</var> is +&infin;, the result is -0.</li>
+        <li>If <var>y</var>&lt;0 and <var>y</var> is finite and <var>x</var> is -&infin;, the result is an implementation-dependent approximation to -&pi;.</li>
+        <li>If <var>y</var> is +&infin; and <var>x</var> is finite, the result is an implementation-dependent approximation to +&pi;/2.</li>
+        <li>If <var>y</var> is -&infin; and <var>x</var> is finite, the result is an implementation-dependent approximation to -&pi;/2.</li>
+        <li>If <var>y</var> is +&infin; and <var>x</var> is +&infin;, the result is an implementation-dependent approximation to +&pi;/4.</li>
+        <li>If <var>y</var> is +&infin; and <var>x</var> is -&infin;, the result is an implementation-dependent approximation to +3&pi;/4.</li>
+        <li>If <var>y</var> is -&infin; and <var>x</var> is +&infin;, the result is an implementation-dependent approximation to -&pi;/4.</li>
+        <li>If <var>y</var> is -&infin; and <var>x</var> is -&infin;, the result is an implementation-dependent approximation to -3&pi;/4.</li>
+      </ul>
+      </td>
+      <td>1,1</td>
+      <td>NaN,NaN</td>
+      <td>NaN,0</td>
+      <td>0,NaN</td>
+      <td>+1000,+0</td>
+      <td>+1000,-0</td>
+      <td>+0,+1000</td>
+      <td>+0,+0</td>
+      <td>+0,-0</td>
+      <td>+0,-1000</td>
+      <td>-0,+1000</td>
+      <td>-0,+0</td>
+      <td>-0,-0</td>
+      <td>-0,-1000</td>
+      <td>-1000,+0</td>
+      <td>-1000,-0</td>
+      <td>+1000,+Infinity</td>
+      <td>+1000,-Infinity</td>
+      <td>-1000,+Infinity</td>
+      <td>-1000,-Infinity</td>
+      <td>+Infinity,+1000</td>
+      <td>-Infinity,+1000</td>
+      <td>+Infinity,+Infinity</td>
+      <td>+Infinity,-Infinity</td>
+      <td>-Infinity,+Infinity</td>
+      <td>-Infinity,-Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.sind(x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the sine of <var>x</var>. The argument is expressed in degrees.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>x</var> is -0, the result is -0.</li>
+        <li>If <var>x</var> is +&infin; or -&infin;, the result is <code>NaN</code>.</li>
+      </ul>
+      </td>
+      <td>30</td>
+      <td>NaN</td>
+      <td>+0</td>
+      <td>-0</td>
+      <td>+Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.cosd(x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the cosine of <var>x</var>. The argument is expressed in degrees.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is 1.</li>
+        <li>If <var>x</var> is -0, the result is 1.</li>
+        <li>If <var>x</var> is +&infin;, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is -&infin;, the result is <code>NaN</code>.</li>
+      </ul>
+      </td>
+      <td>60</td>
+      <td>NaN</td>
+      <td>+0</td>
+      <td>-0</td>
+      <td>+Infinity</td>
+      <td>-Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.tand(x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the tangent of <var>x</var>. The argument is expressed in degrees.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>x</var> is -0, the result is -0.</li>
+        <li>If <var>x</var> is +&infin; or -&infin;, the result is <code>NaN</code>.</li>
+      </ul>
+      </td>
+      <td>45</td>
+      <td>NaN</td>
+      <td>+0</td>
+      <td>-0</td>
+      <td>+Infinity</td>
+      <td>-Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.asind(x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the arc sine of <var>x</var>. The result is expressed in degrees and ranges from -90º to +90º.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is greater than 1, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is less than -1, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>x</var> is -0, the result is -0.</li>
+      </ul>
+      </td>
+      <td>1/2</td>
+      <td>NaN</td>
+      <td>1.1</td>
+      <td>-1.1</td>
+      <td>+0</td>
+      <td>-0</td>
+    </tr>
+    <tr>
+      <td>Math.acosd(x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the arc cosine of <var>x</var>. The result is expressed in degrees and ranges from +0 to +180º.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is greater than 1, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is less than -1, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is exactly 1, the result is +0.</li>
+      </ul>
+      </td>
+      <td>1/2</td>
+      <td>NaN</td>
+      <td>1.1</td>
+      <td>-1.1</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <td>Math.atand(x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the arc tangent of <var>x</var>. The result is expressed in degrees and ranges from -90º to +90º.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>x</var> is -0, the result is -0.</li>
+        <li>If <var>x</var> is +&infin;, the result is an implementation-dependent approximation to +90º.</li>
+        <li>If <var>x</var> is -&infin;, the result is an implementation-dependent approximation to -90º.</li>
+      </ul>
+      </td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>+0</td>
+      <td>-0</td>
+      <td>+Infinity</td>
+      <td>-Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.atan2d(y, x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the arc tangent of the quotient <var>y</var>/<var>x</var> of the arguments <var>y</var> and <var>x</var>, where the signs of <var>y</var> and <var>x</var> are used to determine the quadrant of the result. Note that it is intentional and traditional for the two-argument arc tangent function that the argument named <var>y</var> be first and the argument named <var>x</var> be second. The result is expressed in degrees and ranges from -180º; to +180º.</p>
+      <ul>
+        <li>If either <var>x</var> or <var>y</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>y</var>>0 and <var>x</var> is +0, the result is an implementation-dependent approximation to +90º.</li>
+        <li>If <var>y</var>>0 and <var>x</var> is -0, the result is an implementation-dependent approximation to +90º.</li>
+        <li>If <var>y</var> is +0 and <var>x</var>&gt;0, the result is +0.</li>
+        <li>If <var>y</var> is +0 and <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>y</var> is +0 and <var>x</var> is -0, the result is an implementation-dependent approximation to +180º.</li>
+        <li>If <var>y</var> is +0 and <var>x</var>&lt;0, the result is an implementation-dependent approximation to +180º.</li>
+        <li>If <var>y</var> is -0 and <var>x</var>&gt;0, the result is -0.</li>
+        <li>If <var>y</var> is -0 and <var>x</var> is +0, the result is -0.</li>
+        <li>If <var>y</var> is -0 and <var>x</var> is -0, the result is an implementation-dependent approximation to -180º.</li>
+        <li>If <var>y</var> is -0 and <var>x</var>&lt;0, the result is an implementation-dependent approximation to -180º.</li>
+        <li>If <var>y</var>&lt;0 and <var>x</var> is +0, the result is an implementation-dependent approximation to -90º.</li>
+        <li>If <var>y</var>&lt;0 and <var>x</var> is -0, the result is an implementation-dependent approximation to -90º.</li>
+        <li>If <var>y</var>&gt;0 and <var>y</var> is finite and <var>x</var> is +&infin;, the result is +0.</li>
+        <li>If <var>y</var>&gt;0 and <var>y</var> is finite and <var>x</var> is -&infin;, the result is an implementation-dependent approximation to +180º.</li>
+        <li>If <var>y</var>&lt;0 and <var>y</var> is finite and <var>x</var> is +&infin;, the result is -0.</li>
+        <li>If <var>y</var>&lt;0 and <var>y</var> is finite and <var>x</var> is -&infin;, the result is an implementation-dependent approximation to -180º.</li>
+        <li>If <var>y</var> is +&infin; and <var>x</var> is finite, the result is an implementation-dependent approximation to +90º.</li>
+        <li>If <var>y</var> is -&infin; and <var>x</var> is finite, the result is an implementation-dependent approximation to -90º.</li>
+        <li>If <var>y</var> is +&infin; and <var>x</var> is +&infin;, the result is an implementation-dependent approximation to +45º.</li>
+        <li>If <var>y</var> is +&infin; and <var>x</var> is -&infin;, the result is an implementation-dependent approximation to +135º.</li>
+        <li>If <var>y</var> is -&infin; and <var>x</var> is +&infin;, the result is an implementation-dependent approximation to -45º.</li>
+        <li>If <var>y</var> is -&infin; and <var>x</var> is -&infin;, the result is an implementation-dependent approximation to -135º.</li>
+      </ul>
+      </td>
+      <td>1,1</td>
+      <td>NaN,NaN</td>
+      <td>NaN,0</td>
+      <td>0,NaN</td>
+      <td>+1000,+0</td>
+      <td>+1000,-0</td>
+      <td>+0,+1000</td>
+      <td>+0,+0</td>
+      <td>+0,-0</td>
+      <td>+0,-1000</td>
+      <td>-0,+1000</td>
+      <td>-0,+0</td>
+      <td>-0,-0</td>
+      <td>-0,-1000</td>
+      <td>-1000,+0</td>
+      <td>-1000,-0</td>
+      <td>+1000,+Infinity</td>
+      <td>+1000,-Infinity</td>
+      <td>-1000,+Infinity</td>
+      <td>-1000,-Infinity</td>
+      <td>+Infinity,+1000</td>
+      <td>-Infinity,+1000</td>
+      <td>+Infinity,+Infinity</td>
+      <td>+Infinity,-Infinity</td>
+      <td>-Infinity,+Infinity</td>
+      <td>-Infinity,-Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.mod(x)</td>
+      <td>&#x2605;</td>
+      <td>Normalization of an arbitrary value. Returns a number representing the x modulus r. Normalizes the value in the [0, r) interval.</td>
+      <td>29934,1440</td>
+      <td>192874,32</td>
+      <td>836,6</td>
+      <td>54376,12</td>
+      <td>8,2</td>
+    </tr>
+    <tr>
+      <td>Math.revd(x)</td>
+      <td>&#x2605;</td>
+      <td>Revolution normalization in degrees. Return the <var>x</var> modulus 360. Normalizes the angle in the [0º, 360º) interval.</td>
+      <td>10</td>
+      <td>200</td>
+      <td>360</td>
+      <td>370</td>
+      <td>750</td>
+    </tr>
+    <tr>
+      <td>Math.modd(x)</td>
+      <td>&#x2605;</td>
+    <td>Revolution normalization balanced in degrees. Normalizes the angle in the (-180º, 180º] interval.</td>
+    <td>60</td>
+    <td>120</td>
+    <td>180</td>
+    <td>240</td>
+    <td>300</td>
+    <td>360</td>
+    <td>420</td>
+    <td>480</td>
+    <td>540</td>
+    <td>600</td>
+    <td>660</td>
+    <td>720</td>
+    </tr>
+    <tr>
+      <td>Math.revr(x)</td>
+      <td>&#x2605;</td>
+      <td>Revolution normalization in radians. Return the <var>x</var> modulus 2&pi;. Normalizes the angle in the [0, 2&pi;) interval.</td>
+      <td>1/2*Math.PI</td>
+      <td>Math.PI</td>
+      <td>2*Math.PI</td>
+      <td>3*Math.PI</td>
+      <td>4*Math.PI</td>
+      <td>5*Math.PI</td>
+    </tr>
+    <tr>
+      <td>Math.modr(x)</td>
+      <td>&#x2605;</td>
+      <td>Revolution normalization balanced in radians. Normalizes the angle in the (-&pi;, &pi;] interval.</td>
+      <td>1/2*Math.PI</td>
+      <td>Math.PI</td>
+      <td>2*Math.PI</td>
+      <td>3*Math.PI</td>
+      <td>4*Math.PI</td>
+      <td>5*Math.PI</td>
+    </tr>
+    <tr>
+      <td>Math.sign(x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns the sign of <var>x</var>, indicating whether <var>x</var> is positive, negative, or zero.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is -0, the result is -0.</li>
+        <li>If <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>x</var> is negative and not -0, the result is -1.</li>
+        <li>If <var>x</var> is positive and not +0, the result is +1.</li>
+      </ul>
+      </td>
+      <td>-3</td>
+      <td>NaN</td>
+      <td>-0</td>
+      <td>+0</td>
+      <td>-2</td>
+      <td>+2</td>
+    </tr>
+    <tr>
+      <td>Math.sgn(x,s)</td>
+      <td>&#x2605;</td>
+      <td>Returns the absolute value of <var>x</var> with sign of <var>s</var>.</td>
+      <td>6,-3</td>
+      <td>5,3</td>
+      <td>-4,-3</td>
+      <td>-2,3</td>
+      <td>-7,0</td>
+      <td>-9,-0</td>
+    </tr>
+    <tr>
+      <td>Math.imul(x, y)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns the result of the C-like 32-bit multiplication of the two parameters.</p>
+      <p>When <code>Math.imul</code> is called with arguments <var>x</var> and <var>y</var>, the following steps are taken:</p>
+      <ol>
+        <li>Let <var>a</var> be ToUint32(<var>x</var>).</li>
+        <li>Let <var>b</var> be ToUint32(<var>y</var>).</li>
+        <li>Let <em>product</em> be (<var>a</var> &times; <var>b</var>) modulo 2<sup>32</sup>.</li>
+        <li>If <em>product</em> &ge; 2<sup>31</sup>, return <em>product</em> - 2<sup>32</sup>; otherwise return <em>product</em>.</li>
+      </ol>
+      </td>
+      <td>1,1</td>
+      <td>8,16</td>
+      <td>2, 4</td>
+      <td>-1,8</td>
+      <td>-2,-2</td>
+      <td>0xffffffff, 5</td>
+      <td>0xfffffffe, 5</td>
+    </tr>
+    <tr>
+      <td>Math.hypot([x[, y[, ...]]])</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>The <code>Math.hypot</code> returns an implementation-dependent approximation of the square root of the sum of squares of its arguments.</p>
+      <ul>
+        <li>If no arguments are passed, the result is +0.</li>
+        <li>If any argument is +&infin;, the result is +&infin;.</li>
+        <li>If any argument is -&infin;, the result is +&infin;.</li>
+        <li>If no argument is +&infin; or -&infin;, and any argument is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If all arguments are either +0 or -0, the result is +0.</li>
+      </ul>
+      <p>NOTE: Implementations should take care to avoid the loss of precision from overflows and underflows that are prone to occur in naive implementations when this function is called with two or more arguments.</p>
+      </td>
+      <td>3,4</td>
+      <td>3,4,5</td>
+      <td>3,4,'foo'</td>
+      <td>3,4,'5'</td>
+      <td>-3</td>
+      <td>1</td>
+      <td>1,1</td>
+      <td>1,1,1</td>
+      <td>1,1,1,1</td>
+      <td>1,1,1,1,1</td>
+      <td></td>
+      <td>+Infinity,1,2,3</td>
+      <td>-Infinity,1,2,3</td>
+      <td>NaN,1,2,3</td>
+      <td>+0,-0,+0,-0,+0</td>
+    </tr>
+    <tr>
+      <td>Math.polynomial([x[, y[, ...]]],n)</td>
+      <td>&#x2605;</td>
+      <td> Polynomial</td>
+      <td>[1,1,1],1</td>
+      <td>[1,1,1],1</td>
+      <td>[1,1,1],1</td>
+      <td>[1,1,1],1</td>
+      <td>[1,1,1],1</td>
+      <td>[1,1,1],1</td>
+      <td>[1,1,1],1</td>
+    </tr>
+    <tr>
+      <td>Math.polymultial([x[, y[, ...]]],n)</td>
+      <td>&#x2605;</td>
+      <td>Polymultial</td>
+      <td>[1,1,1],1</td>
+      <td>[1,1,1],1</td>
+      <td>[1,1,1],1</td>
+      <td>[1,1,1],1</td>
+      <td>[1,1,1],1</td>
+      <td>[1,1,1],1</td>
+      <td>[1,1,1],1</td>
+    </tr>
+    <tr>
+      <td>Math.clz32(x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns the number of leading zero bits in the 32-bit binary representation of a number.</p>
+      <p>When <code>Math.clz32</code> is called with one argument x, the following steps are taken:</p>
+      <ol>
+        <li>Let <var>n</var> be <code>ToUint32(x)</code>.</li>
+        <li>Let <var>p</var> be the number of leading zero bits in the 32-bit binary representation of <var>n</var>.</li>
+        <li>Return <var>p</var>.</li>
+      </ol>
+      <p>NOTE: If <var>n</var> is 0, <var>p</var> will be 32. If the most significant bit of the 32-bit binary encoding of <var>n</var> is 1, <var>p</var> will be 0.</p></td>
+      <td>1</td>
+      <td>1000</td>
+      <td> </td>
+      <td>true</td>
+      <td>3.5</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <td>Math.fround(x)</td>
+      <td>&#x2605;</td>
+      <td>
+        <p>Returns the nearest single precision float representation of a number.</p>
+      <p>When <code>Math.fround</code> is called with argument <var>x</var>, the following steps are taken:</p>
+        <ol>
+          <li>If <var>x</var> is <code>NaN</code>, return <code>NaN</code>.</li>
+          <li>If <var>x</var> is one of +0, -0, +&infin;, -&infin;, return <var>x</var>.</li>
+          <li>Let x32 be the result of converting <var>x</var> to a value in IEEE 754-2008 binary32 format using roundTiesToEven.</li>
+          <li>Let x64 be the result of converting x32 to a value in IEEE 754-2008 binary64 format.</li>
+          <li>Return the ECMAScript Number value corresponding to x64.</li>
+      </ol></td>
+      <td>0</td>
+      <td>1</td>
+      <td>1.337</td>
+      <td>1.5</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <td>Math.ceil(x)</td>
+      <td>&#x2299;</td>
+      <td>
+      <p>Returns the smallest (closest to -&infin;) Number value that is not less than <var>x</var> and is equal to a mathematical integer. If <var>x</var> is already an integer, the result is <var>x</var>.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>x</var> is -0, the result is -0.</li>
+        <li>If <var>x</var> is +&infin;, the result is +&infin;.</li>
+        <li>If <var>x</var> is -&infin;, the result is -&infin;.</li>
+        <li>If <var>x</var> is less than 0 but greater than -1, the result is -0.</li>
+      </ul>
+      <p>The value of <code>Math.ceil(x)</code> is the same as the value of <code>-Math.floor(-x)</code>.</p>
+      </td>
+      <td>2.5</td>
+      <td>.95</td>
+      <td>4</td>
+      <td>7.004</td>
+      <td>-0.95</td>
+      <td>-4</td>
+      <td>-7.004</td>
+    </tr>
+    <tr>
+      <td>Math.ceil10(x, exp)</td>
+      <td>&#x2605;</td>
+      <td> Returns the decimal ceil of a number.</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+    </tr>
+    <tr>
+      <td>Math.floor(x)</td>
+      <td>&#x2299;</td>
+      <td>
+      <p>Returns the greatest (closest to +&infin;) Number value that is not greater than <var>x</var> and is equal to a mathematical integer. If <var>x</var> is already an integer, the result is <var>x</var>.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.
+        <li>If <var>x</var> is +0, the result is +0.
+        <li>If <var>x</var> is -0, the result is -0.
+        <li>If <var>x</var> is +&infin;, the result is +&infin;.
+        <li>If <var>x</var> is -&infin;, the result is -&infin;.
+        <li>If <var>x</var> is greater than 0 but less than 1, the result is +0.
+      </ul>
+      <p>NOTE: The value of <code>Math.floor(x)</code> is the same as the value of <code>-Math.ceil(-x)</code>.</p>
+      </td>
+      <td>45.95</td>
+      <td>45.05</td>
+      <td>4</td>
+      <td>-45.05</td>
+      <td>-45.95</td>
+    </tr>
+    <tr>
+      <td>Math.floor10(x, exp)</td>
+      <td>&#x2605;</td>
+      <td>Returns the decimal floor of a number.</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+    </tr>
+    <tr>
+      <td>Math.round(x)</td>
+      <td>&#x2299;</td>
+      <td>
+      <p>Returns the Number value that is closest to <var>x</var> and is equal to a mathematical integer. If two integer Number values are equally close to <var>x</var>, then the result is the Number value that is closer to +&infin;. If <var>x</var> is already an integer, the result is <var>x</var>.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is +0.
+        <li>If <var>x</var> is -0, the result is -0.
+        <li>If <var>x</var> is +&infin;, the result is +&infin;.
+        <li>If <var>x</var> is -&infin;, the result is -&infin;.
+        <li>If <var>x</var> is greater than 0 but less than 0.5, the result is +0.
+        <li>If <var>x</var> is less than 0 but greater than or equal to -0.5, the result is -0.
+      </ul>
+      <p>NOTE 1: <code>Math.round(3.5)</code> returns 4, but <code>Math.round(-3.5)</code> returns -3.</p>
+      <p>NOTE 2: The value of <code>Math.round(x)</code> is not always the same as the value of <code>Math.floor(x+0.5)</code>. When x is -0 or is less than 0 but greater than or equal to -0.5,  <code>Math.round(x)</code> returns -0, but <code>Math.floor(x+0.5)</code> returns +0. <code>Math.round(x)</code> may also differ from the value of <code>Math.floor(x+0.5)</code> because of internal rounding when computing <var>x</var>+0.5.</p>
+      </td>
+      <td>20.49</td>
+      <td>20.5</td>
+      <td>42</td>
+      <td>-20.5</td>
+      <td>-20.51</td>
+    </tr>
+    <tr>
+      <td>Math.round10(x, exp)</td>
+      <td>&#x2605;</td>
+      <td>Returns the decimal round of a number.</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+    </tr>
+    <tr>
+      <td>Math.trunc(x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns the integral part of the number <var>x</var>, removing any fractional digits. If <var>x</var> is already an integer, the result is <var>x</var>. (truncate to nearest whole number towards zero)</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is -0, the result is -0.</li>
+        <li>If <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>x</var> is +&infin;, the result is +&infin;.</li>
+        <li>If <var>x</var> is -&infin;, the result is -&infin;.</li>
+        <li>If <var>x</var> is greater than 0 but less than 1, the result is +0.</li>
+        <li>If <var>x</var> is less than 0 but greater than -1, the result is -0.</li>
+      </ul>
+      </td>
+      <td>1.6</td>
+      <td>NaN</td>
+      <td>-0</td>
+      <td>+0</td>
+      <td>+Infinity</td>
+      <td>-Infinity</td>
+      <td>0.5</td>
+      <td>-0.5</td>
+    </tr>
+    <tr>
+      <td>Math.trunc10(x, exp)</td>
+      <td>&#x2605;</td>
+      <td> Returns the decimal trunc of a number.</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+    </tr>
+    <tr>
+      <td>Math.near(x)</td>
+      <td>&#x2605;</td>
+      <td>Returns <var>x</var> round to nearest whole number.</td>
+      <td>1.7</td>
+      <td>1.7</td>
+      <td>1.7</td>
+      <td>1.7</td>
+      <td>1.7</td>
+    </tr>
+    <tr>
+      <td>Math.near10(x, exp)</td>
+      <td>&#x2605;</td>
+      <td> Returns the decimal near of a number.</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+      <td>1.05946309,-4</td>
+    </tr>
+
+    <tr>
+      <td>Math.frac(x)</td>
+      <td>&#x2605;</td>
+      <td>Returns fractional part of <var>x</var>.</td>
+      <td>1.2</td>
+      <td>1.2</td>
+      <td>1.2</td>
+      <td>1.2</td>
+      <td>1.2</td>
+    </tr>
+    <tr>
+      <td>Math.decimalAdjust(type, value, exp)</td>
+      <td>&#x2605;</td>
+      <td>Returns the decimal adjustment of a number.</td>
+      <td>'floor',45.797821,-2</td>
+      <td>'floor',45.797821,-3</td>
+      <td>'floor',45.797821,-1</td>
+      <td>'floor',45.797821,1</td>
+      <td>'floor',45797.821,2</td>
+      <td>'floor',4579782.1,3</td>
+    </tr>
+    <tr><td>Math.cbrt(x)</td>
+      <td>&#x2605;</td>
+    <td>
+    <p>Returns an implementation-dependent approximation to the cube root of <var>x</var>.</p>
+    <ul>
+      <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+      <li>If <var>x</var> is +0, the result is +0.</li>
+      <li>If <var>x</var> is -0, the result is -0.</li>
+      <li>If <var>x</var> is +&infin;, the result is +&infin;.</li>
+      <li>If <var>x</var> is -&infin;, the result is -&infin;.</li>
+    </ul>
+    </td>
+    <td>27</td>
+    <td>NaN</td>
+    <td>+0</td>
+    <td>-0</td>
+    <td>+Infinity</td>
+    <td>-Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.root([n,]x)</td>
+      <td>&#x2605;</td>
+      <td> Returns the <var>n</var> root of the given argument <var>x</var>. If <var>n</var> is omitted the result is square root of <var>x</var>.</td>
+      <td>3,8</td>
+      <td>2,4</td>
+      <td>2</td>
+      <td>3,4</td>
+      <td>12,2</td>
+      <td>3,8</td>
+    </tr>
+    <tr>
+      <td>Math.sqrt(x)</td>
+      <td>&#x2299;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the square root of <var>x</var>.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is less than 0, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>x</var> is -0, the result is -0.</li>
+        <li>If <var>x</var> is +&infin;, the result is +&infin;.</li>
+      </ul>
+      </td>
+      <td>4</td>
+      <td>NaN</td>
+      <td>-0.1</td>
+      <td>+0</td>
+      <td>-0</td>
+      <td>+Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.pow(x, y)</td>
+      <td>&#x2299;</td>
+      <td>
+      <p>Return the result of applying the ** operator with base and exponent. Returns <var>x</var><sup><var>y</var></sup>.</p>
+      </td>
+      <td>1,1</td>
+      <td>2,0</td>
+      <td>2,1</td>
+      <td>2,2</td>
+      <td>2,3</td>
+    </tr>
+    <tr>
+      <td>Math.exp(x)</td>
+      <td>&#x2299;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the exponential function of <var>x</var> (<var>e</var> raised to the power of <var>x</var>, where <var>e</var> is the base of the natural logarithms).</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is 1.</li>
+        <li>If <var>x</var> is -0, the result is 1.</li>
+        <li>If <var>x</var> is +&infin;, the result is +&infin;.</li>
+        <li>If <var>x</var> is -&infin;, the result is +0.</li>
+      </ul>
+      </td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>+0</td>
+      <td>-0</td>
+      <td>+Infinity</td>
+      <td>-Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.expm1(x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to subtracting 1 from the exponential function of <var>x</var> (<var>e</var> raised to the power of <var>x</var>, where <var>e</var> is the base of the natural logarithms). The result is computed in a way that is accurate even when the value of <var>x</var> is close 0.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>x</var> is -0, the result is -0.</li>
+        <li>If <var>x</var> is +&infin;, the result is +&infin;.</li>
+        <li>If <var>x</var> is -&infin;, the result is -1.</li>
+      </ul>
+      </td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>+0</td>
+      <td>-0</td>
+      <td>+Infinity</td>
+      <td>-Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.log(x)</td>
+      <td>&#x2299;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the natural logarithm (log<sub>e</sub>, also ln) of <var>x</var>.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is less than 0, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0 or -0, the result is -&infin;.</li>
+        <li>If <var>x</var> is 1, the result is +0.</li>
+        <li>If <var>x</var> is +&infin;, the result is +&infin;.</li>
+      </ul>
+      </td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>-0.1</td>
+      <td>+0</td>
+      <td>1</td>
+      <td>+Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.log10(x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the base 10 logarithm of <var>x</var>.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is less than 0, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is -&infin;.</li>
+        <li>If <var>x</var> is -0, the result is -&infin;.</li>
+        <li>If <var>x</var> is 1, the result is +0.</li>
+        <li>If <var>x</var> is +&infin;, the result is +&infin;.</li>
+      </ul>
+      </td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>-0.1</td>
+      <td>+0</td>
+      <td>-0</td>
+      <td>1</td>
+      <td>+Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.log2(x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the base 2 logarithm of <var>x</var>.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is less than 0, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is +0, the result is -&infin;.</li>
+        <li>If <var>x</var> is -0, the result is -&infin;.</li>
+        <li>If <var>x</var> is 1, the result is +0.</li>
+        <li>If <var>x</var> is +&infin;, the result is +&infin;.</li>
+      </ul>
+      </td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>-0.1</td>
+      <td>+0</td>
+      <td>-0</td>
+      <td>1</td>
+      <td>+Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.log1p(x)</td>
+      <td>&#x2605;</td>
+      <td>
+      <p>Returns an implementation-dependent approximation to the natural logarithm (log<sub>e</sub>, also ln) of 1 + <var>x</var>. The result is computed in a way that is accurate even when the value of <var>x</var> is close to zero.</p>
+      <ul>
+        <li>If <var>x</var> is <code>NaN</code>, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is less than -1, the result is <code>NaN</code>.</li>
+        <li>If <var>x</var> is -1, the result is -&infin;.</li>
+        <li>If <var>x</var> is +0, the result is +0.</li>
+        <li>If <var>x</var> is -0, the result is -0.</li>
+        <li>If <var>x</var> is +&infin;, the result is +&infin;.</li>
+      </ul>
+      </td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>-1.1</td>
+      <td>+0</td>
+      <td>-0</td>
+      <td>+Infinity</td>
+    </tr>
+    <tr>
+      <td>Math.logarithm([b,]x)</td>
+      <td>&#x2605;</td>
+      <td>Returns an implementation-dependent approximation to the base <var>b</var> logarithm  of a number <var>x</var> (log<sub><var>e</var></sub><var>x</var>). if <var>b</var> is omitted the default base is 10.</td>
+      <td>4,64</td>
+      <td>2,64</td>
+      <td>10,100</td>
+      <td>100</td>
+      <td>1000</td>
+    </tr>
+    <tr>
+      <td>Math.factorial(x)</td>
+      <td>&#x2605;</td>
+      <td>Returns the number representing the factorial of <var>x</var> denoted as <var>x</var>!.</td>
+      <td>6</td>
+      <td>5</td>
+      <td>4</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+    <tr>
+      <td>Math.binomial(n,k)</td>
+      <td>&#x2605;</td>
+      <td>Returns the number representing the binomial (<var>n</var>, <var>k</var>).</td>
+      <td>5,1</td>
+      <td>5,2</td>
+      <td>5,3</td>
+      <td>5,4</td>
+      <td>5,5</td>
+    </tr>
+	<tr>
+	  <td>Math.max([x[, y[, ...]]])</td>
+	  <td>&#x2299;</td>
+    <td>
+    <p>Given zero or more arguments, calls <code>ToNumber</code> on each of the arguments and returns the largest of the resulting values.</p>
+    <ul>
+      <li>If no arguments are given, the result is -&infin;.</li>
+      <li>If any value is <code>NaN</code>, the result is <code>NaN</code>.</li>
+      <li>The comparison of values to determine the largest value is done using the Abstract Relational Comparison algorithm except that +0 is considered to be larger than -0.</li>
+    </ul>
+    </td>
+    <td>1,2,3,4,5,3,4,7,2,3</td>
+    <td></td>
+    <td>1,2,3,4,5,NaN,4,7,2,3</td>
+    <td>1,2,3,4,5,3,4,7,2,0</td>
+    </tr>
+	<tr><td>Math.min([x[, y[, ...]]])</td>
+	  <td>&#x2299;</td>
+    <td>
+    <p>Given zero or more arguments, calls <code>ToNumber</code> on each of the arguments and returns the smallest of the resulting values.</p>
+    <ul>
+      <li>If no arguments are given, the result is +&infin;.</li>
+      <li>If any value is <code>NaN</code>, the result is <code>NaN</code>.</li>
+      <li>The comparison of values to determine the smallest value is done using the Abstract Relational Comparison algorithm except that +0 is considered to be larger than -0.</li>
+    </ul>
+    </td>
+    <td>1,2,3,4,5,3,4,7,2,3</td>
+    <td></td>
+    <td>1,2,3,4,5,NaN,4,7,2,3</td>
+    <td>1,2,3,4,5,3,4,7,2,0</td>
+    </tr>
+    <tr>
+      <td>Math.random()</td>
+      <td>&#x2299;</td>
+      <td>
+      <p>Returns a Number value with positive sign, greater than or equal to 0 but less than 1, chosen randomly or pseudo randomly with approximately uniform distribution over that range, using an implementation-dependent algorithm or strategy. This function takes no arguments.</p>
+      <p>Each <code>Math.random</code> function created for distinct realms must produce a distinct sequence of values from successive calls.</p>
+      </td>
+      <td></td>
+    </tr>
+	<tr>
+	  <td>Math.toSource()</td>
+	  <td>&#x2299;</td>
+	  <td> Returns the string <code>&quot;Math&quot;</code>. This API has not been standardized.</td>
+	  <td></td>
+    </tr>
+  </table>
+  <script>
+	var mtable = document.getElementById("mtable");
+	var library_methods = new Array();
+	for (var i=1; i<mtable.rows.length; i++) {
+		var ncells = mtable.rows[i].cells.length;
+		var func = mtable.rows[i].cells[0].innerHTML.trim();
+		var fname = func.split("(")[0].trim();
+		var fbody = ""+eval(fname);
+		var is_native = fbody.match(/\[native code\]/g);
+		var fimplementation = "&#x"+escape(mtable.rows[i].cells[1].innerHTML.trim()).substring(2,6)+";";
+		if (is_native &&  (fimplementation=="&#x2605;")) fimplementation = "&#x2606;";
+		var fdescription = mtable.rows[i].cells[2].innerHTML.trim();
+		var fargument = new Array()
+		for(var j=3; j<ncells; j++) fargument.push(mtable.rows[i].cells[j].innerHTML.trim());
+		library_methods.push({name:fname, header:func, description:fdescription, argument:fargument, native:is_native, implementation:fimplementation, body:fbody});
+	}
+	library_methods.sort(function(a, b){return strcomp(a.name,b.name)});
+	document.writeln("<hr />");
+	var methods_menu = "<ul>\n";
+	for (var i=0; i<library_methods.length; i++) {
+//		console.log(library_methods[i].header,"\t\t",library_methods[i].name,"\t\t",library_methods[i].description);
+		document.write("<h3><a name=\""+library_methods[i].name+"\" id=\""+library_methods[i].name+"\"></a>"+library_methods[i].implementation+" M"+(i+1)+") <span class=\"JavascriptCode\">"+library_methods[i].header+"</span></h3>\n");
+		document.write(library_methods[i].description+"\n");
+		if (library_methods[i].native) {
+			document.write("<p><strong>Native code</strong></p>\n");
+		}
+		else {
+			document.write("<p><strong>Source code:</strong></p>\n");
+			document.write("<code style=\"white-space:pre\">"+eval(library_methods[i].name)+"</code>\n");
+		}
+		if (library_methods[i].argument[0]!="") 
+		for(var j=0; j<library_methods[i].argument.length; j++){
+			document.write("<p><span class=\"JavascriptCode\">"+library_methods[i].name+"(<input class=\"JavascriptCode\" type=\"text\" size=\""+(Math.max(library_methods[i].argument[j].length,2)+1)+"\" id=\""+library_methods[i].name+"_input"+j+"\" value=\""+library_methods[i].argument[j]+"\" onchange=\"document.getElementById('"+library_methods[i].name+"_result"+j+"').innerHTML = eval( '"+library_methods[i].name+"(' + document.getElementById('"+library_methods[i].name+"_input"+j+"').value + ')' )\"/>)=<span id=\""+library_methods[i].name+"_result"+j+"\">"+(eval(library_methods[i].name+"("+library_methods[i].argument[j]+")"))+"</span></span></p>\n")
+		}
+		else  document.write("<p><span class=\"JavascriptCode\">"+library_methods[i].name+"()=<span id=\""+library_methods[i].name+"_result"+j+"\">"+(eval(library_methods[i].name+"()"))+"</span></span></p>\n");
+		document.write("<hr />\n");
+		methods_menu += "<li><a href=\"#"+library_methods[i].name+"\">"+library_methods[i].implementation+" M"+(i+1)+") <code>"+library_methods[i].name+"</code></a></li>\n";
+	}
+	document.writeSectionBreak();
+	methods_menu += "</ul>\n";
+	document.getElementById("methods_menu").innerHTML = methods_menu;
+  </script>
+  <h2 align="center"><a name="Implementation" id="Implementation"></a>Implementation</h2>
+  <h4>Navigator identification:</h4>
+  <table>
+  <tr>
+    <td align="right"><code>navigator.appName =&nbsp;</code></td>
+    <td><span id="navigator_appName">navigator.appName</span></td>
+  </tr>
+  <tr>
+    <td align="right"><code>navigator.appCodeName =&nbsp;</code></td>
+    <td><span id="navigator_appCodeName">navigator.appCodeName</span></td>
+  </tr>
+  <tr>
+    <td align="right"><code>navigator.product =&nbsp;</code></td>
+    <td><span id="navigator_product">navigator.product</span></td>
+  </tr>
+  <tr>
+    <td align="right"><code>navigator.appVersion =&nbsp;</code></td>
+    <td><span id="navigator_appVersion">navigator.appVersion</span></td>
+  </tr>
+</table>
+
+  <script>
+  document.getElementById("navigator_appName").innerHTML = window.navigator.appName;
+  document.getElementById("navigator_appCodeName").innerHTML = window.navigator.appCodeName;
+  document.getElementById("navigator_product").innerHTML = window.navigator.product;
+  document.getElementById("navigator_appVersion").innerHTML = window.navigator.appVersion;
+  </script>
+  <p>The <a href="Math.js">Math.js</a> implements in this navigator the folowing <strong><span id="n_extensions">NEXTENSIONS</span></strong> extensions: 
+    <script>
+	document.getElementById("n_extensions").innerHTML = library_implemented.length;
+	for (var i=0; i<library_implemented.length; i++) {
+		document.write("<code class=\"JavascriptCode\">"+getPM(library_properties,library_methods,library_implemented[i])+"</code>, &nbsp;");
+	}
+  </script>
+  </p>
+  <script>document.writeSectionBreak();</script>
+  <h2 align="center"><a name="License" id="License"></a>License</h2>
+  <p>For this library applies the following <a href="https://opensource.org/licenses/MIT">MIT License</a>:</p>
+  <br />
+  <br />
+  <code>
+  <p id="license_name">library_name</p>
+  <script>
+  document.getElementById("license_name").innerHTML = library_name;
+  </script>
+  <p>Copyright (c) <span id="copyr_2">copyr_2</span></p>
+  <script>
+  document.getElementById("copyr_2").innerHTML = library_copyright_html;
+  </script>
+  <p>Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the &quot;Software&quot;), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:</p>
+  <p>The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.</p>
+  <p>THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.  IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.</p>
+  </code>
+  <script>document.writeSectionBreak();</script>
+  
+  <h2 align="center"><a name="References" id="References"></a>References</h2>
+  <ul>
+  <li><a href="https://tc39.github.io/ecma262/#sec-math-object">ECMAScript<sup>&reg;</sup> 2018 Language Specification</a></li>
+  <li><a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math">Mozilla<sup>&reg;</sup> Developer Network web docs - moz://a - Standard built-in objects: Math</a></li>
+  <li><a href="https://www.w3schools.com/jsref/jsref_obj_math.asp">w3schools.com - JavaScript Math Reference</a></li>
+  <li><a href="https://opensource.org/licenses/MIT">The MIT License</a></li>
+  <li><a href="http://javascriptcompressor.com/">Online Javascript Compressor</a></li>
+  </ul>
+  <script>document.writeSectionBreak();</script>
+  
+<p align="center"><code id="footer">FOOTER</code></p>
+<script>document.getElementById("footer").innerHTML = document.getElementById("copyrightadv").innerHTML;</script>
+</div>
+
+</body>
+</html>

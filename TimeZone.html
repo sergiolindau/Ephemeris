@@ -1,0 +1,80 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Host and Zone Information</title>
+<!-- http://tzdata-javascript.org/ -->
+<script type="text/javascript" src="http://tzdata-javascript.org/tzdata-javascript.js"></script>
+<script type="text/javascript" src="XMLHttpRequest.js"></script>
+<script type="text/javascript" src="TimeZone.js"></script>
+
+<script>
+JSON.unparse = function(obj){
+	var obj_type = typeof obj[i];
+	var result = "{<br />";
+	for(var i in obj){
+		obj_type = typeof obj[i];
+		result += "&nbsp;&nbsp;&nbsp;"+i+" : \""+obj[i]+"\",<br />"
+	}
+	result += "}"
+	return result;
+}
+
+const hostinfo_baseURL = "http://ip-api.com/json/";
+var hostinfo;
+function hostInfo()
+{
+	hostinfo = new JSONasyncRequest(hostinfo_baseURL+"?fields=49663");
+	hostinfo.onfinished = function(req,paren){
+		document.getElementById("host_info").innerHTML = JSON.unparse(paren.result);
+	};
+	hostinfo.get();
+}
+
+
+</script>
+
+</head>
+
+<body>
+<p><a href="http://tzdata-javascript.org/">http://tzdata-javascript.org/</a><br />
+<a href="http://ip-api.com/">http://ip-api.com/</a></p>
+<hr />
+		<h1>
+			Get Host and Timezone Information
+		</h1>
+        <h2>Host:</h2>
+		<code id="host_info">
+			Not detected yet...
+		</code>
+        <h2>Timezone:</h2>
+		<code id="timezone_info">
+			Not detected yet...
+		</code>
+        <h2>Timezone List:</h2>
+		<code id="timezone_list">
+			Not detected yet...
+		</code>
+<script>
+
+hostInfo();
+var tzdata = new TimeZone();
+
+tzdata.ongetlist = function(tz){
+	document.getElementById("timezone_list").innerHTML = "";
+	for(var i=0;i<tz.zonelist.length;i++){
+		document.getElementById("timezone_list").innerHTML += tz.zonelist[i]+"<br />";
+	}
+};
+tzdata.getzonelist();
+
+tzdata.ongetzone = function(tz){
+	document.getElementById("timezone_info").innerHTML = JSON.stringify(tz.timezones);
+};
+
+tzdata.getzoneinfo("America/Sao_Paulo");
+tzdata.getzoneinfo("America/Detroit");
+
+</script>
+</body>
+</html>
