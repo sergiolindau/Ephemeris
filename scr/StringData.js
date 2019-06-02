@@ -312,7 +312,7 @@ Longitude: {
 	PT : ["Longitude","https://pt.wikipedia.org/wiki/Longitude",""],
 	ES : ["Longitud","https://es.wikipedia.org/wiki/Longitud_(cartograf%C3%ADa)",""],
 	IT : ["Longitudine","https://it.wikipedia.org/wiki/Longitudine",""],
-	FR : ["Français","https://en.wikipedia.org/wiki/Longitude",""],
+	FR : ["Français","https://fr.wikipedia.org/wiki/Longitude",""],
 	DE : ["Geographische Länge","https://de.wikipedia.org/wiki/Geographische_L%C3%A4nge",""],
 	LA : ["Longitudo","https://en.wikipedia.org/wiki/Longitude",""],
 	HE : ["קו האורך","https://en.wikipedia.org/wiki/Longitude",""],
@@ -333,6 +333,7 @@ Timezone: {
 	HE : ["Time zone","https://en.wikipedia.org/wiki/Time_zone",""],
 	EL : ["Time zone","https://en.wikipedia.org/wiki/Time_zone",""],
 },
+//https://en.wikipedia.org/wiki/ISO_8601
 //https://en.wikipedia.org/wiki/Unix_time
 UTC: {
 	EN : [
