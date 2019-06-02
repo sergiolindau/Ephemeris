@@ -1,0 +1,112 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script language="javascript" src="DateTime.js"></script>
+<title>DateTime</title>
+</head>
+
+<body>
+<script language="javascript">
+var dateUTC = new DateTime();
+var dateTAI;
+var dateTT;
+var dateTCG;
+
+function printDateTime(date, msg) {
+	document.write("<table border=\"1\">");
+	document.write("<tr><td colspan=\"2\">"+msg+"</td></tr>");
+	document.write("<tr><td>date.toString()</td><td>"+date.toString()+"</td></tr>");
+	document.write("<tr><td>date.toUTCString()</td><td>"+date.toUTCString()+"</td></tr>");
+	document.write("<tr><td>date.toJSON()</td><td>"+date.toJSON()+"</td></tr>");
+	document.write("<tr><td>date.getJulianDate()</td><td>"+date.getJulianDate()+"</td></tr>");
+	document.write("<tr><td>date.getModifiedJulianDate()</td><td>"+date.getModifiedJulianDate()+"</td></tr>");
+	document.write("<tr><td>date.getJulianDay()</td><td>"+date.getJulianDay()+"</td></tr>");
+	document.write("<tr><td>date.getUT()</td><td>"+date.getUT()+"</td></tr>");
+	document.write("<tr><td>date.getLT()</td><td>"+date.getLT()+"</td></tr>");
+	document.write("<tr><td>date.getJulianCentury()</td><td>"+date.getJulianCentury()+"</td></tr>");
+	document.write("<tr><td>date.getEpoch()</td><td>"+date.getEpoch()+"</td></tr>");
+	document.write("<tr><td>date.getJulianEpoch()</td><td>"+date.getJulianEpoch()+"</td></tr>");
+	document.write("<tr><td>date.getBesselianEpoch()</td><td>"+date.getBesselianEpoch()+"</td></tr>");
+	document.write("<tr><td>date.formatToString(\"date\",\"local\")</td><td>"+date.formatToString("date","local")+"</td></tr>");
+	document.write("<tr><td>date.formatToString(\"date\",\"utc\")</td><td>"+date.formatToString("date","utc")+"</td></tr>");
+	document.write("<tr><td>date.formatToString(\"doy\",\"local\")</td><td>"+date.formatToString("doy","local")+"</td></tr>");
+	document.write("<tr><td>date.formatToString(\"doy\",\"utc\")</td><td>"+date.formatToString("doy","utc")+"</td></tr>");
+	document.write("<tr><td>date.formatToString(\"time\",\"local\")</td><td>"+date.formatToString("time","local")+"</td></tr>");
+	document.write("<tr><td>date.formatToString(\"time\",\"utc\")</td><td>"+date.formatToString("time","utc")+"</td></tr>");
+	document.write("<tr><td>date.formatToString(\"clock\",\"local\")</td><td>"+date.formatToString("clock","local")+"</td></tr>");
+	document.write("<tr><td>date.formatToString(\"clock\",\"utc\")</td><td>"+date.formatToString("clock","utc")+"</td></tr>");
+	document.write("<tr><td>date.formatToString(\"clock24\",\"local\")</td><td>"+date.formatToString("clock24","local")+"</td></tr>");
+	document.write("<tr><td>date.formatToString(\"clock24\",\"utc\")</td><td>"+date.formatToString("clock24","utc")+"</td></tr>");
+	document.write("<tr><td>date.formatToString(\"clockAMPM\",\"local\")</td><td>"+date.formatToString("clockAMPM","local")+"</td></tr>");
+	document.write("<tr><td>date.formatToString(\"clockAMPM\",\"utc\")</td><td>"+date.formatToString("clockAMPM","utc")+"</td></tr>");
+	document.write("</table>");
+	document.write("<hr />");
+}
+
+dateUTC.setJulianDate(2451545);
+dateTAI = dateUTC.copy();
+dateUTC.setJulianDate(0);
+printDateTime(dateUTC, "dateUTC");
+printDateTime(dateTAI, "dateTAI");
+
+var date = new DateTime(-1);
+printDateTime(date, "var date = new DateTime(-1)");
+
+var date = new DateTime(99);
+printDateTime(date, "var date = new DateTime(99)");
+
+date = new DateTime(2000);
+printDateTime(date, "var date = new DateTime(2000)");
+
+date = new DateTime(2000,0,1,12,0,0,0,"local");
+printDateTime(date, "date = new DateTime(2000,0,1,10,0,0,0,\"local\")");
+
+date.setUTC(2000,0,1,12,0,0,0);
+printDateTime(date, "date.setUTC(2000,0,1,12,0,0,0)");
+
+date.setLocal(2000,0,1,12,0,0,0);
+printDateTime(date, "date.setLocal(2000,0,1,12,0,0,0)");
+
+date.setJulianDate(0);
+printDateTime(date, "date.setJulianDate(0)");
+
+date.setJulianDate(2451545);
+printDateTime(date, "date.setJulianDate(2451545)");
+
+date.setJulianDate(2451545.75);
+printDateTime(date, "date.setJulianDate(2451545.75)");
+
+date.setJulianDay(2451544.1);
+printDateTime(date, "date.setJulianDay(2451545.1)");
+
+date.setUT(0.5);
+printDateTime(date, "date.setUT(0.5)");
+
+date.setModifiedJulianDate(51544.5);
+printDateTime(date, "date.setModifiedJulianDate(51544.5)");
+
+date.setUTCHours(0,0,0,0);
+printDateTime(date, "date.setUTCHours(0,0,0,0)");
+
+date.setJulianCentury(0);
+printDateTime(date, "date.setJulianCentury(0)");
+
+date.setJulianEpoch(2000.0);
+printDateTime(date, "date.setJulianEpoch(2000.0)");
+
+date.setBesselianEpoch(2000.0);
+printDateTime(date, "date.setBesselianEpoch(2000.0)");
+
+date.setUTC(2000,0,1,12,0,0,0);
+
+date.TTtoTAI();
+printDateTime(date, "date.TTtoTAI()");
+date.TAItoTT();
+printDateTime(date, "date.TAItoTT()");
+
+date.setUTCMonth(5);
+
+</script>
+</body>
+</html>

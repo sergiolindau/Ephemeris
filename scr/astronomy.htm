@@ -1,0 +1,131 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Computing Astronomical</title>
+
+<script language="javascript" src="mathext.js"></script>
+<script language="javascript" src="UTCDate.js"></script>
+<script language="javascript" src="datetime.js"></script>
+<script language="javascript" src="vector.js"></script>
+<script language="javascript" src="location.js"></script>
+<script language="javascript" src="astronomy.js"></script>
+<script language="javascript" src="p_elem.js"></script>
+<script language="javascript" src="astro.js"></script>
+<script language="javascript" src="clock.js"></script>
+<script language="javascript" src="noaa-data.js"></script>
+<script language="javascript" src="noaa-sun.js"></script>
+
+<script language="javascript" src="scr/index_header.js"></script>
+
+<script language="javascript" src="scr/interface.js"></script>
+
+
+<script>
+/***********************************************************************/
+var mylocation=degreeToLatLng(21,21,32,"S",46,8,45,"O");
+//var mylocation;
+var TheLocation = new GeoLocation();
+TheLocation.onset = function(pos){ 
+	mylocation = pos;
+	document.getElementById('location').innerHTML = "mylocation = ["+mylocation.lat+", "+mylocation.lng+"]  =  ["+decimalToDegreeString(mylocation.lat)+", "+decimalToDegreeString(mylocation.lng)+"]";
+};
+TheLocation.getLocation();
+/***********************************************************************/
+function formatAstroInfo(astro,astronowhere) {
+	return "<br /><b>"+astro.name+"</b><br />"+
+	"N = "+astro.N+"<br />"+
+	"i = "+astro.i+"<br />"+
+	"w = "+astro.w+"<br />"+
+	"a = "+astro.a+"<br />"+
+	"e = "+astro.e+"<br />"+
+	"M = "+astro.M+"<br />"+
+	"w1 = "+astro.w1+"<br />"+
+	"L = "+astro.L+"<br />"+
+	"q = "+astro.q+"<br />"+
+	"Q = "+astro.Q+"<br />"+
+	"P = "+astro.P+"<br />"+
+	"E = "+astro.E+"<br />"+
+	"rectangularorbital = "+astro.rectangularorbital+"<br />"+
+	"sphericalorbital = "+astro.sphericalorbital+"<br />"+
+	"sphericalecliptic = "+astro.sphericalecliptic+"<br />"+
+	"rectangularecliptic = "+astro.rectangularecliptic+"<br />"+
+	"rectangularequatorial = "+astro.rectangularequatorial+"<br />"+
+	"sphericalequatorial = "+astro.sphericalequatorial+"<br />"+
+	"NOW<br />"+
+	"name = "+astronowhere.name+"<br />"+
+	"lat = "+astronowhere.lat+"<br />"+
+	"lng = "+astronowhere.lng+"<br />"+
+	"d = "+astronowhere.d+"<br />"+
+	"ut = "+astronowhere.ut+"<br />"+
+	"ra = "+astronowhere.ra+"<br />"+
+	"decl = "+astronowhere.decl+"<br />"+
+	"azimuth = "+astronowhere.azimuth+"<br />"+
+	"altitude = "+astronowhere.altitude+"<br />"+
+	"";
+}
+/***********************************************************************/
+var tTick = 500;
+var actualDate = new UTCDate();
+
+/***********************************************************************/
+function printDateTime(date,display,position) {
+	var jd = date.getJulianDate();
+	var d = date.getModifiedJulianDate() - 51543;
+	var ecl = Math.revd(Math.polynomial(eclipticTilt(),d));
+	var obl80 = Astronomy.obl80(date.getJulianCentury())*Math.RADEG;
+	var astro = [];
+	var astronow = [];
+	for (var i=0; i<2; i++) {
+		astro.push(astroBody(ssdata[i],d,ecl));
+		astronow.push(astroNowHere(astro[astro.length-1],d,position,astro[0].L,ecl));
+	}
+	document.title = date.toISOString();
+	document.getElementById(display).innerHTML =
+	date.toString()+"<br />"+
+	date.toUTCString()+"<br />"+
+	"julian day = "+jd+"<br />"+
+	"J2000.0 century = "+Calendar.date2cy(date)+"<br />"+
+	"UT = "+date.getUT()+"<br />"+
+	"d = "+d+"<br />"+
+	"LST() = "+LST(date,astro[0].L,position)+"<br />"+
+	"ecl = "+ecl+"<br />"+
+	"obl80 = "+obl80+"<br />";
+	for (var i=0; i<astro.length; i++) document.getElementById(display).innerHTML += formatAstroInfo(astro[i],astronow[i]);
+}
+/***********************************************************************/
+function clockHandle(now) {
+	var position = mylocation;
+	actualDate.setNow();
+	printDateTime(actualDate,'clock',position);
+}
+/***********************************************************************/
+</script>
+</head>
+
+<body onload="startTickHandle(clockHandle, tTick); InitializeJulianDayCivilDateCalc()">
+
+
+<div id="location"></div><br />
+<script>
+document.getElementById('location').innerHTML = "mylocation = ["+mylocation.lat+", "+mylocation.lng+"]  =  ["+decimalToDegreeString(mylocation.lat)+", "+decimalToDegreeString(mylocation.lng)+"]";
+</script>
+
+<hr />
+<div id="clock"></div><br />
+
+
+<!-- Page footer (last modified date at footer and load time in console) -->
+<hr />
+<center>
+<script>
+document.write("Last Updated on " + document.lastModified + ".");
+loaddate = new Date();
+console.log("/***********************************************************************/");
+console.log("Loaded at "+loaddate.toString());
+console.log("/***********************************************************************/");
+</script>
+</center>
+
+</body>
+</html>

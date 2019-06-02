@@ -1,0 +1,293 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script language="javascript" src="Math.js"></script>
+<script language="javascript" src="classes.js"></script>
+<!--<script language="javascript" src="DateTime.js"></script>-->
+<script language="javascript" src="Tick.js"></script>
+<script language="javascript" src="DateTimeTick.js"></script>
+<script language="javascript" src="interface.js"></script>
+<script language="javascript" src="DateTimePanel.js"></script>
+<script>
+function setJ2000() {
+	dateUTC.setJulianCentury(0);
+	setTimePanelValues();
+}
+function Test() {
+alert(dateUTC.getStdTimezoneOffset());
+}
+</script>
+
+<title>DateTimeTick</title>
+</head>
+
+<body>
+<table>
+  <tr>
+    <td>
+      
+    </td>
+  </tr>
+  <tr>
+  <td>
+  
+<table>
+  <tr>
+    <td colspan="4"><strong>UTC</strong> (<a href="https://en.wikipedia.org/wiki/Coordinated_Universal_Time">Coordinated Universal Time</a>): the basis of civil time.</td>
+    </tr>
+  <tr>
+    <td colspan="4">
+    
+    
+    
+<table>
+
+  <tr>
+    <td align="right">&nbsp;</td>
+    <td colspan="13"><span id="UTCString">UTCString</span></td>
+    </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="2"><input type="checkbox" id="UTCLeapYear" disabled="disabled" />
+      <a href="https://en.wikipedia.org/wiki/Leap_year">LeapYear</a></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right">UTC:</td>
+    <td align="right"><input type="text" id="UTCYear" onchange="changeUTCYear()" size="4"/></td>
+    <td><select id="UTCEra" onchange="changeUTCEra()">
+        <option>BCE</option>
+        <option selected="selected">CE</option>
+    </select></td>
+    <td><select id="UTCMonth" onchange="changeUTCMonth()"></select></td>
+    <td><select id="UTCDate" onchange="changeUTCDate()"></select></td>
+    <td>-</td>
+    <td><select id="UTCHours" onchange="changeUTCHours()"></select></td>
+    <td>:</td>
+    <td><select id="UTCMinutes" onchange="changeUTCMinutes()"></select></td>
+    <td>:</td>
+    <td><select id="UTCSeconds" onchange="changeUTCSeconds()"></select></td>
+    <td>,</td>
+    <td><input type="text" id="UTCMilliseconds" onchange="changeUTCMilliseconds()" size="3" /></td>
+    <td><select id="UTCDay" disabled="disabled"></select></td>
+  </tr>
+  <tr>
+    <td align="right">Local:</td>
+    <td align="right"><input type="text" id="LocalYear" onchange="changeLocalYear()" size="4" /></td>
+    <td><select id="LocalEra" onchange="changeLocalEra()">
+      <option>BCE</option>
+      <option selected="selected">CE</option>
+    </select></td>
+    <td><select id="LocalMonth" onchange="changeLocalMonth()"></select></td>
+    <td><select id="LocalDate" onchange="changeLocalDate()"></select></td>
+    <td>-</td>
+    <td><select id="LocalHours" onchange="changeLocalHours()"></select></td>
+    <td>:</td>
+    <td><select id="LocalMinutes" onchange="changeLocalMinutes()"></select></td>
+    <td>:</td>
+    <td><select id="LocalSeconds" onchange="changeLocalSeconds()"></select></td>
+    <td>,</td>
+    <td><input type="text" id="LocalMilliseconds" onchange="changeLocalMilliseconds()" size="3" /></td>
+    <td><select id="LocalDay" disabled="disabled"></select></td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="2"><input type="checkbox" id="LocalLeapYear" disabled="disabled" />
+      <a href="https://en.wikipedia.org/wiki/Leap_year">LeapYear</a></td>
+    <td colspan="8"><input type="checkbox" id="DaylightSavingTime" disabled="disabled"/>
+      <a href="https://en.wikipedia.org/wiki/Daylight_saving_time">Daylight Saving Time</a></td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td>&nbsp;</td>
+    <td colspan="2">&nbsp;</td>
+    <td colspan="11">Time zone offset: <input type="text" id="TimezoneAdjust" size="4" /> (minutes)</td>
+    </tr>
+  <tr>
+    <td align="right">&nbsp;</td>
+    <td colspan="13"><span id="LocalString">LocalString</span></td>
+    </tr>
+  <tr>
+    <td align="right"><label for="checkbox">Now:
+      <input name="runmode" type="radio" id="rNow" value="radio" checked="checked" onclick="setRunModeNowClick(true)" />
+    </label></td>
+    <td align="right">&nbsp;</td>
+    <td align="left"><a href="https://en.wikipedia.org/wiki/Daylight_saving_time"></a></td>
+    <td colspan="8" align="left">&nbsp;</td>
+    <td>&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td align="right">Step:<input type="radio" name="runmode" id="rStep" value="radio" onclick="setRunModeNowClick(false)" /></td>
+    <td colspan="2" align="center"><input type="radio" name="step" id="sYear" value="radio" onchange="setStepPanelValue()" /></td>
+    <td align="center"><input type="radio" name="step" id="sMonth" value="radio"  onchange="setStepPanelValue()"/></td>
+    <td align="center"><input name="step" type="radio" id="sDay" value="radio" checked="checked" onchange="setStepPanelValue()" /></td>
+    <td>&nbsp;</td>
+    <td align="center"><input type="radio" name="step" id="sHours" value="radio" onchange="setStepPanelValue()" /></td>
+    <td>&nbsp;</td>
+    <td align="center"><input type="radio" name="step" id="sMinutes" value="radio" onchange="setStepPanelValue()" /></td>
+    <td>&nbsp;</td>
+    <td align="center"><input type="radio" name="step" id="sSeconds" value="radio" onchange="setStepPanelValue()" /></td>
+    <td>&nbsp;</td>
+    <td align="center">&nbsp;</td>
+    <td>&nbsp;</td>
+  </tr>
+  <tr>
+    <td colspan="14" align="center"><input type="button" value="Now" onclick="nowClick()" />
+      <input type="button" id="RunStop" value="Run" onclick="runClick()" /></td>
+    </tr>
+      </table>    
+    
+    
+    
+    </td>
+  </tr>
+  <tr>
+    <td colspan="4"><span id="UTCISOString">UTCISOString</span></td>
+    </tr>
+  <tr>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Julian_day">Julian Date</a>:</td>
+    <td><input type="text" id="JulianDate" onchange="changeJulianDate()"/></td>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Julian_day">Modified Julian Date</a>:</td>
+    <td><input type="text" id="ModifiedJulianDate" onchange="changeModifiedJulianDate()" /></td>
+  </tr>
+  <tr>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Julian_day">Julian Day</a>:</td>
+    <td><input type="text" id="JulianDay" onchange="changeJulianDay()"/></td>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Universal_Time">UT</a>:</td>
+    <td><input type="text" id="UT" onchange="changeUT()" /></td>
+  </tr>
+  <tr>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Epoch_(astronomy)">Epoch</a>:</td>
+    <td><input type="text" id="Epoch" onchange="changeEpoch()"/></td>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Epoch_(astronomy)">J2000.0 century</a>:</td>
+    <td align="left"><input type="text" id="JulianCentury" onchange="changeJulianCentury()" /></td>
+  </tr>
+</table>
+
+  </td>
+  </tr>
+  <tr>
+  <td>
+  <table>
+
+
+
+  <tr>
+    <td colspan="4"><strong>TAI</strong> (<a href="https://en.wikipedia.org/wiki/International_Atomic_Time">International Atomic Time</a>): the official timekeeping standard.</td>
+  </tr>
+  <tr>
+    <td colspan="4"><span id="TAIISOString">TAIISOString</span></td>
+  </tr>
+  <tr>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Julian_day">Julian Date</a>:</td>
+    <td><input type="text" id="TAIJulianDate" onchange="changeTAIJulianDate()"/></td>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Julian_day">Modified Julian Date</a>:</td>
+    <td><input type="text" id="TAIModifiedJulianDate" onchange="changeTAIModifiedJulianDate()" /></td>
+  </tr>
+  <tr>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Julian_day">Julian Day</a>:</td>
+    <td ><input type="text" id="TAIJulianDay" onchange="changeTAIJulianDay()"/></td>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Universal_Time">UT</a>:</td>
+    <td><input type="text" id="TAIUT" onchange="changeTAIUT()" /></td>
+  </tr>
+  <tr>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Epoch_(astronomy)">Epoch</a>:</td>
+    <td><input type="text" id="TAIEpoch" onchange="changeTAIEpoch()"/></td>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Epoch_(astronomy)">J2000.0 century</a>:</td>
+    <td align="left"><input type="text" id="TAIJulianCentury" onchange="changeTAIJulianCentury()" /></td>
+  </tr>
+
+
+  </table>
+  </td>
+  </tr>
+  <tr>
+    <td>
+<table>
+  <tr>
+    <td colspan="4"><strong>TT</strong> (<a href="https://en.wikipedia.org/wiki/Terrestrial_Time">Terrestrial Time</a>): used for solar system ephemeris look-up.</td>
+  </tr>
+  <tr>
+    <td colspan="4"><span id="TTISOString">TTISOString</span></td>
+  </tr>
+  <tr>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Julian_day">Julian Date</a>:</td>
+    <td><input type="text" id="TTJulianDate" onchange="changeTTJulianDate()"/></td>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Julian_day">Modified Julian Date</a>:</td>
+    <td><input type="text" id="TTModifiedJulianDate" onchange="changeTTModifiedJulianDate()" /></td>
+  </tr>
+  <tr>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Julian_day">Julian Day</a>:</td>
+    <td><input type="text" id="TTJulianDay" onchange="changeTTJulianDay()"/></td>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Universal_Time">UT</a>:</td>
+    <td><input type="text" id="TTUT" onchange="changeTTUT()" /></td>
+  </tr>
+  <tr>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Epoch_(astronomy)">Epoch</a>:</td>
+    <td><input type="text" id="TTEpoch" onchange="changeTTEpoch()"/></td>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Epoch_(astronomy)">J2000.0 century</a>:</td>
+    <td align="left"><input type="text" id="TTJulianCentury" onchange="changeTTJulianCentury()" /></td>
+  </tr>
+
+</table>
+    </td>
+  </tr>
+  <tr>
+  <td>
+  
+<table>  
+  <tr>
+    <td colspan="4"><strong>TCG</strong> (<a href="https://en.wikipedia.org/wiki/Geocentric_Coordinate_Time">Geocentric Coordinate Time</a>): used for calculations centered on the Earth in space.</td>
+  </tr>
+  <tr>
+    <td colspan="4"><span id="TCGISOString">TCGISOString</span></td>
+  </tr>
+  <tr>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Julian_day">Julian Date</a>:</td>
+    <td><input type="text" id="TCGJulianDate" onchange="changeTCGJulianDate()"/></td>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Julian_day">Modified Julian Date</a>:</td>
+    <td><input type="text" id="TCGModifiedJulianDate" onchange="changeTCGModifiedJulianDate()" /></td>
+  </tr>
+  <tr>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Julian_day">Julian Day</a>:</td>
+    <td><input type="text" id="TCGJulianDay" onchange="changeTCGJulianDay()"/></td>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Universal_Time">UT</a>:</td>
+    <td><input type="text" id="TCGUT" onchange="changeTCGUT()" /></td>
+  </tr>
+  <tr>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Epoch_(astronomy)">Epoch</a>:</td>
+    <td><input type="text" id="TCGEpoch" onchange="changeTCGEpoch()"/></td>
+    <td align="right"><a href="https://en.wikipedia.org/wiki/Epoch_(astronomy)">J2000.0 century</a>:</td>
+    <td align="left"><input type="text" id="TCGJulianCentury" onchange="changeTCGJulianCentury()" /></td>
+  </tr>
+</table>  
+  
+  
+  </td>
+  </tr>
+<tr>
+<td>
+</td>
+</tr>
+</table>
+<script language="javascript">
+	initDateTimePanel();
+	clickNow();
+</script>
+</body>
+</html>
