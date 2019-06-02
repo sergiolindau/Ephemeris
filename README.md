@@ -1,4 +1,5 @@
-# Ephemeris
+# Javascript Astronomy Algorithms
+
 Javascript library for calendar and astronomy calculations
 
 For this library applies the following MIT License:
