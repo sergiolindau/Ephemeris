@@ -18,6 +18,7 @@
       .DateTimeCaption { text-align: center; font-size: smaller; font-family: sans-serif; }
   </style>
 
+<script language="javascript" src="./scr/MITLicense.js"></script>
 <script language="javascript" src="./scr/Math.js"></script>
 <script language="javascript" src="./scr/fastiCircuitum.js"></script>
 <script language="javascript" src="./scr/classes.js"></script>
@@ -92,12 +93,12 @@ addPanelRefreshAction(RefreshAction);
  <h1 align="center">Javascript Astronomy Algorithms</h1>
 <h2>JavaScript Files</h2>
 <script>
-var jsfiles = ["Math.js","GeoLocation.js","interface.js","StringData.js","language.js","GeoLocationPanel.js","DateTime.js","fastiCircuitum.js","Tick.js","DateTimeTick.js","astronomy.js","sunPanel.js","weekHeptagram.js","XMLHttpRequest.js","CanvasGraph.js","TimeZone.js"];
+var jsfiles = ["Math.js","classes.js","GeoLocation.js","language.js","fastiCircuitum.js","Tick.js","DateTimeTick.js","TimeZone.js","astronomy.js","sunPanel.js","XMLHttpRequest.js","CanvasGraph.js"];
 function MakeFileMenu(Menu){
 	document.writeln("<ol>");
 	for(var i=0; i<Menu.length; i++) {
 		document.writeln("<li><a href=\""+Menu[i]+"\">"+Menu[i]+"</a><br /><details><summary>View File</summary>");
-		document.writeln("<div id=\""+Menu[i]+"_container\"><center><iframe width=\"1024\" height=\"768\" src=\"file:///X:/"+Menu[i]+"\"></iframe></center></div>");
+		document.writeln("<div id=\""+Menu[i]+"_container\"><center><iframe width=\"1024\" height=\"768\" src=\"./scr/"+Menu[i]+"\"></iframe></center></div>");
 		document.writeln("</details></li>");
 	}
 	document.writeln("</ol>");
@@ -117,6 +118,19 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
 </script>
 -->
 <h2>References</h2>
+<h4>Astronomy Algorithms</h4>
+<ul>
+  <li><a href="http://cosinekitty.com/solar_system.html">Solar System Calculator</a> - by <a href="http://cosinekitty.com/" target="_blank">Don Cross</a></li>
+  <li><a href="http://cosinekitty.com/astro_calendar.html">Dynamic Astronomy Calendar</a> - by <a href="http://cosinekitty.com/">Don Cross</a></li>
+  <li><a href="http://cosinekitty.com/sky_view.html">Astronomy Sky View</a> - by <a href="http://cosinekitty.com/">Don Cross</a></li>
+  <li><a href="http://www.stjarnhimlen.se/comp/ppcomp.html">How to compute planetary positions</a> - by <a href="http://www.stjarnhimlen.se/">Paul Schlyter's</a>.</li>
+  <li><a href="http://www.stargazing.net/kepler/">Approximate astronomical positions</a> - by <a href="http://www.stargazing.net/kepler/kpb.html">Keith Burnett</a>.</li>
+  </ul>
+<h4>JavaScript</h4>
+<ul>
+  <li><a href="https://www.w3schools.com/jsref/default.asp">w3schools.com JavaScript and HTML DOM Reference</a></li>
+  <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference">MDN web doc moz://la - Referência Javascript</a></li>
+</ul>
 
 </div>
 <hr />
@@ -851,7 +865,6 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
     <a href="https://mozilla-comm.github.io/ical.js/api/time.js.html">Mozilla  iCalendar Time representation</a><br />
     <a href="https://medium.com/@nitinpatel_20236/challenge-of-building-a-calendar-with-pure-javascript-a86f1303267d">Challenge of building a Calendar with Pure JavaScript</a></p>
     </div></div>
-<hr />
 
   </div>
 </div></div>
@@ -863,6 +876,7 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
 <script>drawWeekHeptagram("weekHeptagram")</script>
 </center>
 </div> </div>
+<hr />
 <script language="javascript">
 	initLocationPanel();
 	initDateTimePanel();
@@ -870,6 +884,7 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
 	addPanelRefreshAction(updateLocationPanel);
 	clickNow();
 	clickRunStop();
+	document.write("<div>"+MITLicense.template("2017","Sergio Lindau",MITLicense.HTML)+"</div>");
 </script>
 </body>
 </html>
