@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Ephemeris - by Sergio Lindau</title>
+  <title>Javascript Astronomy Algorithms - by Sergio Lindau</title>
   <style type="text/css">
       .TableHeader { background-color: #efefff;  }
       .NumericData { font-family: Monospace; text-align: right; width: 8em; font-size:9pt; }
@@ -88,6 +88,39 @@ addPanelRefreshAction(RefreshAction);
           Timer();    // prime the pump for the self-perpetuating every-1-second timer event
       }
   </script>
+<div>
+ <h1 align="center">Javascript Astronomy Algorithms</h1>
+<h2>JavaScript Files</h2>
+<script>
+var jsfiles = ["Math.js","GeoLocation.js","interface.js","StringData.js","language.js","GeoLocationPanel.js","DateTime.js","fastiCircuitum.js","Tick.js","DateTimeTick.js","astronomy.js","sunPanel.js","weekHeptagram.js","XMLHttpRequest.js","CanvasGraph.js","TimeZone.js"];
+function MakeFileMenu(Menu){
+	document.writeln("<ol>");
+	for(var i=0; i<Menu.length; i++) {
+		document.writeln("<li><a href=\""+Menu[i]+"\">"+Menu[i]+"</a><br /><details><summary>View File</summary>");
+		document.writeln("<div id=\""+Menu[i]+"_container\"><center><iframe width=\"1024\" height=\"768\" src=\"file:///X:/"+Menu[i]+"\"></iframe></center></div>");
+		document.writeln("</details></li>");
+	}
+	document.writeln("</ol>");
+}
+MakeFileMenu(jsfiles);
+
+for(var i in Date.prototype){
+	alert(i);
+}
+
+</script>
+<!--
+<h2>HTML Files</h2>
+<script>
+var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","Tick.html","DateTimeTick.html","CanvasGraph.html","TimeZone.html"];
+//MakeFileMenu(htmlfiles);
+</script>
+-->
+<h2>References</h2>
+
+</div>
+<hr />
+<h1 align="center">Test Workbench</h1>
 <p><input type="button" value="J2000.0 (0,0)" onclick="setJ2000();" /></p>
 <table width="0%" border="1">
   <tr>
@@ -758,38 +791,9 @@ addPanelRefreshAction(RefreshAction);
   </tr>
 </table>
 
- <hr />
- <div>
- <h1 align="center">Javascript Technical Routines<br />Test WorkBench</h1>
-<h2>HTML Files</h2>
-<script>
-var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","Tick.html","DateTimeTick.html","CanvasGraph.html","TimeZone.html"];
-function MakeFileMenu(Menu){
-	document.writeln("<ol>");
-	for(var i=0; i<Menu.length; i++) {
-		document.writeln("<li><a href=\""+Menu[i]+"\">"+Menu[i]+"</a><br /><details><summary>View File</summary>");
-		document.writeln("<div id=\""+Menu[i]+"_container\"><center><iframe width=\"1024\" height=\"768\" src=\"file:///X:/"+Menu[i]+"\"></iframe></center></div>");
-		document.writeln("</details></li>");
-	}
-	document.writeln("</ol>");
-}
-MakeFileMenu(htmlfiles);
-</script>
-<h2>JavaScript Files</h2>
-<script>
-var jsfiles = ["Math.js","GeoLocation.js","interface.js","StringData.js","language.js","GeoLocationPanel.js","DateTime.js","fastiCircuitum.js","Tick.js","DateTimeTick.js","astronomy.js","sunPanel.js","weekHeptagram.js","XMLHttpRequest.js","CanvasGraph.js","TimeZone.js"];
-MakeFileMenu(jsfiles);
-
-for(var i in Date.prototype){
-	alert(i);
-}
-
-</script>
-<h2>References</h2>
-
- </div>
  
- <hr />
+ 
+<hr />
  <div id="TimeZoneContainer">  
 <input type="button" value="Time zone" onclick="document.getElementById('TimeZone').hidden=false"/>
 <div id="TimeZone" hidden="true">
