@@ -44,16 +44,43 @@ class $ {
 		t : function(n) { return document.getElementsByTagName(n) },
 		tn : function(ns,n) { return document.getElementsByTagNameNS(ns,n) }
 	};
+	static _(dest,source,prop) {
+		var temp = $.$.i(source);
+		for(var k=0;i<dest.length;k++) {
+			dest[k][prop] = temp[prop];
+		}
+		return dest;
+	}
 	static copy = {
 		i : function(dest,source,prop) { 
-				var temp1 =  $.$.i(dest), temp2 = $.$.i(source);
-				temp1[prop] = temp2[prop];
-				return temp1;
+			var temp1 =  $.$.i(dest), temp2 = $.$.i(source);
+			temp1[prop] = temp2[prop];
+			return temp1;
 		},
-		n : function(n) { return document.getElementsByName(n) },
-		c : function(c) { return document.getElementsByClassName(c) },
-		t : function(n) { return document.getElementsByTagName(n) },
-		tn : function(ns,n) { return document.getElementsByTagNameNS(ns,n) }
+		n : function(dest,source,prop) {
+			return _($.$.n(dest),source,prop);
+		},
+		c : function(dest,source,prop) {
+			return _($.$.c(dest),source,prop);
+		},
+		t : function(dest,source,prop) {
+			return _($.$.t(dest),source,prop);
+		},
+		tn : function(ns,dest,source,prop) {
+			return _($.$.tn(ns,dest),source,prop);
+		}
+	};
+	static create(tag) { document.createElement(tag) }
+	static select = {
+		addOption : function(sel, opt) {
+			sel = $.$.i(sel);
+			var option;
+			for (var k=0;i<opt.length;k++) {
+				option = $.create('option');
+				option.text = opt[i];
+				sel.add(option);
+			}
+		}
 	};
 }
 /***********************************************************************/
