@@ -95,7 +95,7 @@ function HtmlConstellation (eq)
 
 function ShowAngleFeedback (divName, value, editName)
 {
-    var isDMS = ($$.i(editName).value.indexOf(":") >= 0);
+    var isDMS = ($.$.i(editName).value.indexOf(":") >= 0);
     var feedback;
     
     if (isDMS) {
@@ -106,30 +106,30 @@ function ShowAngleFeedback (divName, value, editName)
         feedback = HtmlDeclination (value, "dms");
     }
     
-    $$.i(divName).innerHTML = '&nbsp;=&nbsp;' + feedback;        
+    $.$.i(divName).innerHTML = '&nbsp;=&nbsp;' + feedback;        
 }
 
 function CommitGeographicCoordinates()
 {
-    var lat = ParseAngle ($$.i('GeoLat_Value').value);
-    var lon = ParseAngle ($$.i('GeoLong_Value').value);
+    var lat = ParseAngle ($.$.i('GeoLat_Value').value);
+    var lon = ParseAngle ($.$.i('GeoLong_Value').value);
 
     if (lat == null) {
         alert ("The geographic latitude you have entered is not valid. It must be between 0 and 90 degrees.  You may enter it with a decimal fraction, or in ddd:mm:ss notation.");
-        $$.i('GeoLat_Value').focus();
+        $.$.i('GeoLat_Value').focus();
     }
     
     if (lon == null) {
         alert ("The geographic longitude you have entered is not valid. It must be between 0 and 180 degrees.  You may enter it with a decimal fraction, or in dd:mm:ss notation.");
-        $$.i('GeoLong_Value').focus();
+        $.$.i('GeoLong_Value').focus();
     }
     
     if ((lat != null) && (lon != null)) {
-        if ($$.i('GeoLat_NS').selectedIndex == 1) {
+        if ($.$.i('GeoLat_NS').selectedIndex == 1) {
             lat *= -1.0;
         }
         
-        if ($$.i('GeoLong_EW').selectedIndex == 0) {
+        if ($.$.i('GeoLong_EW').selectedIndex == 0) {
             lon *= -1.0;
         }            
     
@@ -148,23 +148,23 @@ function SaveGeographicCoordinates()
     if (CommitGeographicCoordinates()) {
         var expiration = 3650;  // 10 years
     
-        Cookie.write ("GeographicLatitudeValue",  $$.i('GeoLat_Value').value,  expiration);
-        Cookie.write ("GeographicLongitudeValue", $$.i('GeoLong_Value').value, expiration);
+        Cookie.write ("GeographicLatitudeValue",  $.$.i('GeoLat_Value').value,  expiration);
+        Cookie.write ("GeographicLongitudeValue", $.$.i('GeoLong_Value').value, expiration);
         
-        Cookie.write ("GeographicLatitudeDirection",  (($$.i('GeoLat_NS') .selectedIndex == 0) ? "N" : "S"), expiration);
-        Cookie.write ("GeographicLongitudeDirection", (($$.i('GeoLong_EW').selectedIndex == 0) ? "W" : "E"), expiration);
+        Cookie.write ("GeographicLatitudeDirection",  (($.$.i('GeoLat_NS') .selectedIndex == 0) ? "N" : "S"), expiration);
+        Cookie.write ("GeographicLongitudeDirection", (($.$.i('GeoLong_EW').selectedIndex == 0) ? "W" : "E"), expiration);
         
-        $$.i('SaveButton').disabled = true;
+        $.$.i('SaveButton').disabled = true;
     }
 }
 
 function LoadGeographicCoordinates()
 {
-    $$.i('GeoLat_Value').value  = Cookie.read ("GeographicLatitudeValue",  "27.41305");
-    $$.i('GeoLong_Value').value = Cookie.read ("GeographicLongitudeValue", "82.66034");
+    $.$.i('GeoLat_Value').value  = Cookie.read ("GeographicLatitudeValue",  "27.41305");
+    $.$.i('GeoLong_Value').value = Cookie.read ("GeographicLongitudeValue", "82.66034");
     
-    $$.i('GeoLat_NS').selectedIndex  = Cookie.read("GeographicLatitudeDirection","N")  == "N" ? 0 : 1;
-    $$.i('GeoLong_EW').selectedIndex = Cookie.read("GeographicLongitudeDirection","W") == "W" ? 0 : 1;
+    $.$.i('GeoLat_NS').selectedIndex  = Cookie.read("GeographicLatitudeDirection","N")  == "N" ? 0 : 1;
+    $.$.i('GeoLong_EW').selectedIndex = Cookie.read("GeographicLongitudeDirection","W") == "W" ? 0 : 1;
     
     CommitGeographicCoordinates();
 }
@@ -172,7 +172,7 @@ function LoadGeographicCoordinates()
 
 function OnGeoLatLongChange()
 {
-    $$.i('SaveButton').disabled = false;
+    $.$.i('SaveButton').disabled = false;
 }
 
 

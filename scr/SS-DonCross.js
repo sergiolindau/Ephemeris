@@ -40,7 +40,7 @@
               // We can deduce the row because we use a pattern for identifiers.
               // For example: 'Sun_row', 'Sun_const', etc.
               var name = id.replace (/_.*$/, "");    // get the object name by itself, e.g. "Sun" or "Mercury"
-              var row = $$.i(name + "_row");
+              var row = $.$.i(name + "_row");
               if (row) {
                   var bg = RowBackgroundTable [row.id];
                   if (bg != null) {
@@ -62,7 +62,7 @@
       
       function InsertRow (table, id)
       {
-          var row = $$.i(id);
+          var row = $.$.i(id);
           if (row == null) {
               row = table.insertRow (table.rows.length);
               row.id = id;
@@ -91,7 +91,7 @@
   
       function InsertCell (table, row, id, className, s)
       {
-          var cell = $$.i(id);
+          var cell = $.$.i(id);
           if (cell == null) {
               cell = row.insertCell (row.cells.length);
               cell.className = className;
@@ -103,7 +103,7 @@
   
       function AddRowForCelestialBody (p, day)
       {
-          var planetTable = $$.i('planetTable');
+          var planetTable = $.$.i('planetTable');
           var pc = null;
           var distance = null;
   
@@ -209,44 +209,44 @@
           }
           
           if (NameCurrentlyHighlighted != "Sun") {
-              $$.i('Sun_name'    ).style.backgroundColor = bgColorSun;
-              $$.i('Sun_x'       ).style.backgroundColor = bgColorSun;
-              $$.i('Sun_y'       ).style.backgroundColor = bgColorSun;
-              $$.i('Sun_z'       ).style.backgroundColor = bgColorSun;
-              $$.i('Sun_distance').style.backgroundColor = bgColorSun;
+              $.$.i('Sun_name'    ).style.backgroundColor = bgColorSun;
+              $.$.i('Sun_x'       ).style.backgroundColor = bgColorSun;
+              $.$.i('Sun_y'       ).style.backgroundColor = bgColorSun;
+              $.$.i('Sun_z'       ).style.backgroundColor = bgColorSun;
+              $.$.i('Sun_distance').style.backgroundColor = bgColorSun;
           }        
-          $$.i('row_Heliocentric').style.backgroundColor = bgColorSun;
+          $.$.i('row_Heliocentric').style.backgroundColor = bgColorSun;
   
           if (NameCurrentlyHighlighted != "Earth") {
-              $$.i('Earth_name'    ).style.backgroundColor = bgColorEarth;
-              $$.i('Earth_x'       ).style.backgroundColor = bgColorEarth;
-              $$.i('Earth_y'       ).style.backgroundColor = bgColorEarth;
-              $$.i('Earth_z'       ).style.backgroundColor = bgColorEarth;
-              $$.i('Earth_distance').style.backgroundColor = bgColorEarth;
+              $.$.i('Earth_name'    ).style.backgroundColor = bgColorEarth;
+              $.$.i('Earth_x'       ).style.backgroundColor = bgColorEarth;
+              $.$.i('Earth_y'       ).style.backgroundColor = bgColorEarth;
+              $.$.i('Earth_z'       ).style.backgroundColor = bgColorEarth;
+              $.$.i('Earth_distance').style.backgroundColor = bgColorEarth;
           }
-          $$.i('row_Geocentric').style.backgroundColor = bgColorEarth;
+          $.$.i('row_Geocentric').style.backgroundColor = bgColorEarth;
   
-          $$.i('row_Ecliptic'  ).style.backgroundColor = (AngularCoordinateType == "ecliptic"  ) ? AngularCoordinateColor[AngularCoordinateType] : "";
-          $$.i('row_Equatorial').style.backgroundColor = (AngularCoordinateType == "equatorial") ? AngularCoordinateColor[AngularCoordinateType] : "";
-          $$.i('row_Horizontal').style.backgroundColor = (AngularCoordinateType == "horizontal") ? AngularCoordinateColor[AngularCoordinateType] : "";
+          $.$.i('row_Ecliptic'  ).style.backgroundColor = (AngularCoordinateType == "ecliptic"  ) ? AngularCoordinateColor[AngularCoordinateType] : "";
+          $.$.i('row_Equatorial').style.backgroundColor = (AngularCoordinateType == "equatorial") ? AngularCoordinateColor[AngularCoordinateType] : "";
+          $.$.i('row_Horizontal').style.backgroundColor = (AngularCoordinateType == "horizontal") ? AngularCoordinateColor[AngularCoordinateType] : "";
   
-          $$.i('th_Angle1').style.backgroundColor = AngularCoordinateColor[AngularCoordinateType];
-          $$.i('th_Angle2').style.backgroundColor = AngularCoordinateColor[AngularCoordinateType];
+          $.$.i('th_Angle1').style.backgroundColor = AngularCoordinateColor[AngularCoordinateType];
+          $.$.i('th_Angle2').style.backgroundColor = AngularCoordinateColor[AngularCoordinateType];
           
           // Hide or show all "_x", "_y", "_z", "_distance"...
           var suffix = ["_x", "_y", "_z", "_distance"];
           for (var i in Astronomy.Body) {
               var p = Astronomy.Body[i];
               for (var j in suffix) {
-                  $$.i(p.Name + suffix[j]).style.display = coordDisplay;
+                  $.$.i(p.Name + suffix[j]).style.display = coordDisplay;
               }
           }
           for (var j in suffix) {
-              $$.i("th" + suffix[j]).style.display = coordDisplay;
+              $.$.i("th" + suffix[j]).style.display = coordDisplay;
           }
           
           // Hide or show the remaining cells the Earth row...
-          $$.i("Earth_row").style.display = coordDisplay;
+          $.$.i("Earth_row").style.display = coordDisplay;
       }
   
       function CalculateSolarSystem()
@@ -255,20 +255,20 @@
   
           var text = "<code>" + AstroDateTime.toString() + "</code></br>";
           text += "<code>Day Value = " + day.toFixed(5) + "</code><br/>";
-          $$.i('divDateTime').innerHTML = text;
+          $.$.i('divDateTime').innerHTML = text;
   
-          $$.i('th_x').title = CartesianCoordinateType + " x-coordinate in AU";
-          $$.i('th_y').title = CartesianCoordinateType + " y-coordinate in AU";
-          $$.i('th_z').title = CartesianCoordinateType + " z-coordinate in AU";
+          $.$.i('th_x').title = CartesianCoordinateType + " x-coordinate in AU";
+          $.$.i('th_y').title = CartesianCoordinateType + " y-coordinate in AU";
+          $.$.i('th_z').title = CartesianCoordinateType + " z-coordinate in AU";
   
-          $$.i('th_x').style.backgroundColor = CartesianCoordinateColor[CartesianCoordinateType];
-          $$.i('th_y').style.backgroundColor = CartesianCoordinateColor[CartesianCoordinateType];
-          $$.i('th_z').style.backgroundColor = CartesianCoordinateColor[CartesianCoordinateType];
-          $$.i('th_distance').style.backgroundColor = CartesianCoordinateColor[CartesianCoordinateType];
+          $.$.i('th_x').style.backgroundColor = CartesianCoordinateColor[CartesianCoordinateType];
+          $.$.i('th_y').style.backgroundColor = CartesianCoordinateColor[CartesianCoordinateType];
+          $.$.i('th_z').style.backgroundColor = CartesianCoordinateColor[CartesianCoordinateType];
+          $.$.i('th_distance').style.backgroundColor = CartesianCoordinateColor[CartesianCoordinateType];
   
-          $$.i('th_x').innerHTML = CartesianCoordinateType.charAt(0).toUpperCase() + "<sub>x</sub>";
-          $$.i('th_y').innerHTML = CartesianCoordinateType.charAt(0).toUpperCase() + "<sub>y</sub>";
-          $$.i('th_z').innerHTML = CartesianCoordinateType.charAt(0).toUpperCase() + "<sub>z</sub>";
+          $.$.i('th_x').innerHTML = CartesianCoordinateType.charAt(0).toUpperCase() + "<sub>x</sub>";
+          $.$.i('th_y').innerHTML = CartesianCoordinateType.charAt(0).toUpperCase() + "<sub>y</sub>";
+          $.$.i('th_z').innerHTML = CartesianCoordinateType.charAt(0).toUpperCase() + "<sub>z</sub>";
   
           for (var i in Astronomy.Body) {
               AddRowForCelestialBody (Astronomy.Body[i], day);
@@ -331,33 +331,33 @@
                   SelectedBody.NextCulmTime = Astronomy.NextCulmTime (SelectedBody.Body, day, location);
               }
   
-              $$.i('divRiseTime').innerHTML = BriefDayValueString (SelectedBody.NextRiseTime);
-              $$.i('divCulmTime').innerHTML = BriefDayValueString (SelectedBody.NextCulmTime);
-              $$.i('divSetTime' ).innerHTML = BriefDayValueString (SelectedBody.NextSetTime );
+              $.$.i('divRiseTime').innerHTML = BriefDayValueString (SelectedBody.NextRiseTime);
+              $.$.i('divCulmTime').innerHTML = BriefDayValueString (SelectedBody.NextCulmTime);
+              $.$.i('divSetTime' ).innerHTML = BriefDayValueString (SelectedBody.NextSetTime );
           }
       }
   
       function OnSelectBody ()
       {
-          var select = $$.i('selectBody');
+          var select = $.$.i('selectBody');
           var name = select.options[select.selectedIndex].value;
           SelectObjectForExtraInfo (name);
       }
   
       function ReflectDateTime (date)
       {
-          $$.i('edit_Year').value = date.getFullYear();
-          $$.i('edit_Month').value = 1 + date.getMonth();
-          $$.i('edit_Day').value = date.getDate();
-          $$.i('edit_Hour').value = date.getHours();
-          $$.i('edit_Minute').value = date.getMinutes();
-          $$.i('edit_Second').value = date.getSeconds();
+          $.$.i('edit_Year').value = date.getFullYear();
+          $.$.i('edit_Month').value = 1 + date.getMonth();
+          $.$.i('edit_Day').value = date.getDate();
+          $.$.i('edit_Hour').value = date.getHours();
+          $.$.i('edit_Minute').value = date.getMinutes();
+          $.$.i('edit_Second').value = date.getSeconds();
       }
   
       function ParseDateTimeBox (id, min, max)
       {
           var rv = null;
-          var s = $$.i(id).value;
+          var s = $.$.i(id).value;
           if (/^\d+$/.test(s)) {
               var n = parseInt (s, 10);   // explicit radix==10 prevents interpreting "010" as octal!
               if (!isNaN(n) && (n >= min) && (n <= max)) {
@@ -368,7 +368,7 @@
           if (rv == null) {
               var box = id.replace(/^edit_/,"").toLowerCase();
               alert ("The " + box + " value is not valid.  It must be an integer between " + min + " and " + max + ", inclusive.");
-              $$.i(id).focus();
+              $.$.i(id).focus();
           }
   
           return rv;
@@ -443,7 +443,7 @@
       function SetUpdatedDateTime (date)
       {
           AstroDateTime = date;
-          $$.i('button_SetDateTime').disabled = true;
+          $.$.i('button_SetDateTime').disabled = true;
   
           SaveDateTime (AstroDateTime);
           ResetSelectedBodyEvents();
@@ -481,27 +481,27 @@
   
       function EnableDisableDateControls (enable)
       {
-          $$.i('edit_Year'  ).disabled = !enable;
-          $$.i('edit_Month' ).disabled = !enable;
-          $$.i('edit_Day'   ).disabled = !enable;
-          $$.i('edit_Hour'  ).disabled = !enable;
-          $$.i('edit_Minute').disabled = !enable;
-          $$.i('edit_Second').disabled = !enable;
+          $.$.i('edit_Year'  ).disabled = !enable;
+          $.$.i('edit_Month' ).disabled = !enable;
+          $.$.i('edit_Day'   ).disabled = !enable;
+          $.$.i('edit_Hour'  ).disabled = !enable;
+          $.$.i('edit_Minute').disabled = !enable;
+          $.$.i('edit_Second').disabled = !enable;
   
-          $$.i('button_SubtractOneDay').disabled = !enable;
-          $$.i('button_AddOneDay'     ).disabled = !enable;
+          $.$.i('button_SubtractOneDay').disabled = !enable;
+          $.$.i('button_AddOneDay'     ).disabled = !enable;
   
-          $$.i('button_SetDateTime').disabled = true;        // special case: disable Set button, whether other controls are enabled/disabled
+          $.$.i('button_SetDateTime').disabled = true;        // special case: disable Set button, whether other controls are enabled/disabled
       }
   
       function OnDateTimeDirty()
       {
-          $$.i('button_SetDateTime').disabled = false;       // the user may have changed date/time
+          $.$.i('button_SetDateTime').disabled = false;       // the user may have changed date/time
       }
   
       function OnCheckBoxRealTime()
       {
-          Flag_RealTimeUpdate = $$.i('checkbox_RealTime').checked;
+          Flag_RealTimeUpdate = $.$.i('checkbox_RealTime').checked;
           EnableDisableDateControls (!Flag_RealTimeUpdate);
           Cookie.write ("RealTimeMode", Flag_RealTimeUpdate.toString(), COOKIE_EXPIRATION_DAYS);
           if (Flag_RealTimeUpdate) {
@@ -531,15 +531,15 @@
   
           var day = Astronomy.DayValue (AstroDateTime);
           var location = new GeographicCoordinates (GeographicLongitude, GeographicLatitude, GeographicElevationInMeters);
-          var hideBelowHorizon = $$.i('checkbox_RisenObjectsOnly' ).checked;     // should we hide any object that is below the horizon?
-          var hideDimObjects   = $$.i('checkbox_BrightObjectsOnly').checked;     // should we hide any object too dim to be seen with the naked eye?
-          var showComets       = $$.i('checkbox_ShowComets').checked;            // should comets be included in the list?
-          var showMinor        = $$.i('checkbox_ShowMinor').checked;             // should minor asteroids be included in the list?
+          var hideBelowHorizon = $.$.i('checkbox_RisenObjectsOnly' ).checked;     // should we hide any object that is below the horizon?
+          var hideDimObjects   = $.$.i('checkbox_BrightObjectsOnly').checked;     // should we hide any object too dim to be seen with the naked eye?
+          var showComets       = $.$.i('checkbox_ShowComets').checked;            // should comets be included in the list?
+          var showMinor        = $.$.i('checkbox_ShowMinor').checked;             // should minor asteroids be included in the list?
           
           for (var i=0; i < Astronomy.Body.length; ++i) {
               var p = Astronomy.Body[i];
               if (p.Name != "Earth") {
-                  var row = $$.i(p.Name + "_row");
+                  var row = $.$.i(p.Name + "_row");
                   var shouldHideThisBody = false;
                   if (hideBelowHorizon) {
                       var hc = p.HorizontalCoordinates (day, location);
@@ -708,11 +708,11 @@
                   throw ("Internal error - unknown radio button '" + id + "'");
           }
   
-          $$.i('th_Angle1').title = toolTip1;
-          $$.i('th_Angle2').title = toolTip2;
+          $.$.i('th_Angle1').title = toolTip1;
+          $.$.i('th_Angle2').title = toolTip2;
   
-          $$.i('th_Angle1').innerHTML = header1;
-          $$.i('th_Angle2').innerHTML = header2;
+          $.$.i('th_Angle1').innerHTML = header1;
+          $.$.i('th_Angle2').innerHTML = header2;
   
           Cookie.write ("AngularCoordinateType", id.substring("rb_Angular_".length), COOKIE_EXPIRATION_DAYS);
           CalculateSolarSystem();
@@ -731,7 +731,7 @@
                   radioButtonId = "rb_Cartesian_Heliocentric";    // force bad cookie value to be valid (avoid crashing)
                   break;
           }
-          $$.i(radioButtonId).checked = true;
+          $.$.i(radioButtonId).checked = true;
           OnRadioButton_Cartesian (radioButtonId);
       }
   
@@ -748,7 +748,7 @@
                   radioButtonId = "rb_Angular_Equatorial";    // force bad cookie value to be valid (avoid crashing)
                   break;
           }
-          $$.i(radioButtonId).checked = true;
+          $.$.i(radioButtonId).checked = true;
           OnRadioButton_Angular (radioButtonId);
       }
   
@@ -767,7 +767,7 @@
           }
   
           var radioButtonId = "rb_AngleMode_" + angleDisplayMode;
-          $$.i(radioButtonId).checked = true;
+          $.$.i(radioButtonId).checked = true;
           SetAngleMode (angleDisplayMode);
       }
   
@@ -781,20 +781,20 @@
               ReflectDateTime (AstroDateTime);
           }
   
-          $$.i('checkbox_RealTime').checked = realTimeEnabled;
+          $.$.i('checkbox_RealTime').checked = realTimeEnabled;
           OnCheckBoxRealTime();
       }
       
       function LoadOption_BrightObjectsOnly()
       {
           var brightOnly = (Cookie.read ("BrightObjectsOnly", "false") == "true");
-          $$.i('checkbox_BrightObjectsOnly').checked = brightOnly;
+          $.$.i('checkbox_BrightObjectsOnly').checked = brightOnly;
       }
   
       function LoadOption_RisenObjectsOnly()
       {
           var risenOnly = (Cookie.read ("RisenObjectsOnly", "false") == "true");
-          $$.i('checkbox_RisenObjectsOnly').checked = risenOnly;
+          $.$.i('checkbox_RisenObjectsOnly').checked = risenOnly;
       }
   
       function SelectObjectForExtraInfo (name)
@@ -815,7 +815,7 @@
           if (!Astronomy.IsBodyName(name) || (name == "Earth")) {
               name = "Sun";
           }
-          var select = $$.i('selectBody');
+          var select = $.$.i('selectBody');
           for (var i=0; i < select.options.length; ++i) {
               if (select.options[i].value == name) {
                   select.selectedIndex = i;

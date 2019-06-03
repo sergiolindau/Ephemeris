@@ -59,10 +59,15 @@ function initDateTimePanel() {
 	fillSelectNumber("LocalSeconds",0,59);
 }
 
-var dateUTC = new DateTimeTick();
-dateUTC.setStartAction(function(){document.getElementById("RunStop").value = "Stop";});
-dateUTC.setStopAction(function(){document.getElementById("RunStop").value = "Run";});
-var dateTAI, dateTT, dateTCG;
+var dateUTC = new DateTimeTick(), dateTAI, dateTT, dateTCG;
+
+dateUTC.setStartAction(function(){
+	document.getElementById("RunStop").value = "Stop";
+});
+
+dateUTC.setStopAction(
+	function(){document.getElementById("RunStop").value = "Run";
+});
 
 //alert(dateUTC.oldMethods.getFullYear());
 /***********************************************************************

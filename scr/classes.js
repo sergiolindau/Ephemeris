@@ -36,12 +36,25 @@ https://www.w3schools.com/jsref/jsref_obj_date.asp
 /***********************************************************************
  DOM Helper
 /***********************************************************************/
-class $$ {
-	static i(i)	{ return document.getElementById(i) }
-	static n(n)	{ return document.getElementsByName(n) }
-	static c(c) { return document.getElementsByClassName(c) }
-	static t(n)	{ return document.getElementsByTagName(n) }
-	static tn(ns,n)	{ return document.getElementsByTagNameNS(ns,n) }
+class $ {
+	static $ = {
+		i : function(i) { return document.getElementById(i) },
+		n : function(n) { return document.getElementsByName(n) },
+		c : function(c) { return document.getElementsByClassName(c) },
+		t : function(n) { return document.getElementsByTagName(n) },
+		tn : function(ns,n) { return document.getElementsByTagNameNS(ns,n) }
+	};
+	static copy = {
+		i : function(dest,source,prop) { 
+				var temp1 =  $.$.i(dest), temp2 = $.$.i(source);
+				temp1[prop] = temp2[prop];
+				return temp1;
+		},
+		n : function(n) { return document.getElementsByName(n) },
+		c : function(c) { return document.getElementsByClassName(c) },
+		t : function(n) { return document.getElementsByTagName(n) },
+		tn : function(ns,n) { return document.getElementsByTagNameNS(ns,n) }
+	};
 }
 /***********************************************************************/
 

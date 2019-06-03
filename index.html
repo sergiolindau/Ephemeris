@@ -285,7 +285,6 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
   </tr>
   <tr>
     <td colspan="14" align="center">
-    <div>
     <table>
       <tr>
         <td>&nbsp;</td>
@@ -293,12 +292,11 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td><input type="button" id="Prev" value="-" onclick="clickPrev()" /></td>
+        <td><input type="button" value="-" onclick="clickPrev()" /></td>
         <td><input type="button" value="Now" onclick="clickNow()" /></td>
-        <td><input type="button" id="Next" value="+" onclick="clickNext()" /></td>
+        <td><input type="button" value="+" onclick="clickNext()" /></td>
       </tr>
     </table>
-    </div>
     </td>
   </tr>
 </table>    
@@ -677,6 +675,22 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
                   </tbody></table>
               </td>       <!-- end angular coordinate column -->
   
+              <td></td>
+              <td>
+    <table>
+      <tr>
+        <td>&nbsp;</td>
+        <td><input type="button" class="RunStop" value="Run" onclick="clickRunStop()" /></td>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td><input type="button" value="-" onclick="clickPrev()" /></td>
+        <td><input type="button" value="Now" onclick="clickNow()" /></td>
+        <td><input type="button" value="+" onclick="clickNext()" /></td>
+      </tr>
+    </table>
+
+              </td>
               <td></td>
   
               <td>        <!-- begin ............ column -->
