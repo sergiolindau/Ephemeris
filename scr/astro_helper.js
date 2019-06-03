@@ -1,10 +1,4 @@
 var AngleMode = "dms";
-var RegExp_Float = /^\d+(\.\d*)?([eE][\+\-]?\d+)?$/;
-
-function $(id)
-{
-    return document.getElementById (id);
-}
 
 function HtmlRightAscension (ra, mode)
 {
@@ -101,7 +95,7 @@ function HtmlConstellation (eq)
 
 function ShowAngleFeedback (divName, value, editName)
 {
-    var isDMS = ($(editName).value.indexOf(":") >= 0);
+    var isDMS = ($$.i(editName).value.indexOf(":") >= 0);
     var feedback;
     
     if (isDMS) {
@@ -112,30 +106,30 @@ function ShowAngleFeedback (divName, value, editName)
         feedback = HtmlDeclination (value, "dms");
     }
     
-    $(divName).innerHTML = '&nbsp;=&nbsp;' + feedback;        
+    $$.i(divName).innerHTML = '&nbsp;=&nbsp;' + feedback;        
 }
 
 function CommitGeographicCoordinates()
 {
-    var lat = ParseAngle ($('GeoLat_Value').value);
-    var lon = ParseAngle ($('GeoLong_Value').value);
+    var lat = ParseAngle ($$.i('GeoLat_Value').value);
+    var lon = ParseAngle ($$.i('GeoLong_Value').value);
 
     if (lat == null) {
         alert ("The geographic latitude you have entered is not valid. It must be between 0 and 90 degrees.  You may enter it with a decimal fraction, or in ddd:mm:ss notation.");
-        $('GeoLat_Value').focus();
+        $$.i('GeoLat_Value').focus();
     }
     
     if (lon == null) {
         alert ("The geographic longitude you have entered is not valid. It must be between 0 and 180 degrees.  You may enter it with a decimal fraction, or in dd:mm:ss notation.");
-        $('GeoLong_Value').focus();
+        $$.i('GeoLong_Value').focus();
     }
     
     if ((lat != null) && (lon != null)) {
-        if ($('GeoLat_NS').selectedIndex == 1) {
+        if ($$.i('GeoLat_NS').selectedIndex == 1) {
             lat *= -1.0;
         }
         
-        if ($('GeoLong_EW').selectedIndex == 0) {
+        if ($$.i('GeoLong_EW').selectedIndex == 0) {
             lon *= -1.0;
         }            
     
@@ -154,23 +148,23 @@ function SaveGeographicCoordinates()
     if (CommitGeographicCoordinates()) {
         var expiration = 3650;  // 10 years
     
-        WriteCookie ("GeographicLatitudeValue",  $('GeoLat_Value').value,  expiration);
-        WriteCookie ("GeographicLongitudeValue", $('GeoLong_Value').value, expiration);
+        Cookie.write ("GeographicLatitudeValue",  $$.i('GeoLat_Value').value,  expiration);
+        Cookie.write ("GeographicLongitudeValue", $$.i('GeoLong_Value').value, expiration);
         
-        WriteCookie ("GeographicLatitudeDirection",  (($('GeoLat_NS') .selectedIndex == 0) ? "N" : "S"), expiration);
-        WriteCookie ("GeographicLongitudeDirection", (($('GeoLong_EW').selectedIndex == 0) ? "W" : "E"), expiration);
+        Cookie.write ("GeographicLatitudeDirection",  (($$.i('GeoLat_NS') .selectedIndex == 0) ? "N" : "S"), expiration);
+        Cookie.write ("GeographicLongitudeDirection", (($$.i('GeoLong_EW').selectedIndex == 0) ? "W" : "E"), expiration);
         
-        $('SaveButton').disabled = true;
+        $$.i('SaveButton').disabled = true;
     }
 }
 
 function LoadGeographicCoordinates()
 {
-    $('GeoLat_Value').value  = ReadCookie ("GeographicLatitudeValue",  "27.41305");
-    $('GeoLong_Value').value = ReadCookie ("GeographicLongitudeValue", "82.66034");
+    $$.i('GeoLat_Value').value  = Cookie.read ("GeographicLatitudeValue",  "27.41305");
+    $$.i('GeoLong_Value').value = Cookie.read ("GeographicLongitudeValue", "82.66034");
     
-    $('GeoLat_NS').selectedIndex  = ReadCookie("GeographicLatitudeDirection","N")  == "N" ? 0 : 1;
-    $('GeoLong_EW').selectedIndex = ReadCookie("GeographicLongitudeDirection","W") == "W" ? 0 : 1;
+    $$.i('GeoLat_NS').selectedIndex  = Cookie.read("GeographicLatitudeDirection","N")  == "N" ? 0 : 1;
+    $$.i('GeoLong_EW').selectedIndex = Cookie.read("GeographicLongitudeDirection","W") == "W" ? 0 : 1;
     
     CommitGeographicCoordinates();
 }
@@ -178,7 +172,7 @@ function LoadGeographicCoordinates()
 
 function OnGeoLatLongChange()
 {
-    $('SaveButton').disabled = false;
+    $$.i('SaveButton').disabled = false;
 }
 
 

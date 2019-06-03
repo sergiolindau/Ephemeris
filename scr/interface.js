@@ -21,7 +21,6 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
 /***********************************************************************/
-
 function pad(data,n,c) {
 	if (typeof(data)=='number') {
 		if (arguments.length>1) {

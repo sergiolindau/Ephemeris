@@ -22,9 +22,42 @@
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.
 /***********************************************************************/
-//https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Classes
-//https://www.digitalocean.com/community/tutorials/understanding-classes-in-javascript
-//https://www.w3schools.com/jsref/jsref_obj_date.asp
+
+
+/***********************************************************************
+ References
+ ==========
+https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference/Classes
+https://www.digitalocean.com/community/tutorials/understanding-classes-in-javascript
+https://www.w3schools.com/jsref/jsref_obj_date.asp
+/***********************************************************************/
+
+
+/***********************************************************************
+ DOM Helper
+/***********************************************************************/
+class $$ {
+	static i(i)	{ return document.getElementById(i) }
+	static n(n)	{ return document.getElementsByName(n) }
+	static c(c) { return document.getElementsByClassName(c) }
+	static t(n)	{ return document.getElementsByTagName(n) }
+	static tn(ns,n)	{ return document.getElementsByTagNameNS(ns,n) }
+}
+/***********************************************************************/
+
+
+/***********************************************************************
+ Common RegExp constants
+/***********************************************************************/
+const RegExp_Float = /^\d+(\.\d*)?([eE][\+\-]?\d+)?$/;
+/***********************************************************************/
+
+
+/***********************************************************************
+ JavaScript Point Object
+ Point class with support for 2D and 3D, cartesian and polar
+ Copyright (c) 2018 Sergio Lindau
+/***********************************************************************/
 class Point {
     constructor(x, y) {
         this.x = x;
@@ -38,9 +71,13 @@ class Point {
         return Math.sqrt(dx*dx + dy*dy);
     }
 }
+/***********************************************************************/
+
 
 /***********************************************************************
+ JavaScript Angle Object
  Angle object that abstracts representation
+ Copyright (c) 2018 Sergio Lindau
 ***********************************************************************/
 class Angle {
 	// Angle field get/set descriptors
@@ -54,13 +91,14 @@ class Angle {
 	static MSEC = 7;
 	static DEGSTR = 8;
 	static RADSTR = 9;
-	static SIN = 10;
-	static COS = 11;
-	static TAN = 12;
-	static ASIN = 13;
-	static ACOS = 14;
-	static ATAN = 15;
-	static ATAN2 = 16;
+	static STR = 10;
+	static SIN = 11;
+	static COS = 12;
+	static TAN = 13;
+	static ASIN = 14;
+	static ACOS = 15;
+	static ATAN = 16;
+	static ATAN2 = 17;
 	
 	static DEG_FROM_RAD = 180.0 / Math.PI;
 	static RAD_FROM_DEG = Math.PI / 180.0;
@@ -97,6 +135,7 @@ class Angle {
 	}
 /***********************************************************************/
 	get(field){
+		if (arguments<1) field = Angle.DEC;
 		switch(field) {
 			case Angle.DEC:
 				return this.dec;
@@ -128,7 +167,8 @@ class Angle {
 	}
 /***********************************************************************/
 	set(field, x, y){
-		if (arguments<2) field = Angle.DEC;
+		if ((arguments<2)&&(typeof(arguments[0]=='number'))) field = Angle.DEC;
+		if ((arguments<2)&&(typeof(arguments[0]=='string'))) field = Angle.STR;
 		switch(field) {
 			case Angle.DEC:
 				this.dec = x;
@@ -169,6 +209,7 @@ class Angle {
 /***********************************************************************/
 
 }
+/***********************************************************************/
 console.logAngle = function (angle){
 	console.log("get_dec(): "+angle.get_dec());
 	console.log("get_rad(): "+angle.get_rad());
@@ -181,6 +222,8 @@ console.logAngle = function (angle){
 	console.log("get_deg_str(): "+angle.get_deg_str());
 	console.log("===============================");
 }
+/***********************************************************************/
+
 
 /***********************************************************************
  Date object extensions for calendar and astronomy calculations
@@ -202,7 +245,6 @@ class DateTime {
    https://www.iana.org/time-zones
    http://tzdata-javascript.org/
    http://www.nuestrocalendario.info/
-   https://web.archive.org/web/20150324175305/
    http://www.staff.science.uu.nl/~gent0113/calendar/isocalendar_text4.htm
    http://stjarnhimlen.se/comp/time.html
    https://momentjs.com/timezone/docs/

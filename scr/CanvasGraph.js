@@ -20,7 +20,9 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
  THE SOFTWARE.*/
- 
+
+//https://instructobit.com/tutorial/90/Creating-line-graphs-with-Javascript-using-an-HTML-canvas
+
 var CanvasGraph = function(parent,id,width,height) {
 	this.parent = parent;
 	this.id = id;
