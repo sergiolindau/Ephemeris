@@ -794,60 +794,7 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
   </tr>
 </table>
 
-<h2>References</h2>
-<h4>Astronomy, calendar and correlated algorithms</h4>
-<ul>
-  <li><a href="http://www.iausofa.org/" rel="nofollow">SOFA - Standards of Fundamental Astronomy</a></li>
-  <li><a href="http://scienceworld.wolfram.com/astronomy/">Eric Weisstein's World of Astronomy</a></li>
-  <li><a href="http://cosinekitty.com/solar_system.html" target="_blank">Solar System Calculator</a>, <a href="http://cosinekitty.com/astro_calendar.html" target="_blank">Dynamic Astronomy Calendar</a> and <a href="http://cosinekitty.com/sky_view.html" target="_blank">Astronomy Sky View</a> - by <a href="http://cosinekitty.com/" target="_blank">Don Cross</a>.</li>
-  <li><a href="http://www.stjarnhimlen.se/comp/ppcomp.html" target="_blank">How to compute planetary positions</a>, <a href="http://www.stjarnhimlen.se/comp/tutorial.html" rel="nofollow">Computing planetary positions - a tutorial with worked examples</a>, <a href="http://www.stjarnhimlen.se/comp/riset.html">How to compute rise/set times and altitude above horizon</a> and  <a href="http://stjarnhimlen.se/comp/time.html" target="_blank">Time Scales</a> - by <a href="http://www.stjarnhimlen.se/" target="_blank">Paul Schlyter's</a>.</li>
-  <li><a href="http://www.stargazing.net/kepler/" target="_blank">Approximate astronomical positions</a> - by <a href="http://www.stargazing.net/kepler/kpb.html" target="_blank">Keith Burnett</a>.</li>
-  <li><a href="http://www.nuestrocalendario.info/" target="_blank">Nuestro calendario</a> - by <a href="https://es.wikipedia.org/wiki/Wenceslao_Segura_Gonz%C3%A1lez" target="_blank">Wenceslao Segura Gozáles</a></li>
-</ul>
-  <p><strong>NOAA</strong></p>
-  <ul>
-    <li><a href="http://www.noaa.gov/">National Oceanic and Atmospheric Administration  U.S. Department of Commerce</a></li>
-    <li><a href="http://www.swpc.noaa.gov/">Homepage  NOAA - NWS Space Weather Prediction center</a></li>
-    <li><a href="https://www.esrl.noaa.gov/gmd/grad/solcalc/azel.html">NOAA Solar Position Calculator</a></li>
-    <li><a href="https://www.esrl.noaa.gov/gmd/grad/solcalc/sunrise.html">NOAA ESRL Sunrise/Sunset Calculator</a></li>
-    <li><a href="https://www.esrl.noaa.gov/gmd/grad/solcalc/calcdetails.html">NOAA ESRL Solar Calculation Details</a></li>
-    <li><a href="http://www.analemma.com/Pages/framesPage.html">http://www.analemma.com/Pages/framesPage.html</a></li>
-  </ul>
-  <p><strong>NASA</strong></p>
-  <ul>
-    <li><a href="https://ssd.jpl.nasa.gov/?ephemerides">NASA - Ephemerides</a>
-      <ol>
-        <li><a href="https://ssd.jpl.nasa.gov/txt/aprx_pos_planets.pdf">Keplerian Elements for Approximate Positions of the Major Planets</a></li>
-        <li><a href="https://ssd.jpl.nasa.gov/txt/p_elem_t1.txt">Keplerian elements for 1800 AD to 2050 AD</a></li>
-        <li><a href="https://ssd.jpl.nasa.gov/txt/p_elem_t2.txt">Keplerian elements for 3000 BC to 3000 AD</a></li>
-      </ol>
-    </li>
-    <li><a href="https://nsidc.org/data/icesat/glas-date-conversion-tool/date_convert/">NASA - GLAS Date Conversion Tool</a></li>
-    <li><a href="https://cneos.jpl.nasa.gov/orbits/">NASA - Orbits</a></li>
-    <li><a href="https://pds.nasa.gov/">NASA - Welcome to the Planetary Data System</a></li>
-    <li><a href="ftp://ssd.jpl.nasa.gov/pub/">NASA - ftp://ssd.jpl.nasa.gov/pub/</a></li>
-    <li><a href="ftp://ssd.jpl.nasa.gov/pub/eph/planets/ioms/ExplSupplChap8.pdf">NASA - ftp://ssd.jpl.nasa.gov/pub/eph/planets/ioms/ExplSupplChap8.pdf</a>    </li>
-  </ul>
-  <h4>JavaScript</h4>
-<ul>
-  <li><a href="https://www.ecma-international.org/ecma-262/6.0/" target="_blank" rel="nofollow">ECMAScript® 2015 Language Specification</a></li>
-  <li><a href="https://www.w3schools.com/jsref/default.asp" target="_blank">w3schools.com - JavaScript and HTML DOM Reference</a></li>
-  <li><a href="https://www.w3schools.com/graphics/canvas_intro.asp" target="_blank">w3schools.com - HTML Canvas Tutorial</a></li>
-  <li><a href="https://developer.mozilla.org/pt-BR/docs/Web/JavaScript/Reference" target="_blank">MDN web doc moz://la - Referência Javascript</a></li>
-  <li><a href="http://tzdata-javascript.org/" target="_blank">tzdata-javascript</a></li>
-</ul>
-<h4>Books</h4>
-
-<p>Duffett-Smith, Peter<br />
-  Practical Astronomy with your calculator<br />
-  Cambridge University Press<br />
-  3rd edition 1988<br />
-  ISBN 0-521-35699-7</p>
-<p>Meeus, Jean<br />
-  Astronomical Algorithms<br />
-  Willmann-Bell<br />
-  1st English edition, 1991<br />
-  ISBN 0-943396-35-2</p>
+<iframe width="1080" height="796" src="file:///X:/Javascript%20Astronomy%20Algorithms/GitHub/scr/references.html"></iframe>
  
 <hr />
  <div id="TimeZoneContainer">  
@@ -910,6 +857,14 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
 
   </div>
 </div></div>
-
+<script language="javascript">
+	initLocationPanel();
+	initDateTimePanel();
+	addPanelRefreshAction(updateSunPanel);
+	addPanelRefreshAction(updateLocationPanel);
+	clickNow();
+	clickRunStop();
+	document.write("<div>"+MITLicense.template("2017","Sergio Lindau",MITLicense.HTML)+"</div>");
+</script>
 </body>
 </html>
