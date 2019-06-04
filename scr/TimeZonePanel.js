@@ -1,8 +1,8 @@
 function tzdataongetlist(tz){
-	var timezone_select = document.getElementById("select_timezone_menu");
+	var timezone_select = $.$.i("select_timezone_menu");
 	var option;
 	for(var i=0;i<tz.zonelist.length;i++){
-		option = document.createElement('option');
+		option = $.create('option');
 		option.innerHTML = tz.zonelist[i];
 		timezone_select.add(option);
 	}
@@ -11,19 +11,19 @@ function tzdataongetlist(tz){
 };
 
 function tzdataongetzone(tz){
-	document.getElementById("test_tz").innerHTML = JSON.stringify(tz.timezones);
+	$.$.i("test_tz").innerHTML = JSON.stringify(tz.timezones);
 };
 
 var tzdata = new TimeZone(null,tzdataongetlist,tzdataongetzone,"America/Sao_Paulo");
 tzdata.getzonelist();
 
 function timezoneMenuChange(){
-	tzdata.settimezone(document.getElementById("select_timezone_menu").selectedIndex);
+	tzdata.settimezone($.$.i("select_timezone_menu").selectedIndex);
 }
 
 function makeTimeZoneMenu(container){
-	container = document.getElementById(container);
-	var timezone_select = document.createElement('select');
+	container = $.$.i(container);
+	var timezone_select = $.create('select');
 	timezone_select.setAttribute('id',"select_timezone_menu");
 	container.innerHTML = "";
 	container.appendChild(timezone_select);

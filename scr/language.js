@@ -59,7 +59,7 @@ function addLanguageChangeHandle(handle){
 }
 
 function languageMenuChange(){
-	language_code_index = document.getElementById("select_language_menu").selectedIndex;
+	language_code_index = $.$.i('select_language_menu').selectedIndex;
 	language_code = languageCodeArray[language_code_index];
 	for(i=0;i<language_code_change_handle.length;i++) language_code_change_handle[i](language_code);
 }
@@ -69,7 +69,7 @@ function languageMenuChange(){
 ***********************************************************************/
 function makeTranslation(container,attr,code,description_set) {
 	var args = container.split("_");//
-	container = document.getElementById(container);
+	container = $.$.i(container);
 	var ttype = args[0].toLowerCase();
 	var element,temp, cclass;
 	if (ttype=="translation") {
@@ -79,7 +79,7 @@ function makeTranslation(container,attr,code,description_set) {
 		container.innerHTML = translationTable[args[1]][language_code];
 	}
 	else if (ttype=="glossary") {
-			element = document.createElement('a');
+			element = $.create('a');
 			element.setAttribute('class',args[1]);
 			element.setAttribute('href',glossaryTable[args[1]][language_code][1]);
 			element.setAttribute('target',"_blank");
@@ -91,13 +91,13 @@ function makeTranslation(container,attr,code,description_set) {
 	else if (ttype=="select") {
 		var prefix = args[1].toLowerCase();
 		if (prefix=="language") {
-			var language_select = document.createElement('select');
+			var language_select = $.create('select');
 			language_select.setAttribute('id',"select_language_menu");
 			container.innerHTML = "";
 			container.appendChild(language_select);
 			var option;
 			for(var i=0;i<languageDescriptionArray.length;i++){
-				option = document.createElement('option');
+				option = $.create('option');
 				option.innerHTML = languageDescriptionArray[i];
 				language_select.add(option);
 			}
@@ -138,7 +138,7 @@ function translationHandle() {
 	var elements,tab,i,j,k;
 	for(i in translationTable) {
 		try {
-			elements = document.getElementsByClassName(i);
+			elements = $.$.c(i);
 			for(j=0; j<elements.length; j++) {
 				elements[j].innerHTML = translationTable[i][language_code];
 			}
@@ -147,7 +147,7 @@ function translationHandle() {
 	}
 	for(i in glossaryTable) {
 		try {
-			elements = document.getElementsByClassName(i);
+			elements = $.$.c(i);
 			for(j=0; j<elements.length; j++) {
 				elements[j].innerHTML = glossaryTable[i][language_code][0];
 				elements[j].href = glossaryTable[i][language_code][1];
@@ -158,7 +158,7 @@ function translationHandle() {
 	}
 	for(k=0;k<select_prefix.length;k++){
 		try {
-			elements = document.getElementsByClassName(select_prefix[k]+"Menu");
+			elements = $.$.c(select_prefix[k]+"Menu");
 			tab = eval(select_prefix[k]+"Table[language_code][0]");
 			for(var i=0; i<elements.length; i++) {
 				for(var j=0; j<tab.length; j++) {

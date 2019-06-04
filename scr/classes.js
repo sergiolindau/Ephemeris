@@ -70,9 +70,9 @@ class $ {
 			return _($.$.tn(ns,dest),source,prop);
 		}
 	};
-	static create(tag) { document.createElement(tag) }
+	static create(tag) { return document.createElement(tag) }
 	static select = {
-		addOption : function(sel, opt) {
+		addOptions : function(sel, opt) {
 			sel = $.$.i(sel);
 			var option;
 			for (var k=0;i<opt.length;k++) {

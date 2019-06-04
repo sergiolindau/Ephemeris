@@ -62,11 +62,11 @@ function initDateTimePanel() {
 var dateUTC = new DateTimeTick(), dateTAI, dateTT, dateTCG;
 
 dateUTC.setStartAction(function(){
-	document.getElementById("RunStop").value = "Stop";
+	$.$.i("RunStop").value = "Stop";
 });
 
 dateUTC.setStopAction(
-	function(){document.getElementById("RunStop").value = "Run";
+	function(){$.$.i("RunStop").value = "Run";
 });
 
 //alert(dateUTC.oldMethods.getFullYear());
@@ -115,66 +115,66 @@ function addPanelRefreshAction(func){
 }
 
 function updateDateTimePanel() {
-	document.getElementById("UTCISOString").innerHTML = dateUTC.toISOString();
-	document.getElementById("UTCString").innerHTML = dateUTC.toUTCString();
-	document.getElementById("UTCYear").value = Math.abs(dateUTC.getUTCFullYear());
-	document.getElementById("UTCEra").selectedIndex = (dateUTC.getUTCFullYear()<0)?0:1;
-	document.getElementById("UTCLeapYear").checked = dateUTC.isUTCLeapYear();
-	document.getElementById("UTCMonth").selectedIndex = dateUTC.getUTCMonth();
-	setSelectDate(document.getElementById("UTCDate"),dateUTC.getUTCMonthDays());
-	document.getElementById("UTCDate").value = dateUTC.getUTCDate();
-	document.getElementById("UTCDay").selectedIndex = dateUTC.getUTCDay();
-	document.getElementById("UTCHours").value = dateUTC.getUTCHours();
-	document.getElementById("UTCMinutes").value = dateUTC.getUTCMinutes();
-	document.getElementById("UTCSeconds").value = dateUTC.getUTCSeconds();
-	document.getElementById("UTCMilliseconds").value = DateTime.pad3(dateUTC.getUTCMilliseconds());
+	$.$.i("UTCISOString").innerHTML = dateUTC.toISOString();
+	$.$.i("UTCString").innerHTML = dateUTC.toUTCString();
+	$.$.i("UTCYear").value = Math.abs(dateUTC.getUTCFullYear());
+	$.$.i("UTCEra").selectedIndex = (dateUTC.getUTCFullYear()<0)?0:1;
+	$.$.i("UTCLeapYear").checked = dateUTC.isUTCLeapYear();
+	$.$.i("UTCMonth").selectedIndex = dateUTC.getUTCMonth();
+	setSelectDate($.$.i("UTCDate"),dateUTC.getUTCMonthDays());
+	$.$.i("UTCDate").value = dateUTC.getUTCDate();
+	$.$.i("UTCDay").selectedIndex = dateUTC.getUTCDay();
+	$.$.i("UTCHours").value = dateUTC.getUTCHours();
+	$.$.i("UTCMinutes").value = dateUTC.getUTCMinutes();
+	$.$.i("UTCSeconds").value = dateUTC.getUTCSeconds();
+	$.$.i("UTCMilliseconds").value = DateTime.pad3(dateUTC.getUTCMilliseconds());
 
-	document.getElementById("LocalString").innerHTML = dateUTC.toString();
-	document.getElementById("LocalYear").value = Math.abs(dateUTC.getFullYear());
-	document.getElementById("LocalEra").selectedIndex = (dateUTC.getFullYear()<0)?0:1;
-	document.getElementById("LocalLeapYear").checked = dateUTC.isLocalLeapYear();
-	document.getElementById("LocalMonth").selectedIndex = dateUTC.getMonth();
-	setSelectDate(document.getElementById("LocalDate"),dateUTC.getLocalMonthDays());
-	document.getElementById("LocalDate").value = dateUTC.getDate();
-	document.getElementById("LocalDay").selectedIndex = dateUTC.getLocalDay();
-	document.getElementById("LocalHours").value = dateUTC.getHours();
-	document.getElementById("LocalMinutes").value = dateUTC.getMinutes();
-	document.getElementById("LocalSeconds").value = dateUTC.getSeconds();
-	document.getElementById("LocalMilliseconds").value = DateTime.pad3(dateUTC.getMilliseconds());
-	document.getElementById("DaylightSavingTime").checked = dateUTC.isDST();
-	document.getElementById("DaylightSavingTime").disabled = dateUTC.getIsLocal();
-	document.getElementById("TimezoneAdjust").value = dateUTC.getTimezoneOffset();
+	$.$.i("LocalString").innerHTML = dateUTC.toString();
+	$.$.i("LocalYear").value = Math.abs(dateUTC.getFullYear());
+	$.$.i("LocalEra").selectedIndex = (dateUTC.getFullYear()<0)?0:1;
+	$.$.i("LocalLeapYear").checked = dateUTC.isLocalLeapYear();
+	$.$.i("LocalMonth").selectedIndex = dateUTC.getMonth();
+	setSelectDate($.$.i("LocalDate"),dateUTC.getLocalMonthDays());
+	$.$.i("LocalDate").value = dateUTC.getDate();
+	$.$.i("LocalDay").selectedIndex = dateUTC.getLocalDay();
+	$.$.i("LocalHours").value = dateUTC.getHours();
+	$.$.i("LocalMinutes").value = dateUTC.getMinutes();
+	$.$.i("LocalSeconds").value = dateUTC.getSeconds();
+	$.$.i("LocalMilliseconds").value = DateTime.pad3(dateUTC.getMilliseconds());
+	$.$.i("DaylightSavingTime").checked = dateUTC.isDST();
+	$.$.i("DaylightSavingTime").disabled = dateUTC.getIsLocal();
+	$.$.i("TimezoneAdjust").value = dateUTC.getTimezoneOffset();
 	
-	document.getElementById("JulianDate").value = dateUTC.getJulianDate();
-	document.getElementById("ModifiedJulianDate").value = dateUTC.getModifiedJulianDate();
-	document.getElementById("JulianDay").value = dateUTC.getJulianDay();
-	document.getElementById("UT").value = dateUTC.getUT();
-	document.getElementById("Epoch").value = dateUTC.getEpoch();
-	document.getElementById("JulianCentury").value = dateUTC.getJulianCentury();
+	$.$.i("JulianDate").value = dateUTC.getJulianDate();
+	$.$.i("ModifiedJulianDate").value = dateUTC.getModifiedJulianDate();
+	$.$.i("JulianDay").value = dateUTC.getJulianDay();
+	$.$.i("UT").value = dateUTC.getUT();
+	$.$.i("Epoch").value = dateUTC.getEpoch();
+	$.$.i("JulianCentury").value = dateUTC.getJulianCentury();
 
-	document.getElementById("TAIISOString").innerHTML = dateTAI.toJSON();
-	document.getElementById("TAIJulianDate").value = dateTAI.getJulianDate();
-	document.getElementById("TAIModifiedJulianDate").value = dateTAI.getModifiedJulianDate();
-	document.getElementById("TAIJulianDay").value = dateTAI.getJulianDay();
-	document.getElementById("TAIUT").value = dateTAI.getUT();
-	document.getElementById("TAIEpoch").value = dateTAI.getEpoch();
-	document.getElementById("TAIJulianCentury").value = dateTAI.getJulianCentury();
+	$.$.i("TAIISOString").innerHTML = dateTAI.toJSON();
+	$.$.i("TAIJulianDate").value = dateTAI.getJulianDate();
+	$.$.i("TAIModifiedJulianDate").value = dateTAI.getModifiedJulianDate();
+	$.$.i("TAIJulianDay").value = dateTAI.getJulianDay();
+	$.$.i("TAIUT").value = dateTAI.getUT();
+	$.$.i("TAIEpoch").value = dateTAI.getEpoch();
+	$.$.i("TAIJulianCentury").value = dateTAI.getJulianCentury();
 
-	document.getElementById("TTISOString").innerHTML = dateTT.toJSON();
-	document.getElementById("TTJulianDate").value = dateTT.getJulianDate();
-	document.getElementById("TTModifiedJulianDate").value = dateTT.getModifiedJulianDate();
-	document.getElementById("TTJulianDay").value = dateTT.getJulianDay();
-	document.getElementById("TTUT").value = dateTT.getUT();
-	document.getElementById("TTEpoch").value = dateTT.getEpoch();
-	document.getElementById("TTJulianCentury").value = dateTT.getJulianCentury();
+	$.$.i("TTISOString").innerHTML = dateTT.toJSON();
+	$.$.i("TTJulianDate").value = dateTT.getJulianDate();
+	$.$.i("TTModifiedJulianDate").value = dateTT.getModifiedJulianDate();
+	$.$.i("TTJulianDay").value = dateTT.getJulianDay();
+	$.$.i("TTUT").value = dateTT.getUT();
+	$.$.i("TTEpoch").value = dateTT.getEpoch();
+	$.$.i("TTJulianCentury").value = dateTT.getJulianCentury();
 
-	document.getElementById("TCGISOString").innerHTML = dateTCG.toJSON();
-	document.getElementById("TCGJulianDate").value = dateTCG.getJulianDate();
-	document.getElementById("TCGModifiedJulianDate").value = dateTCG.getModifiedJulianDate();
-	document.getElementById("TCGJulianDay").value = dateTCG.getJulianDay();
-	document.getElementById("TCGUT").value = dateTCG.getUT();
-	document.getElementById("TCGEpoch").value = dateTCG.getEpoch();
-	document.getElementById("TCGJulianCentury").value = dateTCG.getJulianCentury();
+	$.$.i("TCGISOString").innerHTML = dateTCG.toJSON();
+	$.$.i("TCGJulianDate").value = dateTCG.getJulianDate();
+	$.$.i("TCGModifiedJulianDate").value = dateTCG.getModifiedJulianDate();
+	$.$.i("TCGJulianDay").value = dateTCG.getJulianDay();
+	$.$.i("TCGUT").value = dateTCG.getUT();
+	$.$.i("TCGEpoch").value = dateTCG.getEpoch();
+	$.$.i("TCGJulianCentury").value = dateTCG.getJulianCentury();
 
 	for(var i=0;i<panelRefreshActions.length;i++){
 		panelRefreshActions[i]();
@@ -182,22 +182,22 @@ function updateDateTimePanel() {
 }
 
 function getStepPanelValue() {
-		if (document.getElementById("sYear").checked) {
+		if ($.$.i("sYear").checked) {
 			return 6;
 		}
-		else if (document.getElementById("sMonth").checked) {
+		else if ($.$.i("sMonth").checked) {
 			return 5;
 		}
-		else if (document.getElementById("sDay").checked) {
+		else if ($.$.i("sDay").checked) {
 			return 4;
 		}
-		else if (document.getElementById("sHours").checked) {
+		else if ($.$.i("sHours").checked) {
 			return 3;
 		}
-		else if (document.getElementById("sMinutes").checked) {
+		else if ($.$.i("sMinutes").checked) {
 			return 2;
 		}
-		else if (document.getElementById("sSeconds").checked) {
+		else if ($.$.i("sSeconds").checked) {
 			return 1;
 		}
 		else {
@@ -236,43 +236,43 @@ function clickSetRunModeNow(isNow) {
 ***********************************************************************/
 function changeUTCYear() {
 	dateUTC.stop();
-	dateUTC.setUTCFullYear(document.getElementById("UTCYear").value);
+	dateUTC.setUTCFullYear($.$.i("UTCYear").value);
 	panelUpdate(dateUTC);
 }
 function changeUTCEra() {
 	dateUTC.stop();
 	var d = Math.abs(dateUTC.getUTCFullYear());
-	dateUTC.setUTCFullYear((document.getElementById("UTCEra").selectedIndex?1:-1)*d);
+	dateUTC.setUTCFullYear(($.$.i("UTCEra").selectedIndex?1:-1)*d);
 	panelUpdate(dateUTC);
 }
 function changeUTCMonth() {
 	dateUTC.stop();
-	dateUTC.setUTCMonth(document.getElementById("UTCMonth").selectedIndex);
+	dateUTC.setUTCMonth($.$.i("UTCMonth").selectedIndex);
 	panelUpdate(dateUTC);
 }
 function changeUTCDate() {
 	dateUTC.stop();
-	dateUTC.setUTCDate(document.getElementById("UTCDate").selectedIndex+1);
+	dateUTC.setUTCDate($.$.i("UTCDate").selectedIndex+1);
 	panelUpdate(dateUTC);
 }
 function changeUTCHours() {
 	dateUTC.stop();
-	dateUTC.setUTCHours(document.getElementById("UTCHours").selectedIndex);
+	dateUTC.setUTCHours($.$.i("UTCHours").selectedIndex);
 	panelUpdate(dateUTC);
 }
 function changeUTCMinutes() {
 	dateUTC.stop();
-	dateUTC.setUTCMinutes(document.getElementById("UTCMinutes").selectedIndex);
+	dateUTC.setUTCMinutes($.$.i("UTCMinutes").selectedIndex);
 	panelUpdate(dateUTC);
 }
 function changeUTCSeconds() {
 	dateUTC.stop();
-	dateUTC.setUTCSeconds(document.getElementById("UTCSeconds").selectedIndex);
+	dateUTC.setUTCSeconds($.$.i("UTCSeconds").selectedIndex);
 	panelUpdate(dateUTC);
 }
 function changeUTCMilliseconds() {
 	dateUTC.stop();
-	dateUTC.setUTCMilliseconds(document.getElementById("UTCMilliseconds").value);
+	dateUTC.setUTCMilliseconds($.$.i("UTCMilliseconds").value);
 	panelUpdate(dateUTC);
 }
 
@@ -281,47 +281,47 @@ function changeUTCMilliseconds() {
 ***********************************************************************/
 function changeLocalYear() {
 	dateUTC.stop();
-	dateUTC.setFullYear(document.getElementById("LocalYear").value);
+	dateUTC.setFullYear($.$.i("LocalYear").value);
 	panelUpdate(dateUTC);
 }
 function changeLocalEra() {
 	dateUTC.stop();
 	var d = Math.abs(dateUTC.getLocalFullYear());
-	dateUTC.setFullYear((document.getElementById("LocalEra").selectedIndex?1:-1)*d);
+	dateUTC.setFullYear(($.$.i("LocalEra").selectedIndex?1:-1)*d);
 	panelUpdate(dateUTC);
 }
 function changeLocalMonth() {
 	dateUTC.stop();
-	dateUTC.setMonth(document.getElementById("LocalMonth").selectedIndex);
+	dateUTC.setMonth($.$.i("LocalMonth").selectedIndex);
 	panelUpdate(dateUTC);
 }
 function changeLocalDate() {
 	dateUTC.stop();
-	dateUTC.setDate(document.getElementById("LocalDate").selectedIndex+1);
+	dateUTC.setDate($.$.i("LocalDate").selectedIndex+1);
 	panelUpdate(dateUTC);
 }
 function changeLocalHours() {
 	dateUTC.stop();
-	dateUTC.setHours(document.getElementById("LocalHours").selectedIndex);
+	dateUTC.setHours($.$.i("LocalHours").selectedIndex);
 	panelUpdate(dateUTC);
 }
 function changeLocalMinutes() {
 	dateUTC.stop();
-	dateUTC.setMinutes(document.getElementById("LocalMinutes").selectedIndex);
+	dateUTC.setMinutes($.$.i("LocalMinutes").selectedIndex);
 	panelUpdate(dateUTC);
 }
 function changeLocalSeconds() {
 	dateUTC.stop();
-	dateUTC.setSeconds(document.getElementById("LocalSeconds").selectedIndex);
+	dateUTC.setSeconds($.$.i("LocalSeconds").selectedIndex);
 	panelUpdate(dateUTC);
 }
 function changeLocalMilliseconds() {
 	dateUTC.stop();
-	dateUTC.setMilliseconds(document.getElementById("LocalMilliseconds").value);
+	dateUTC.setMilliseconds($.$.i("LocalMilliseconds").value);
 	panelUpdate(dateUTC);
 }
 function changeTZAdjust() {
-	dateUTC.setLocalTZOffset(parseInt(document.getElementById("TimezoneAdjust").value));
+	dateUTC.setLocalTZOffset(parseInt($.$.i("TimezoneAdjust").value));
 	panelUpdate(dateUTC);
 }
 function focusTZAdjust() {
@@ -329,7 +329,7 @@ function focusTZAdjust() {
 }
 function changeDaylightSavingTime() {
 	dateUTC.stop();
-	dateUTC.setDSTOffset(document.getElementById("DaylightSavingTime").checked?60:0);
+	dateUTC.setDSTOffset($.$.i("DaylightSavingTime").checked?60:0);
 	panelUpdate(dateUTC);
 }
 /***********************************************************************
@@ -337,32 +337,32 @@ function changeDaylightSavingTime() {
 ***********************************************************************/
 function changeJulianDate() {
 	dateUTC.stop();
-	dateUTC.setJulianDate(document.getElementById("JulianDate").value);
+	dateUTC.setJulianDate($.$.i("JulianDate").value);
 	panelUpdate(dateUTC);
 }
 function changeModifiedJulianDate() {
 	dateUTC.stop();
-	dateUTC.setModifiedJulianDate(document.getElementById("ModifiedJulianDate").value);
+	dateUTC.setModifiedJulianDate($.$.i("ModifiedJulianDate").value);
 	panelUpdate(dateUTC);
 }
 function changeJulianDay() {
 	dateUTC.stop();
-	dateUTC.setJulianDay(document.getElementById("JulianDay").value);
+	dateUTC.setJulianDay($.$.i("JulianDay").value);
 	panelUpdate(dateUTC);
 }
 function changeUT() {
 	dateUTC.stop();
-	dateUTC.setUT(document.getElementById("UT").value);
+	dateUTC.setUT($.$.i("UT").value);
 	panelUpdate(dateUTC);
 }
 function changeEpoch() {
 	dateUTC.stop();
-	dateUTC.setEpoch(document.getElementById("Epoch").value);
+	dateUTC.setEpoch($.$.i("Epoch").value);
 	panelUpdate(dateUTC);
 }
 function changeJulianCentury() {
 	dateUTC.stop();
-	dateUTC.setJulianCentury(document.getElementById("JulianCentury").value);
+	dateUTC.setJulianCentury($.$.i("JulianCentury").value);
 	panelUpdate(dateUTC);
 }
 
@@ -371,37 +371,37 @@ function changeJulianCentury() {
 ***********************************************************************/
 function changeTAIJulianDate() {
 	dateUTC.stop();
-	dateTAI.setJulianDate(document.getElementById("TAIJulianDate").value);
+	dateTAI.setJulianDate($.$.i("TAIJulianDate").value);
 	setFromTAI();
 	updateDateTimePanel();
 }
 function changeTAIModifiedJulianDate() {
 	dateUTC.stop();
-	dateTAI.setModifiedJulianDate(document.getElementById("TAIModifiedJulianDate").value);
+	dateTAI.setModifiedJulianDate($.$.i("TAIModifiedJulianDate").value);
 	setFromTAI();
 	updateDateTimePanel();
 }
 function changeTAIJulianDay() {
 	dateUTC.stop();
-	dateTAI.setJulianDay(document.getElementById("TAIJulianDay").value);
+	dateTAI.setJulianDay($.$.i("TAIJulianDay").value);
 	setFromTAI();
 	updateDateTimePanel();
 }
 function changeTAIUT() {
 	dateUTC.stop();
-	dateTAI.setUT(document.getElementById("TAIUT").value);
+	dateTAI.setUT($.$.i("TAIUT").value);
 	setFromTAI();
 	updateDateTimePanel();
 }
 function changeTAIEpoch() {
 	dateUTC.stop();
-	dateTAI.setEpoch(document.getElementById("TAIEpoch").value);
+	dateTAI.setEpoch($.$.i("TAIEpoch").value);
 	setFromTAI();
 	updateDateTimePanel();
 }
 function changeTAIJulianCentury() {
 	dateUTC.stop();
-	dateTAI.setJulianCentury(document.getElementById("TAIJulianCentury").value);
+	dateTAI.setJulianCentury($.$.i("TAIJulianCentury").value);
 	setFromTAI();
 	updateDateTimePanel();
 }
@@ -411,37 +411,37 @@ function changeTAIJulianCentury() {
 ***********************************************************************/
 function changeTTJulianDate() {
 	dateUTC.stop();
-	dateTT.setJulianDate(document.getElementById("TTJulianDate").value);
+	dateTT.setJulianDate($.$.i("TTJulianDate").value);
 	setFromTT();
 	updateDateTimePanel();
 }
 function changeTTModifiedJulianDate() {
 	dateUTC.stop();
-	dateTT.setModifiedJulianDate(document.getElementById("TTModifiedJulianDate").value);
+	dateTT.setModifiedJulianDate($.$.i("TTModifiedJulianDate").value);
 	setFromTT();
 	updateDateTimePanel();
 }
 function changeTTJulianDay() {
 	dateUTC.stop();
-	dateTT.setJulianDay(document.getElementById("TTJulianDay").value);
+	dateTT.setJulianDay($.$.i("TTJulianDay").value);
 	setFromTT();
 	updateDateTimePanel();
 }
 function changeTTUT() {
 	dateUTC.stop();
-	dateTT.setUT(document.getElementById("TTUT").value);
+	dateTT.setUT($.$.i("TTUT").value);
 	setFromTT();
 	updateDateTimePanel();
 }
 function changeTTEpoch() {
 	dateUTC.stop();
-	dateTT.setEpoch(document.getElementById("TTEpoch").value);
+	dateTT.setEpoch($.$.i("TTEpoch").value);
 	setFromTT();
 	updateDateTimePanel();
 }
 function changeTTJulianCentury() {
 	dateUTC.stop();
-	dateTT.setJulianCentury(document.getElementById("TTJulianCentury").value);
+	dateTT.setJulianCentury($.$.i("TTJulianCentury").value);
 	setFromTT();
 	updateDateTimePanel();
 }
@@ -451,37 +451,37 @@ function changeTTJulianCentury() {
 ***********************************************************************/
 function changeTCGJulianDate() {
 	dateUTC.stop();
-	dateTCG.setJulianDate(document.getElementById("TCGJulianDate").value);
+	dateTCG.setJulianDate($.$.i("TCGJulianDate").value);
 	setFromTCG();
 	updateDateTimePanel();
 }
 function changeTCGModifiedJulianDate() {
 	dateUTC.stop();
-	dateTCG.setModifiedJulianDate(document.getElementById("TCGModifiedJulianDate").value);
+	dateTCG.setModifiedJulianDate($.$.i("TCGModifiedJulianDate").value);
 	setFromTCG();
 	updateDateTimePanel();
 }
 function changeTCGJulianDay() {
 	dateUTC.stop();
-	dateTCG.setJulianDay(document.getElementById("TCGJulianDay").value);
+	dateTCG.setJulianDay($.$.i("TCGJulianDay").value);
 	setFromTCG();
 	updateDateTimePanel();
 }
 function changeTCGUT() {
 	dateUTC.stop();
-	dateTCG.setUT(document.getElementById("TCGUT").value);
+	dateTCG.setUT($.$.i("TCGUT").value);
 	setFromTCG();
 	updateDateTimePanel();
 }
 function changeTCGEpoch() {
 	dateUTC.stop();
-	dateTCG.setEpoch(document.getElementById("TCGEpoch").value);
+	dateTCG.setEpoch($.$.i("TCGEpoch").value);
 	setFromTCG();
 	updateDateTimePanel();
 }
 function changeTCGJulianCentury() {
 	dateUTC.stop();
-	dateTCG.setJulianCentury(document.getElementById("TCGJulianCentury").value);
+	dateTCG.setJulianCentury($.$.i("TCGJulianCentury").value);
 	setFromTCG();
 	updateDateTimePanel();
 }

@@ -659,4 +659,5 @@ entry3: {
 //https://fr.wikipedia.org/wiki/Syst%C3%A8me_de_coordonn%C3%A9es_c%C3%A9lestes
 //https://aa.usno.navy.mil/faq/docs/TT.php
 //http://asa.usno.navy.mil/SecM/Glossary.html
+//http://www.if.ufrgs.br/~fatima/fis2005/arquivos/eqtempo.htm
 };

@@ -28,15 +28,15 @@ var mylocation = {lat: new Angle(0),lng: new Angle(0)};
 var TheLocation = new GeoLocation();
 /***********************************************************************/
 function updateCoordSelect(axis) {
-	document.getElementById(axis+"deg").selectedIndex = mylocation[axis].get(Angle.DEG);
-	document.getElementById(axis+"min").selectedIndex = mylocation[axis].get(Angle.MIN);
-	document.getElementById(axis+"sec").selectedIndex = mylocation[axis].get(Angle.SEC);
-	document.getElementById(axis+"dir").selectedIndex = mylocation[axis].get(Angle.DIR);
+	$.$.i(axis+"deg").selectedIndex = mylocation[axis].get(Angle.DEG);
+	$.$.i(axis+"min").selectedIndex = mylocation[axis].get(Angle.MIN);
+	$.$.i(axis+"sec").selectedIndex = mylocation[axis].get(Angle.SEC);
+	$.$.i(axis+"dir").selectedIndex = mylocation[axis].get(Angle.DIR);
 }
 /***********************************************************************/
 function updateLocationPanel() {
-	document.getElementById("isLocationResponse").checked  = TheLocation.isLocationResponse();
-	document.getElementById("isLocationResponseWaiting").checked  = TheLocation.isLocationResponseWaiting();
+	$.$.i("isLocationResponse").checked  = TheLocation.isLocationResponse();
+	$.$.i("isLocationResponseWaiting").checked  = TheLocation.isLocationResponseWaiting();
 }
 /***********************************************************************/
 TheLocation.onset = function(pos){ 
@@ -46,8 +46,8 @@ TheLocation.onset = function(pos){
 	updateCoordSelect("lat");
 	updateCoordSelect("lng");
 
-	document.getElementById("latdec").value = mylocation.lat.get(Angle.DEC);
-	document.getElementById("lngdec").value = mylocation.lng.get(Angle.DEC);
+	$.$.i("latdec").value = mylocation.lat.get(Angle.DEC);
+	$.$.i("lngdec").value = mylocation.lng.get(Angle.DEC);
 };
 /***********************************************************************/
 function clickGetLocation(){
@@ -57,12 +57,12 @@ function clickGetLocation(){
 /***********************************************************************/
 function changeCoordElement(axis,field) {
 	if (field=="dec"){
-		mylocation[axis].set(parseFloat(Angle.DEC, document.getElementById(axis+field).value));
+		mylocation[axis].set(Angle.DEC, parseFloat($.$.i(axis+field).value));
 		updateCoordSelect(axis);
 	}
 	else {
-		mylocation[axis].set(eval("Angle."+field.toUpperCase()), document.getElementById(axis+field).selectedIndex);
-		document.getElementById(axis+"dec").value = mylocation[axis].get(Angle.DEC);
+		mylocation[axis].set(eval("Angle."+field.toUpperCase()), $.$.i(axis+field).selectedIndex);
+		$.$.i(axis+"dec").value = mylocation[axis].get(Angle.DEC);
 	}
 	TheLocation.setPositionAngle(mylocation);
 }
