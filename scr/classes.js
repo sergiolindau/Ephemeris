@@ -126,19 +126,25 @@ class Angle {
 	static SIG = 2;
 	static DIR = 3;
 	static DEG = 4;
-	static MIN = 5;
-	static SEC = 6;
-	static MSEC = 7;
-	static DEGSTR = 8;
-	static RADSTR = 9;
-	static STR = 10;
-	static SIN = 11;
-	static COS = 12;
-	static TAN = 13;
-	static ASIN = 14;
-	static ACOS = 15;
-	static ATAN = 16;
-	static ATAN2 = 17;
+	static HOURS = 5;
+	static HOUR = 6;
+	static MIN = 7;
+	static HMIN = 8;
+	static SEC = 9;
+	static HSEC = 10;
+	static MSEC = 11;
+	static HMSEC = 12;
+	static DEGSTR = 13;
+	static RADSTR = 14;
+	static STR = 15;
+	static SIN = 16;
+	static COS = 17;
+	static TAN = 18;
+	static ASIN = 19;
+	static ACOS = 20;
+	static ATAN = 21;
+	static ATAN2 = 22;
+	static DATE = 23;
 	
 	static DEG_FROM_RAD = 180.0 / Math.PI;
 	static RAD_FROM_DEG = Math.PI / 180.0;
@@ -162,12 +168,12 @@ class Angle {
 		}
     }
 /***********************************************************************/
-	minute(){
-		return Math.abs(~~((this.dec-~~this.dec)*60))+~~(this.second()/60);
+	_minute(fraction){
+		return Math.abs(~~(fraction*60))+~~(this._second(this.dec-~~this.dec)/60);
 	}
 /***********************************************************************/
-	second(){
-		return Math.abs(Math.round10(((this.dec-~~this.dec) - ((~~((this.dec-~~this.dec)*60)))/60)*3600,-9));
+	_second(fraction){
+		return Math.abs(Math.round10((fraction - (~~(fraction*60))/60)*3600,-9));
 	}
 /***********************************************************************/
 	set_sigdegminsec(sig,deg,min,sec){
@@ -186,13 +192,23 @@ class Angle {
 			case Angle.DIR:
 				return (this.dec<0)?1:0;
 			case Angle.DEG:
-				return Math.abs(~~this.dec)+~~(this.minute()/60);
+				return Math.abs(~~this.dec)+~~(this._minute(this.dec-~~this.dec)/60);
+			case Angle.HOURS:
+				return Math.abs(this.dec/15);
+			case Angle.HOUR:
+				return Math.abs(~~this.dec/15)+~~(_minute(this.dec/15-~~(this.dec/15))/60);
 			case Angle.MIN:
-				return this.minute()%60;
+				return this._minute(this.dec-~~this.dec)%60;
+			case Angle.HMIN:
+				return this._minute(this.dec/15-~~(this.dec/15))%60;
 			case Angle.SEC:
-				return this.second()%60;
+				return this._second(this.dec-~~this.dec)%60;
+			case Angle.HSEC:
+				return this._second(this.dec/15-~~(this.dec/15))%60;
 			case Angle.MSEC:
-				return (this.second()%60)*1e-3;
+				return (this._second(this.dec-~~this.dec)%60)*1e-3;
+			case Angle.HMSEC:
+				return (this._second(this.dec/15-~~(this.dec/15))%60)*1e-3;
 			case Angle.DEGSTR:
 				return (this.get(Angle.SIG)*this.get(Angle.DEG))+"º"+this.get(Angle.MIN)+"'"+this.get(Angle.SEC)+"''";
 			case Angle.RADSTR:
@@ -225,11 +241,22 @@ class Angle {
 			case Angle.DEG:
 				this.dec = (this.get(Angle.SIG)?this.get(Angle.SIG):1)*(x+Math.abs(this.dec-~~this.dec));
 				break;
+			case Angle.HOURS:
+				this.dec = x*15;
+				break;
+			case Angle.HOUR:
+				this.dec = (this.get(Angle.SIG)?this.get(Angle.SIG):1)*(x*15+Math.abs(this.dec/15-~~(this.dec/15)));
+				break;
 			case Angle.MIN:
 				this.set_sigdegminsec((this.get(Angle.SIG)?this.get(Angle.SIG):1),this.get(Angle.DEG),x,this.get(Angle.SEC));
+			case Angle.HMIN:
+				this.set_sigdegminsec((this.get(Angle.SIG)?this.get(Angle.SIG):1),this.get(Angle.HOUR)*15,x,this.get(Angle.HSEC));
 				break;
 			case Angle.SEC:
 				this.set_sigdegminsec((this.get(Angle.SIG)?this.get(Angle.SIG):1),this.get(Angle.DEG),this.get(Angle.MIN),x);
+				break;
+			case Angle.HSEC:
+				this.set_sigdegminsec((this.get(Angle.SIG)?this.get(Angle.SIG):1),this.get(Angle.HOUR)*15,this.get(Angle.HMIN),x);
 				break;
 			case Angle.ASIN:
 				this.dec = Angle.DEG_FROM_RAD * Math.asin(x);
