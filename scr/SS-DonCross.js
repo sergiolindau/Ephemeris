@@ -7,7 +7,6 @@
       var GeographicLatitude = null;
       var GeographicLongitude = null;
       var GeographicElevationInMeters = 0.0;      // FIXFIXFIX:  Allow user to edit this too!
-      var COOKIE_EXPIRATION_DAYS = 3650;
       var SelectedBody = null;            // celestial body selected for extra info: rise time, culm time, set time, visual magnitude, etc.
       
       var RowBackgroundTable = {};    // indexed using row.id, returning an object x such that x.mouseover and x.mouseout are colors to use

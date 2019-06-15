@@ -29,6 +29,8 @@
          http://www.quirksmode.org/js/cookies.html
  Don Cross modified these to escape/unescape value strings automatically.
 ************************************************************************/
+var COOKIE_EXPIRATION_DAYS = 3650;
+
 class Cookie {
 
 /***********************************************************************/

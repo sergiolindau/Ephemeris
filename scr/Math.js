@@ -41,28 +41,28 @@ Math.RADEG = Math.RADEG || 180.0/Math.PI;
  Type:    Property
  Value: The Math.DEGRAD property represents the conversion factor from degrees to radians.
 ***********************************************************************/
-Math.DEGRAD = Math.DEGRAD || (Math.PI/180.0).toExponential();
+Math.DEGRAD = Math.DEGRAD || (Math.PI/180.0);
 
 /***********************************************************************
  Name:    Math.R2AS
  Type:    Property
  Value: The Math.R2AS property represents the conversion factor from radians to arc seconds.
 ***********************************************************************/
-Math.R2AS = Math.R2AS || (Math.RADEG*60*60).toExponential();
+Math.R2AS = Math.R2AS || (Math.RADEG*60*60);
 
 /***********************************************************************
  Name:    Math.AS2R
  Type:    Property
  Value: The Math.AS2R property represents the conversion factor from arc seconds to radians.
 ***********************************************************************/
-Math.AS2R = Math.AS2R || (Math.DEGRAD/(60*60)).toExponential();
+Math.AS2R = Math.AS2R || (Math.DEGRAD/(60*60));
 
 /***********************************************************************
  Name:    Math.DS2R
  Type:    Property
  Value: The Math.DS2R property represents the conversion factor from seconds of time to radians.
 ***********************************************************************/
-Math.DS2R = Math.DS2R || (Math.PI/(12*60*60)).toExponential();
+Math.DS2R = Math.DS2R || (Math.PI/(12*60*60));
 
 /***********************************************************************
  Name:    Math.TURNAS

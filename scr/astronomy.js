@@ -235,9 +235,9 @@ function EarthClass()
         // These formulas use 'd' based on days since 1/Jan/2000 12:00 UTC ("J2000.0"), instead of 0/Jan/2000 0:00 UTC ("day value").
         // Correct by subtracting 1.5 days...
         var d = day - 1.5;
-        var T = d / 36525.0;                     // Julian centuries since J2000.0
-        var L0 = 280.46645 + (36000.76983 * T) + (0.0003032 * T * T);      // Sun's mean longitude, in degrees
-        var M0 = 357.52910 + (35999.05030 * T) - (0.0001559 * T * T) - (0.00000048 * T * T * T);      // Sun's mean anomaly, in degrees
+        var T = d / 36525.0; // Julian centuries since J2000.0
+        var L0 = AstronomyS.calcGeomMeanLongSun(T);
+        var M0 = AstronomyS.calcGeomMeanAnomalySun(T);
 
         var C =       // Sun's equation of center in degrees
             (1.914600 - 0.004817 * T - 0.000014 * T * T) * AngleX.SinDeg (M0) +
@@ -1342,16 +1342,7 @@ function AstronomyClass()
     this.FindConstellation = function (eq)
     {
         var eqOld = this.PrecessEquatorialCoordinates (eq, this.ConstellationRotationMatrix);
-        var ra  = eqOld.longitude;
-        var dec = eqOld.latitude;
-        for (var i=0; i < ConstellationEdgeArray.length; ++i) {
-            var e = ConstellationEdgeArray[i];
-            if ((e.DecBottom <= dec) && (e.RaRight > ra) && (e.RaLeft <= ra)) {
-                var c = ConstellationByConciseName[e.ConciseName];
-                return { 'ConciseName':e.ConciseName, 'FullName':c.FullName, 'PossessiveName':c.PossessiveName };
-            }
-        }
-        return null;    // not found!
+		return FindConstellation(eqOld.longitude, eqOld.latitude);
     }
     
     this.CorrectForOblateEarth = true;      // Set to false if oblateness formulas turn out to have problems.

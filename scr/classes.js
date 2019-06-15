@@ -98,11 +98,61 @@ const RegExp_Float = /^\d+(\.\d*)?([eE][\+\-]?\d+)?$/;
  Point class with support for 2D and 3D, cartesian and polar
  Copyright (c) 2018 Sergio Lindau
 /***********************************************************************/
-class Point {
-    constructor(x, y) {
+class Coordinates {
+    constructor(x, y, z) {
         this.x = x;
         this.y = y;
+        this.z = z;
     }
+
+	toStringCartesian()
+	{
+    	return "(" + this.x + ", " + this.y + ", " + this.z + ")";
+	}
+
+	distance()
+	{
+    	return Math.sqrt (this.x*this.x + this.y*this.y + this.z*this.z);
+	}
+
+	normalize()
+	{
+    	var r = this.distance();
+	    if (r == 0.0) {
+    	    throw "Cannot normalize null vector.";
+	    }
+    	return new Coordinates(this.x/r, this.y/r, this.z/r);
+	}
+	subtract(other)
+	{
+    	return new CartesianCoordinates (this.x - other.x, this.y - other.y, this.z - other.z);
+	}
+
+	add(other)
+	{
+    	return new CartesianCoordinates (this.x + other.x, this.y + other.y, this.z + other.z);
+	}
+
+	AngleBetweenVectorsInDegrees(va, vb)
+	{
+	    var a = va.Normalize ();
+	    var b = vb.Normalize ();
+
+	    // The normalized dot product of two vectors is equal to the cosine of the angle between them.
+	    var dotprod = a.x*b.x + a.y*b.y + a.z*b.z;
+	    var abs = Math.abs (dotprod);
+	    if (abs > 1.0) {
+	        if (abs > 1.00000001) {
+    	        // Something is really messed up!  Avoid impossible Math.Acos() argument...
+	            throw "Internal error: dot product = " + dotprod;
+	        } else {
+	            // Assume that roundoff error has caused a valid dot product value to wander outside allowed values for Math.Acos()...
+	            return (dotprod < 0) ? 180.0 : 0.0;
+	        }
+	    } else {
+	        return AngleX.DEG_FROM_RAD * Math.acos (dotprod);
+	    }
+	}
 
     static distancia(a, b) {
         const dx = a.x - b.x;
@@ -116,7 +166,8 @@ class Point {
 
 /***********************************************************************
  JavaScript Angle Object
- Angle object that abstracts representation
+ Angle object that abstracts representation and do roundings and
+ format strings.
  Copyright (c) 2018 Sergio Lindau
 ***********************************************************************/
 class Angle {
@@ -136,7 +187,7 @@ class Angle {
 	static HMSEC = 12;
 	static DEGSTR = 13;
 	static RADSTR = 14;
-	static STR = 15;
+	static HSTR = 15;
 	static SIN = 16;
 	static COS = 17;
 	static TAN = 18;
@@ -145,6 +196,8 @@ class Angle {
 	static ATAN = 21;
 	static ATAN2 = 22;
 	static DATE = 23;
+	static UNIXTIME = 24;
+	static DOTPROD = 25;
 	
 	static DEG_FROM_RAD = 180.0 / Math.PI;
 	static RAD_FROM_DEG = Math.PI / 180.0;
@@ -213,18 +266,27 @@ class Angle {
 				return (this.get(Angle.SIG)*this.get(Angle.DEG))+"º"+this.get(Angle.MIN)+"'"+this.get(Angle.SEC)+"''";
 			case Angle.RADSTR:
 				return Math.round10(this.dec/180,-9)+"π";
+			case Angle.HSTR:
+				return (this.get(Angle.SIG)*this.get(Angle.HOUR))+"º"+this.get(Angle.MIN)+"'"+this.get(Angle.SEC)+"''";
 			case Angle.SIN:
 				return Math.sin(this.dec*Angle.RAD_FROM_DEG);
 			case Angle.COS:
 				return Math.cos(this.dec*Angle.RAD_FROM_DEG);
 			case Angle.TAN:
 				return Math.tan(this.dec*Angle.RAD_FROM_DEG);
+			case Angle.DATE:
+				var temp = new Date();
+				temp.setUTCHours(this.get(Angle.HOURS));
+				temp.setUTCMinutes(this.get(Angle.HMIN));
+				temp.setUTCSeconds(this.get(Angle.HSEC));
+				temp.setUTCMilliseconds(this.get(Angle.HMSEC));
+				return temp;
 		}
 	}
 /***********************************************************************/
 	set(field, x, y){
 		if ((arguments<2)&&(typeof(arguments[0]=='number'))) field = Angle.DEC;
-		if ((arguments<2)&&(typeof(arguments[0]=='string'))) field = Angle.STR;
+		if ((arguments<2)&&(typeof(arguments[0]=='string'))) field = Angle.DEGSTR;
 		switch(field) {
 			case Angle.DEC:
 				this.dec = x;
@@ -267,8 +329,29 @@ class Angle {
 			case Angle.ATAN:
 				this.dec = Angle.DEG_FROM_RAD * Math.atan(x);
 				break;
-			case Angle.ATAN:
+			case Angle.DATE:
 				this.dec = Angle.DEG_FROM_RAD * Math.atan2(x,y);
+				break;
+			case Angle.UNIXTIME:
+				this.dec = Angle.DEG_FROM_RAD * Math.atan2(x,y);
+				break;
+			case Angle.DOTPROD:
+			    var a = x.normalize();
+			    var b = y.normalize();
+			    // The normalized dot product of two vectors is equal to the cosine of the angle between them.
+	    		var dotprod = a.x*b.x + a.y*b.y + a.z*b.z;
+			    var abs = Math.abs (dotprod);
+	    		if (abs > 1.0) {
+			        if (abs > 1.00000001) {
+    			        // Something is really messed up!  Avoid impossible Math.Acos() argument...
+	            		throw "Internal error: dot product = " + dotprod;
+			        } else {
+	    		        // Assume that roundoff error has caused a valid dot product value to wander outside allowed values for Math.Acos()...
+	            		this.dec = (dotprod < 0) ? 180.0 : 0.0;
+			        }
+			    } else {
+	    		    this.dec = Angle.DEG_FROM_RAD * Math.acos (dotprod);
+			    }
 				break;
 		}
 		return this;
@@ -290,7 +373,6 @@ console.logAngle = function (angle){
 	console.log("===============================");
 }
 /***********************************************************************/
-
 
 /***********************************************************************
  Date object extensions for calendar and astronomy calculations
