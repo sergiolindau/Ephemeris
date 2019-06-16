@@ -163,6 +163,28 @@ class Coordinates {
 }
 /***********************************************************************/
 
+function SphericalCoordinates (longitude, latitude, radius)
+{
+    this.longitude = longitude;
+    this.latitude  = latitude;
+    this.radius    = radius;
+}
+
+//----------------------------------------------------------------------------------------------
+
+function GeographicCoordinates (longitude, latitude, elevationInMetersAboveSeaLevel)
+{
+    if (elevationInMetersAboveSeaLevel == null) {
+        elevationInMetersAboveSeaLevel = 0.0;
+    }
+
+    this.longitude = longitude;
+    this.latitude  = latitude;
+    this.radius    = (elevationInMetersAboveSeaLevel / METERS_PER_ASTRONOMICAL_UNIT) + EARTH_RADII_PER_ASTRONOMICAL_UNIT;
+}
+
+//----------------------------------------------------------------------------------------------
+
 
 /***********************************************************************
  JavaScript Angle Object
@@ -357,6 +379,106 @@ class Angle {
 		return this;
 	}
 /***********************************************************************/
+
+
+
+
+    static FixHours(hours)
+    {
+        return Angle.FixCycle (hours, 24.0);
+    }
+    
+    static FixDegrees(degrees)
+    {
+        return Angle.FixCycle (degrees, 360.0);
+    }
+    
+    static FixCycle(angle, cycle)
+    {
+        var fraction = angle / cycle;
+        return cycle * (fraction - Math.floor (fraction));
+    }
+    
+    static Polar(x, y, z)
+    {
+        var rho = (x * x) + (y * y);
+        var radius = Math.sqrt (rho + (z * z));
+        var phi = Math.atan2d (y, x);
+        if (phi < 0) {
+            phi += 360.0;
+        }
+        var rho = Math.sqrt (rho);
+        var theta = Math.atan2d (z, rho);
+        return new SphericalCoordinates (phi, theta, radius);
+    }
+    
+    static DMS(x)
+    {
+        var a = {};
+        
+        a.negative = (x < 0);
+        if (a.negative) {
+            x = -x;
+        }
+        
+        a.degrees = Math.floor (x);
+        x = 60.0 * (x - a.degrees);
+        a.minutes = Math.floor (x);
+        x = 60.0 * (x - a.minutes);
+        a.seconds = Math.round (10.0 * x) / 10.0;   // Round to the nearest tenth of an arcsecond.
+        
+        if (a.seconds == 60) {
+            a.seconds = 0;
+            if (++a.minutes == 60) {
+                a.minutes = 0;
+                ++a.degrees;
+            }
+        }
+        
+        return a;
+    }
+    
+    static DMM(x)
+    {
+        var a = {};
+        a.negative = (x < 0);
+        if (a.negative) {
+            x = -x;
+        }
+        
+        a.degrees = Math.floor (x);
+        x = 60.0 * (x - a.degrees);
+        a.minutes = Math.round (100.0 * x) / 100.0;     // Round to nearest hundredth of an arcminute.
+        a.seconds = 0.0;        // Fill in just for consistency with AngleX.DMS
+        
+        if (a.minutes >= 60.0) {
+            a.minutes -= 60.0;
+            ++a.degrees;
+        }
+        
+        return a;
+    }
+    
+    static SafeArcSinInDegrees(z)
+    {
+        var abs = Math.abs (z);
+        if (abs > 1.0) {
+            // Guard against blowing up due to slight roundoff errors in Math.Asin ...
+            if (abs > 1.00000001) {
+                throw "Invalid argument to SafeArcSinInDegrees";
+            } else if (z < -1.0) {
+                return -90.0;
+            } else {
+                return +90.0;
+            }
+        } else {
+            return Math.RADEG * Math.asin(z);
+        }
+    }
+
+
+
+
 
 }
 /***********************************************************************/
@@ -776,7 +898,7 @@ class DateTime {
    the copy of DateTime (DateTime)
 ***********************************************************************/
 		var d = new DateTime();
-		d.setTime(this.baseDate.getTime());
+		d.baseDate.setTime(this.baseDate.getTime());
 		return d;
 	}
 
@@ -1777,6 +1899,10 @@ static paschalFullMoon = [
 	static dayNumber(utc){
         return (utc.getTime() - Date.UTC(1999,11,31)) / DateTime.DMS;
 	}
+	getDayNumber(){
+			return DateTime.dayNumber(this.baseDate);
+	}
+
 
 	getJulianCentury(){
 /***********************************************************************

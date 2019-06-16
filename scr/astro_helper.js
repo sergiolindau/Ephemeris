@@ -9,7 +9,7 @@ function HtmlRightAscension (ra, mode)
     switch (mode) {
         case "dms":
             // 23<sup>h</sup>14<sup>m</sup>16<sup>s</sup>
-            var dms = AngleX.DMS (ra);
+            var dms = Angle.DMS (ra);
             if (dms.negative) {
                 throw "Encountered negative right ascension!  " + ra;
             }
@@ -22,7 +22,7 @@ function HtmlRightAscension (ra, mode)
             
         case "dmm":
             // 23<sup>h</sup>14.27<sup>m</sup>
-            var dms = AngleX.DMM (ra);
+            var dms = Angle.DMM (ra);
             if (dms.negative) {
                 throw "Encountered negative right ascension!  " + ra;
             }
@@ -48,7 +48,7 @@ function HtmlDeclination (dec, mode)
     
     switch (mode) {
         case "dms":
-            var dms = AngleX.DMS (dec);
+            var dms = Angle.DMS (dec);
             var s = dms.negative ? "&minus;" : "&nbsp;";
             
             if (dms.degrees < 100) {
@@ -62,7 +62,7 @@ function HtmlDeclination (dec, mode)
             return s;
 
         case "dmm":
-            var dms = AngleX.DMM (dec);
+            var dms = Angle.DMM (dec);
             var s = dms.negative ? "&minus;" : "&nbsp;";
             
             if (dms.degrees < 100) {

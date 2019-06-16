@@ -1,9 +1,10 @@
       var Flag_RealTimeUpdate = true;
-      var CartesianCoordinateType = null;
+      var CartesianCoordinateType = "heliocentric";
       var CartesianCoordinateColor = { 'geocentric': "#cfffcf", 'heliocentric': "#ffff9f", 'none':"#000000" };
       var AngularCoordinateType = "equatorial";
       var AngularCoordinateColor = { 'equatorial': "#ccff80", 'ecliptic': "ffdf80", 'horizontal': "ccccff" };
-      var AstroDateTime = new Date();
+      var AstroDateTime = dateUTC.copy();//new DateTime();
+      var GeographicPosition = [ { lat: null, lng:null } , 0.0 ];
       var GeographicLatitude = null;
       var GeographicLongitude = null;
       var GeographicElevationInMeters = 0.0;      // FIXFIXFIX:  Allow user to edit this too!
@@ -250,8 +251,7 @@
   
       function CalculateSolarSystem()
       {
-          var day = Astronomy.DayValue (AstroDateTime);
-  
+          var day = AstroDateTime.getDayNumber()
           var text = "<code>" + AstroDateTime.toString() + "</code></br>";
           text += "<code>Day Value = " + day.toFixed(5) + "</code><br/>";
           $.$.i('divDateTime').innerHTML = text;
@@ -381,7 +381,7 @@
   
       function LoadDateTime()
       {
-          var d = new Date();
+          var d = new DateTime();
   
           /*
           // Put this code back in, if restoring last date/time is desired...
@@ -418,7 +418,7 @@
                           if (minute != null) {
                               var second = ParseDateTimeBox ('edit_Second', 0, 59);
                               if (second != null) {
-                                  var date = new Date();
+                                  var date = new DateTime();
   
                                   date.setFullYear (year);
                                   date.setMonth (month - 1);
@@ -468,30 +468,12 @@
           }
       }
   
-      function Timer()
-      {
-          if (Flag_RealTimeUpdate) {
-              AstroDateTime = new Date();
-              ReflectDateTime (AstroDateTime);
-              CalculateSolarSystem();
-          }
-          setTimeout ('Timer()', 1000);   // Request that this same function be called again 1 second from now.
-      }
-  
-      function EnableDisableDateControls (enable)
-      {
-          $.$.i('edit_Year'  ).disabled = !enable;
-          $.$.i('edit_Month' ).disabled = !enable;
-          $.$.i('edit_Day'   ).disabled = !enable;
-          $.$.i('edit_Hour'  ).disabled = !enable;
-          $.$.i('edit_Minute').disabled = !enable;
-          $.$.i('edit_Second').disabled = !enable;
-  
-          $.$.i('button_SubtractOneDay').disabled = !enable;
-          $.$.i('button_AddOneDay'     ).disabled = !enable;
-  
-          $.$.i('button_SetDateTime').disabled = true;        // special case: disable Set button, whether other controls are enabled/disabled
-      }
+      function updateEphemerisPanel()
+	  {
+			AstroDateTime = dateUTC.copy();
+			ReflectDateTime (AstroDateTime);
+			CalculateSolarSystem();
+	  }
   
       function OnDateTimeDirty()
       {
@@ -499,9 +481,8 @@
       }
   
       function OnCheckBoxRealTime()
-      {
-          Flag_RealTimeUpdate = $.$.i('checkbox_RealTime').checked;
-          EnableDisableDateControls (!Flag_RealTimeUpdate);
+      {/*********/
+//          Flag_RealTimeUpdate = $.$.i('checkbox_RealTime').checked;
           Cookie.write ("RealTimeMode", Flag_RealTimeUpdate.toString(), COOKIE_EXPIRATION_DAYS);
           if (Flag_RealTimeUpdate) {
               ResetSelectedBodyEvents();
@@ -528,7 +509,7 @@
           // For example: the user clicks on the checkbox for showing bright objects only.
           // This function's job is to hide/unhide rows based on all relevant GUI control states.
   
-          var day = Astronomy.DayValue (AstroDateTime);
+          var day = AstroDateTime.getDayNumber();
           var location = new GeographicCoordinates (GeographicLongitude, GeographicLatitude, GeographicElevationInMeters);
           var hideBelowHorizon = $.$.i('checkbox_RisenObjectsOnly' ).checked;     // should we hide any object that is below the horizon?
           var hideDimObjects   = $.$.i('checkbox_BrightObjectsOnly').checked;     // should we hide any object too dim to be seen with the naked eye?
@@ -571,7 +552,7 @@
       function WriteSkyChart (body, location, doc)
       {
           // Get selected date, round down to midnight, then show chart for 24 hours.
-          var when = new Date ();
+          var when = new DateTime ();
           when.setFullYear (AstroDateTime.getFullYear());
           when.setMonth (AstroDateTime.getMonth());
           when.setDate (AstroDateTime.getDate());
@@ -592,7 +573,7 @@
           for (var i=0; i < NUM_TIME_STEPS; ++i) {
               when.setHours (hours, minutes, 0, 0);
   
-              var day = Astronomy.DayValue (when);
+              var day = when.getDayNumber();
               var timeString = ((hours < 10) ? "0" : "") + hours + ":" + ((minutes < 10) ? "0" : "") + minutes;
   
               var hc = body.HorizontalCoordinates (day, location);
@@ -780,7 +761,7 @@
               ReflectDateTime (AstroDateTime);
           }
   
-          $.$.i('checkbox_RealTime').checked = realTimeEnabled;
+//          $.$.i('checkbox_RealTime').checked = realTimeEnabled;
           OnCheckBoxRealTime();
       }
       

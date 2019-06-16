@@ -82,7 +82,8 @@ addPanelRefreshAction(RefreshAction);
           LoadOption_BrightObjectsOnly();
           LoadOption_RisenObjectsOnly();
           OnVisibilityChange();          // do this AFTER loading all options that can affect the display
-          Timer();    // prime the pump for the self-perpetuating every-1-second timer event
+//          Timer();    // prime the pump for the self-perpetuating every-1-second timer event
+//			ephemerisTimer();
       }
   </script>
 <div>
@@ -543,7 +544,7 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
                               <center>
                                   <table>
                                       <tbody><tr title="Selects whether the data on this page is refreshed once every second.">
-                                          <td><input type="checkbox" id="checkbox_RealTime" onClick="OnCheckBoxRealTime()"></td>
+                                          <td>&nbsp;</td>
                                           <td class="OptionHeader">Real-time update</td>
                                       </tr>
                                   </tbody></table>

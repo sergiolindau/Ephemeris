@@ -71,6 +71,8 @@ Math.DS2R = Math.DS2R || (Math.PI/(12*60*60));
 ***********************************************************************/
 Math.TURNAS = Math.TURNAS || 360.0*60*60;
 
+Math.R2H = Math.R2H || 12.0 / Math.PI;
+Math.H2R = Math.H2R || Math.PI / 12.0;
 
 Math.rad2deg = Math.rad2deg || function(x) {
 /***********************************************************************
@@ -221,6 +223,45 @@ Math.tand = Math.tand || function(x) {
    A number representing the tangent of a number x in degrees.
 ***********************************************************************/
 	return this.tan(x*this.DEGRAD);
+};
+
+Math.sinhr = Math.sinhr || function(x) {
+/***********************************************************************
+ Name:    Math.sinhr
+ Type:    Function
+ Purpose: Returns the sine of a number x.
+ Arguments:
+   x : A number (in degrees).
+ Return value:
+   A number representing the sine of a number x in degrees.
+***********************************************************************/
+	return this.sin(x*this.H2R);
+};
+
+Math.coshr = Math.coshr || function(x) {
+/***********************************************************************
+ Name:    Math.coshr
+ Type:    Function
+ Purpose: Returns the cosine of a number x.
+ Arguments:
+   x : A number (in degrees).
+ Return value:
+   A number representing the cosine of a number x in degrees.
+***********************************************************************/
+	return Math.cos(x*this.H2R)
+};
+
+Math.tanhr = Math.tanhr || function(x) {
+/***********************************************************************
+ Name:    Math.tanhr
+ Type:    Function
+ Purpose: Returns the tangent of a number x.
+ Arguments:
+   x : A number (in degrees).
+ Return value:
+   A number representing the tangent of a number x in degrees.
+***********************************************************************/
+	return this.tan(x*this.H2R);
 };
 
 Math.asind = Math.asind || function(x) {
@@ -664,17 +705,18 @@ Math.logarithm = Math.logarithm || function(b,x) {
    A number representing the base b logarithm of a number x. if b is
    omitted the default base is 10.
 ***********************************************************************/
-	if (arguments.length == 1)
+	if (arguments.length == 1) {
 		// Math.logarithm(x)    /* base 10 logarithm */
-		return this.log(x) / this.LN10;
-	else if (arguments.length == 2)
+		return this.log(b) / this.LN10;
+	}
+	else if (arguments.length == 2) {
 		// Math.logarithm(b,x)
-		if (b == 2) return this.log(x) / this.LN2;    /* base 2 logarithm */
-		else if (b == 10) return this.log(x) / this.LN10;    /* base 10 logarithm */
-		else if (b == this.E) return this.log(x);    /* natural logarithm */
+		if (b == 2) { return this.log(x) / this.LN2;    /* base 2 logarithm */ }
+		else if (b == 10) { return this.log(x) / this.LN10;    /* base 10 logarithm */ }
+		else if (b == this.E) { return this.log(x);    /* natural logarithm */ }
 		else return this.log(x) / this.log(b);    /* base b logarithm */
-	else
-		return Number('NaN');
+	}
+	else return Number('NaN');
 };
 
 if (!Math.factorial) {

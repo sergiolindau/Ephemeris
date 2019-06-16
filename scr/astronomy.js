@@ -5,151 +5,12 @@
     Designed for use by html, svg, and cscript/wscript.
 */
 
+
 //----------------------------------------------------------------------------------------------
 // Numeric constants...
-
 var METERS_PER_ASTRONOMICAL_UNIT = 1.4959787e+11;
 var METERS_PER_EARTH_EQUATORIAL_RADIUS = 6378140.0;
-var EARTH_RADII_PER_ASTRONOMICAL_UNIT = METERS_PER_ASTRONOMICAL_UNIT / METERS_PER_EARTH_EQUATORIAL_RADIUS;      // 23454.78
-
-//----------------------------------------------------------------------------------------------
-// Custom trigonometry and math functions.
-// We do most of our math in angular degrees and sideral hours, instead of radians.
-
-function AngleClass()
-{
-    this.DEG_FROM_RAD = 180.0 / Math.PI;
-    this.RAD_FROM_DEG = Math.PI / 180.0;
-    this.HOURS_FROM_RAD = 12.0 / Math.PI;
-    this.RAD_FROM_HOURS = Math.PI / 12.0;
-
-    this.CosDeg = function (degrees)
-    {
-        return Math.cos (this.RAD_FROM_DEG * degrees);
-    }
-
-    this.SinDeg = function (degrees)
-    {
-        return Math.sin (this.RAD_FROM_DEG * degrees);
-    }
-    
-    this.TanDeg = function (degrees) 
-    {
-        return Math.tan (this.RAD_FROM_DEG * degrees);
-    }
-    
-    this.CosHour = function (hours)
-    {
-        return Math.cos (this.RAD_FROM_HOURS * hours);
-    }
-
-    this.SinHour = function (hours)
-    {
-        return Math.sin (this.RAD_FROM_HOURS * hours);
-    }
-    
-    this.AtanDeg2 = function (y, x)
-    {
-        return this.DEG_FROM_RAD * Math.atan2 (y, x);
-    }
-    
-    this.FixHours = function (hours)
-    {
-        return this.FixCycle (hours, 24.0);
-    }
-    
-    this.FixDegrees = function (degrees)
-    {
-        return this.FixCycle (degrees, 360.0);
-    }
-    
-    this.FixCycle = function (angle, cycle)
-    {
-        var fraction = angle / cycle;
-        return cycle * (fraction - Math.floor (fraction));
-    }
-    
-    this.Polar = function (x, y, z)
-    {
-        var rho = (x * x) + (y * y);
-        var radius = Math.sqrt (rho + (z * z));
-        var phi = AngleX.AtanDeg2 (y, x);
-        if (phi < 0) {
-            phi += 360.0;
-        }
-        var rho = Math.sqrt (rho);
-        var theta = AngleX.AtanDeg2 (z, rho);
-        return new SphericalCoordinates (phi, theta, radius);
-    }
-    
-    this.DMS = function (x)
-    {
-        var a = {};
-        
-        a.negative = (x < 0);
-        if (a.negative) {
-            x = -x;
-        }
-        
-        a.degrees = Math.floor (x);
-        x = 60.0 * (x - a.degrees);
-        a.minutes = Math.floor (x);
-        x = 60.0 * (x - a.minutes);
-        a.seconds = Math.round (10.0 * x) / 10.0;   // Round to the nearest tenth of an arcsecond.
-        
-        if (a.seconds == 60) {
-            a.seconds = 0;
-            if (++a.minutes == 60) {
-                a.minutes = 0;
-                ++a.degrees;
-            }
-        }
-        
-        return a;
-    }
-    
-    this.DMM = function (x)
-    {
-        var a = {};
-        a.negative = (x < 0);
-        if (a.negative) {
-            x = -x;
-        }
-        
-        a.degrees = Math.floor (x);
-        x = 60.0 * (x - a.degrees);
-        a.minutes = Math.round (100.0 * x) / 100.0;     // Round to nearest hundredth of an arcminute.
-        a.seconds = 0.0;        // Fill in just for consistency with AngleX.DMS
-        
-        if (a.minutes >= 60.0) {
-            a.minutes -= 60.0;
-            ++a.degrees;
-        }
-        
-        return a;
-    }
-    
-    this.SafeArcSinInDegrees = function (z)
-    {
-        var abs = Math.abs (z);
-        if (abs > 1.0) {
-            // Guard against blowing up due to slight roundoff errors in Math.Asin ...
-            if (abs > 1.00000001) {
-                throw "Invalid argument to SafeArcSinInDegrees";
-            } else if (z < -1.0) {
-                return -90.0;
-            } else {
-                return +90.0;
-            }
-        } else {
-            return this.DEG_FROM_RAD * Math.asin(z);
-        }
-    }
-}
-
-var AngleX = new AngleClass();
-
-
+var EARTH_RADII_PER_ASTRONOMICAL_UNIT = METERS_PER_ASTRONOMICAL_UNIT / METERS_PER_EARTH_EQUATORIAL_RADIUS; // 23454.78
 //----------------------------------------------------------------------------------------------
 
 function DefaultGeocentricCoordinates (day)     // this function is used for most celestial bodies (but not the Moon)
@@ -162,7 +23,7 @@ function DefaultGeocentricCoordinates (day)     // this function is used for mos
 function DefaultEclipticAngularCoordinates (day)
 {
     var hc = this.EclipticCartesianCoordinates (day);
-    var ac = AngleX.Polar (hc.x, hc.y, hc.z);
+    var ac = Angle.Polar (hc.x, hc.y, hc.z);
     return ac;
 }
 
@@ -170,11 +31,6 @@ function DefaultHorizontalCoordinates (day, location)
 {
     var sky = this.EquatorialCoordinates (day, location);
     return new HorizontalCoordinates (sky, location, day);
-}
-
-function Log10 (x)
-{
-    return Math.log(x) / Math.LN10;
 }
 
 //----------------------------------------------------------------------------------------------
@@ -213,7 +69,7 @@ function SunClass()
     this.VisualMagnitude = function (day)
     {
         var e = this.DistanceFromEarth (day);
-        return -26.73 + (5.0 * Log10(e));
+        return -26.73 + (5.0 * Math.logarithm(e));
     }
 }
 
@@ -240,17 +96,17 @@ function EarthClass()
         var M0 = AstronomyS.calcGeomMeanAnomalySun(T);
 
         var C =       // Sun's equation of center in degrees
-            (1.914600 - 0.004817 * T - 0.000014 * T * T) * AngleX.SinDeg (M0) +
-            (0.01993 - 0.000101 * T) * AngleX.SinDeg (2 * M0) +
-            0.000290 * AngleX.SinDeg (3 * M0)
+            (1.914600 - 0.004817 * T - 0.000014 * T * T) * Math.sind (M0) +
+            (0.01993 - 0.000101 * T) * Math.sind (2 * M0) +
+            0.000290 * Math.sind (3 * M0)
         ;
 
         var LS = L0 + C;         // true ecliptical longitude of Sun
 
         var e = 0.016708617 - T * (0.000042037 + (0.0000001236 * T));    // The eccentricity of the Earth's orbit.
-        var distanceInAU = (1.000001018 * (1 - e * e)) / (1 + e * AngleX.CosDeg(M0 + C));     // distance from Sun to Earth in astronomical units (AU)
-        var x = -distanceInAU * AngleX.CosDeg (LS);
-        var y = -distanceInAU * AngleX.SinDeg (LS);
+        var distanceInAU = (1.000001018 * (1 - e * e)) / (1 + e * Math.cosd(M0 + C));     // distance from Sun to Earth in astronomical units (AU)
+        var x = -distanceInAU * Math.cosd (LS);
+        var y = -distanceInAU * Math.sind (LS);
         return new CartesianCoordinates (x, y, 0.0);      // the Earth's center is always on the plane of the ecliptic (z=0), by definition!
     }
     
@@ -291,35 +147,35 @@ function PlutoClass()
         var P  =  238.95  +  (0.003968789 * day);
 
         var lonecl = 238.9508  +  (0.00400703 * day) -
-            19.799 * AngleX.SinDeg(  P)  + 19.848 * AngleX.CosDeg(  P) +
-             0.897 * AngleX.SinDeg(2*P)  -  4.956 * AngleX.CosDeg(2*P) +
-             0.610 * AngleX.SinDeg(3*P)  +  1.211 * AngleX.CosDeg(3*P) -
-             0.341 * AngleX.SinDeg(4*P)  -  0.190 * AngleX.CosDeg(4*P) +
-             0.128 * AngleX.SinDeg(5*P)  -  0.034 * AngleX.CosDeg(5*P) -
-             0.038 * AngleX.SinDeg(6*P)  +  0.031 * AngleX.CosDeg(6*P) +
-             0.020 * AngleX.SinDeg(S-P)  -  0.010 * AngleX.CosDeg(S-P)
+            19.799 * Math.sind(  P)  + 19.848 * Math.cosd(  P) +
+             0.897 * Math.sind(2*P)  -  4.956 * Math.cosd(2*P) +
+             0.610 * Math.sind(3*P)  +  1.211 * Math.cosd(3*P) -
+             0.341 * Math.sind(4*P)  -  0.190 * Math.cosd(4*P) +
+             0.128 * Math.sind(5*P)  -  0.034 * Math.cosd(5*P) -
+             0.038 * Math.sind(6*P)  +  0.031 * Math.cosd(6*P) +
+             0.020 * Math.sind(S-P)  -  0.010 * Math.cosd(S-P)
         ;
 
         var latecl =  -3.9082 -
-            5.453 * AngleX.SinDeg(  P)   - 14.975 * AngleX.CosDeg(  P) +
-            3.527 * AngleX.SinDeg(2*P)   +  1.673 * AngleX.CosDeg(2*P) -
-            1.051 * AngleX.SinDeg(3*P)   +  0.328 * AngleX.CosDeg(3*P) +
-            0.179 * AngleX.SinDeg(4*P)   -  0.292 * AngleX.CosDeg(4*P) +
-            0.019 * AngleX.SinDeg(5*P)   +  0.100 * AngleX.CosDeg(5*P) -
-            0.031 * AngleX.SinDeg(6*P)   -  0.026 * AngleX.CosDeg(6*P) +
-            0.011 * AngleX.CosDeg(S-P)
+            5.453 * Math.sind(  P)   - 14.975 * Math.cosd(  P) +
+            3.527 * Math.sind(2*P)   +  1.673 * Math.cosd(2*P) -
+            1.051 * Math.sind(3*P)   +  0.328 * Math.cosd(3*P) +
+            0.179 * Math.sind(4*P)   -  0.292 * Math.cosd(4*P) +
+            0.019 * Math.sind(5*P)   +  0.100 * Math.cosd(5*P) -
+            0.031 * Math.sind(6*P)   -  0.026 * Math.cosd(6*P) +
+            0.011 * Math.cosd(S-P)
         ;
 
         var r =  40.72 +
-            6.68 * AngleX.SinDeg(  P)   + 6.90 * AngleX.CosDeg(  P) -
-            1.18 * AngleX.SinDeg(2*P)   - 0.03 * AngleX.CosDeg(2*P) +
-            0.15 * AngleX.SinDeg(3*P)   - 0.14 * AngleX.CosDeg(3*P)
+            6.68 * Math.sind(  P)   + 6.90 * Math.cosd(  P) -
+            1.18 * Math.sind(2*P)   - 0.03 * Math.cosd(2*P) +
+            0.15 * Math.sind(3*P)   - 0.14 * Math.cosd(3*P)
         ;
 
-        var coslon = AngleX.CosDeg (lonecl);
-        var sinlon = AngleX.SinDeg (lonecl);
-        var coslat = AngleX.CosDeg (latecl);
-        var sinlat = AngleX.SinDeg (latecl);
+        var coslon = Math.cosd (lonecl);
+        var sinlon = Math.sind (lonecl);
+        var coslat = Math.cosd (latecl);
+        var sinlat = Math.sind (latecl);
 
         var xp = r * coslon * coslat;
         var yp = r * sinlon * coslat;
@@ -346,7 +202,7 @@ function PlutoClass()
     {
         var s = this.DistanceFromSun (day);
         var e = this.DistanceFromEarth (day);
-        return 14.0 + (5.0 * Log10 ((e * s) / (31.97177 * 31.982)));   // a hack that ignores phase angle, based on data from http://www.heavens-above.com
+        return 14.0 + (5.0 * Math.logarithm ((e * s) / (31.97177 * 31.982)));   // a hack that ignores phase angle, based on data from http://www.heavens-above.com
     }
 }
 
@@ -417,18 +273,18 @@ PlanetPS.prototype.EclipticCartesianCoordinates = function (day)
     var E = EccentricAnomaly (e, M);
     
     // Calculate the body's position in its own orbital plane, and its distance from the thing it is orbiting.
-    var xv = a * (AngleX.CosDeg(E) - e);
-    var yv = a * (Math.sqrt(1.0 - e*e) * AngleX.SinDeg(E));
+    var xv = a * (Math.cosd(E) - e);
+    var yv = a * (Math.sqrt(1.0 - e*e) * Math.sind(E));
     
-    var v = AngleX.AtanDeg2 (yv, xv);        // True anomaly in degrees: the angle from perihelion of the body as seen by the Sun.
+    var v = Math.atan2d (yv, xv);        // True anomaly in degrees: the angle from perihelion of the body as seen by the Sun.
     var r = Math.sqrt (xv*xv + yv*yv);      // Distance from the Sun to the planet in AU
 
-    var cosN  = AngleX.CosDeg (N);
-    var sinN  = AngleX.SinDeg (N);
-    var cosi  = AngleX.CosDeg (i);
-    var sini  = AngleX.SinDeg (i);
-    var cosVW = AngleX.CosDeg (v + w);
-    var sinVW = AngleX.SinDeg (v + w);
+    var cosN  = Math.cosd (N);
+    var sinN  = Math.sind (N);
+    var cosi  = Math.cosd (i);
+    var sini  = Math.sind (i);
+    var cosVW = Math.cosd (v + w);
+    var sinVW = Math.sind (v + w);
 
     // Now we are ready to calculate (unperturbed) ecliptic cartesian heliocentric coordinates.
     var xh = r * (cosN*cosVW - sinN*sinVW*cosi);
@@ -463,7 +319,7 @@ PlanetPS.prototype.VisualMagnitude = function (day)
     var distEarth = this.DistanceFromEarth (day);
     var distSun = this.DistanceFromSun (day);
     var phase = Astronomy.SunEarthPhaseAngle (this, day);
-    var mag = this.magBase + (5 * Log10 (distSun * distEarth)) + (this.magPhaseFactor * phase);
+    var mag = this.magBase + (5 * Math.logarithm (distSun * distEarth)) + (this.magPhaseFactor * phase);
     if (this.magNonlinearExponent > 0) {
         mag += this.magNonlinearFactor * Math.pow (phase, this.magNonlinearExponent);
     }
@@ -473,9 +329,9 @@ PlanetPS.prototype.VisualMagnitude = function (day)
 
 function EccentricAnomaly (e, M)
 {
-    var E = M + (e * AngleX.SinDeg(M) * (1.0 + (e * AngleX.CosDeg(M))));
+    var E = M + (e * Math.sind(M) * (1.0 + (e * Math.cosd(M))));
     for(;;) {
-        var F = E - (E - (AngleX.DEG_FROM_RAD * e * AngleX.SinDeg (E)) - M) / (1 - e * AngleX.CosDeg (E));
+        var F = E - (E - (Math.RADEG * e * Math.sind (E)) - M) / (1 - e * Math.cosd (E));
         var error = Math.abs (F - E);
         E = F;
         if (error < 1.0e-8) {
@@ -498,10 +354,10 @@ function PerturbMajorPlanet (xh, yh, zh, d)
     lonecl += this.PerturbEclipticLongitude (d);
     latecl += this.PerturbEclipticLatitude (d);
 
-    var coslon = AngleX.CosDeg (lonecl);
-    var sinlon = AngleX.SinDeg (lonecl);
-    var coslat = AngleX.CosDeg (latecl);
-    var sinlat = AngleX.SinDeg (latecl);
+    var coslon = Math.cosd (lonecl);
+    var sinlon = Math.sind (lonecl);
+    var coslat = Math.cosd (latecl);
+    var sinlat = Math.sind (latecl);
 
     var xp = r * coslon * coslat;
     var yp = r * sinlon * coslat;
@@ -517,13 +373,13 @@ function PerturbEclipticLongitude_Jupiter (d)
     var Ms = Astronomy.Saturn.MeanAnomaly (d);
 
     var deltaLong =
-        -0.332 * AngleX.SinDeg(2*Mj - 5*Ms - 67.6)  -
-         0.056 * AngleX.SinDeg(2*Mj - 2*Ms + 21  )  +
-         0.042 * AngleX.SinDeg(3*Mj - 5*Ms + 21  )  -
-         0.036 * AngleX.SinDeg(  Mj - 2*Ms       )  +
-         0.022 * AngleX.CosDeg(  Mj -   Ms       )  +
-         0.023 * AngleX.SinDeg(2*Mj - 3*Ms + 52  )  -
-         0.016 * AngleX.SinDeg(  Mj - 5*Ms - 69  )
+        -0.332 * Math.sind(2*Mj - 5*Ms - 67.6)  -
+         0.056 * Math.sind(2*Mj - 2*Ms + 21  )  +
+         0.042 * Math.sind(3*Mj - 5*Ms + 21  )  -
+         0.036 * Math.sind(  Mj - 2*Ms       )  +
+         0.022 * Math.cosd(  Mj -   Ms       )  +
+         0.023 * Math.sind(2*Mj - 3*Ms + 52  )  -
+         0.016 * Math.sind(  Mj - 5*Ms - 69  )
     ;
 
     return deltaLong;
@@ -542,11 +398,11 @@ function PerturbEclipticLongitude_Saturn (d)
     var Ms = Astronomy.Saturn.MeanAnomaly (d);
 
     var deltaLong =
-         0.812 * AngleX.SinDeg (2*Mj - 5*Ms - 67.6) -
-         0.229 * AngleX.CosDeg (2*Mj - 4*Ms -  2.0) +
-         0.119 * AngleX.SinDeg (  Mj - 2*Ms -  3.0) +
-         0.046 * AngleX.SinDeg (2*Mj - 6*Ms - 69.0) +
-         0.014 * AngleX.SinDeg (  Mj - 3*Ms + 32.0)
+         0.812 * Math.sind (2*Mj - 5*Ms - 67.6) -
+         0.229 * Math.cosd (2*Mj - 4*Ms -  2.0) +
+         0.119 * Math.sind (  Mj - 2*Ms -  3.0) +
+         0.046 * Math.sind (2*Mj - 6*Ms - 69.0) +
+         0.014 * Math.sind (  Mj - 3*Ms + 32.0)
     ;
 
     return deltaLong;
@@ -559,8 +415,8 @@ function PerturbEclipticLatitude_Saturn (d)
     var Ms = Astronomy.Saturn.MeanAnomaly (d);
 
     var deltaLat =
-        -0.020 * AngleX.CosDeg(2*Mj - 4*Ms - 2)  + 
-         0.018 * AngleX.SinDeg(2*Mj - 6*Ms - 49)
+        -0.020 * Math.cosd(2*Mj - 4*Ms - 2)  + 
+         0.018 * Math.sind(2*Mj - 6*Ms - 49)
     ;
 
     return deltaLat;
@@ -574,9 +430,9 @@ function PerturbEclipticLongitude_Uranus (d)
     var Mu = this.MeanAnomaly (d);
 
     var deltaLong =
-        +0.040 * AngleX.SinDeg(Ms - 2*Mu + 6)
-        +0.035 * AngleX.SinDeg(Ms - 3*Mu + 33)
-        -0.015 * AngleX.SinDeg(Mj - Mu + 20)
+        +0.040 * Math.sind(Ms - 2*Mu + 6)
+        +0.035 * Math.sind(Ms - 3*Mu + 33)
+        -0.015 * Math.sind(Mj - Mu + 20)
     ;
 
     return deltaLong;
@@ -598,15 +454,15 @@ function EqCoords (day, location)
     // We convert here to equatorial coordinates, using formulas based on the precession of the Earth's axis of rotation.
     var T = Astronomy.CenturiesSinceJ2000 (day);
     var K = 23.4392911 - ((46.8150 * T) - (0.00059 * T * T) + (0.001813 * T * T * T))/3600.0;    // obliquity of ecliptic in degrees.
-    var cosK = AngleX.CosDeg(K);
-    var sinK = AngleX.SinDeg(K);
+    var cosK = Math.cosd(K);
+    var sinK = Math.sind(K);
 
     // Calculate equatorial cartesian coordinates using ecliptic cartesian coordinates...
     var qx = dx;
     var qy = (dy * cosK) - (dz * sinK);
     var qz = (dy * sinK) + (dz * cosK);
 
-    var eq = AngleX.Polar (qx, qy, qz);
+    var eq = Angle.Polar (qx, qy, qz);
     eq.longitude /= 15.0;       // convert degrees to sidereal hours
     
     var DEC = eq.latitude;
@@ -640,21 +496,21 @@ function EqCoords (day, location)
             rho   = 1.0;
         }
 
-        var altitude = hor.altitude - ((AngleX.DEG_FROM_RAD * parallaxInRadians) * AngleX.CosDeg (hor.altitude));
+        var altitude = hor.altitude - ((Math.RADEG * parallaxInRadians) * Math.cosd (hor.altitude));
         var Ls = MeanLongitudeOfSun (day);
         var GMST0 = (Ls + 180.0) / 15.0;
         var utcHours = (day - Math.floor(day)) * 24.0;
         var LST = GMST0 + utcHours + (location.longitude / 15.0);
         var hourAngle = LST - eq.longitude;
-        var g = AngleX.DEG_FROM_RAD * (Math.atan(AngleX.TanDeg(gclat) / AngleX.CosHour(hourAngle)));
+        var g = Math.RADEG * (Math.atan(Math.tand(gclat) / Math.coshr(hourAngle)));
 
-        var topRA   = eq.longitude  - ((parallaxInRadians * AngleX.HOURS_FROM_RAD) * rho * AngleX.CosDeg(gclat) * AngleX.SinHour(hourAngle) / AngleX.CosDeg(eq.latitude));
+        var topRA   = eq.longitude  - ((parallaxInRadians * Math.R2H) * rho * Math.cosd(gclat) * Math.sinhr(hourAngle) / Math.cosd(eq.latitude));
         var topDEC;
         
         if (Math.abs(g) < 1.0e-6) {
-            topDEC = eq.latitude - ((parallaxInRadians * AngleX.DEG_FROM_RAD) * rho * AngleX.SinDeg(-eq.latitude) * AngleX.CosHour(hourAngle));
+            topDEC = eq.latitude - ((parallaxInRadians * Math.RADEG) * rho * Math.sind(-eq.latitude) * Math.coshr(hourAngle));
         } else {
-            topDEC = eq.latitude -  (parallaxInRadians * AngleX.DEG_FROM_RAD) * rho * AngleX.SinDeg(gclat) * AngleX.SinDeg(g - eq.latitude) / AngleX.SinDeg(g);
+            topDEC = eq.latitude -  (parallaxInRadians * Math.RADEG) * rho * Math.sind(gclat) * Math.sind(g - eq.latitude) / Math.sind(g);
         }
 
         eq = new SphericalCoordinates (topRA, topDEC, distanceInAU);
@@ -672,7 +528,7 @@ function OblateLatitudeCorrection (latitude)
     // See:
     //      http://en.wikipedia.org/wiki/Latitude#Common_.22latitude.22
     //      http://en.wikipedia.org/wiki/Latitude#Geocentric_latitude
-    return latitude - (0.1924 * AngleX.SinDeg(2.0 * latitude));
+    return latitude - (0.1924 * Math.sind(2.0 * latitude));
 }
 
 function OblateRadiusCorrection (latitude)
@@ -681,7 +537,7 @@ function OblateRadiusCorrection (latitude)
     // This is due to flattening caused by Earth's rotation.
     // When latitude==0 (i.e. a point on the equator), the value returned is 1.0.
     // The value is minimized at latitude==+90 (North Pole) or latitude==-90 (South Pole).
-    return 0.99833 + (0.00167 * AngleX.CosDeg(2.0 * latitude));
+    return 0.99833 + (0.00167 * Math.cosd(2.0 * latitude));
 }
 
 function HorizontalCoordinates (sky, location, day, horizonCorrectionInArcMinutes)
@@ -694,16 +550,16 @@ function HorizontalCoordinates (sky, location, day, horizonCorrectionInArcMinute
 
     var GST = GreenwichSiderealTimeInHours (day);
     var LST = GST + (location.longitude / 15.0);
-    var hourAngle = AngleX.FixHours (LST - sky.longitude);
+    var hourAngle = Angle.FixHours (LST - sky.longitude);
     
-    var sinLat = AngleX.SinDeg (location.latitude);
-    var cosLat = AngleX.CosDeg (location.latitude);
+    var sinLat = Math.sind (location.latitude);
+    var cosLat = Math.cosd (location.latitude);
 
-    var sinHourAngle = AngleX.SinHour (hourAngle);
-    var cosHourAngle = AngleX.CosHour (hourAngle);
+    var sinHourAngle = Math.sinhr (hourAngle);
+    var cosHourAngle = Math.coshr (hourAngle);
 
-    var sinDec = AngleX.SinDeg (sky.latitude);
-    var cosDec = AngleX.CosDeg (sky.latitude);
+    var sinDec = Math.sind (sky.latitude);
+    var cosDec = Math.cosd (sky.latitude);
 
     var altitudeRatio = (sinLat * sinDec) + (cosLat * cosDec * cosHourAngle);
     // Correct for values that are out of range for inverse sine function...
@@ -718,7 +574,7 @@ function HorizontalCoordinates (sky, location, day, horizonCorrectionInArcMinute
             this.azimuth = 180.0;    // doesn't really matter what angle we assign: use this value to assist culmination algorithm.
         }
     } else {
-        this.altitude = AngleX.DEG_FROM_RAD * Math.asin (altitudeRatio);
+        this.altitude = Math.RADEG * Math.asin (altitudeRatio);
         var absAltitude = Math.abs (this.altitude);
         var ANGLE_CORRECTION_WINDOW = 6.0;      // I chose 6 degrees as the refraction cutoff, because that is used for Civil Twilight, which should not be corrected.
         if ((absAltitude < ANGLE_CORRECTION_WINDOW) && (horizonCorrectionInArcMinutes != 0.0)) {
@@ -730,7 +586,7 @@ function HorizontalCoordinates (sky, location, day, horizonCorrectionInArcMinute
             this.altitude -= (horizonCorrectionInArcMinutes / 60.0) * linearFactor;
         }
 
-        this.azimuth = AngleX.FixDegrees (AngleX.AtanDeg2 (-cosDec * sinHourAngle, (cosLat * sinDec) - (sinLat * cosDec * cosHourAngle)));
+        this.azimuth = Angle.FixDegrees (Math.atan2d (-cosDec * sinHourAngle, (cosLat * sinDec) - (sinLat * cosDec * cosHourAngle)));
     }
 }
 
@@ -741,7 +597,7 @@ function GreenwichSiderealTimeInHours (day)
     var T0 = Astronomy.CenturiesSinceJ2000 (midnight);
     var tUT = (day - midnight) * 24.0;     // Greenwich time of day, in hours
     var SG = (6.6974 + 2400.0513 * T0) + (366.2422 / 365.2422) * tUT;
-    SG = AngleX.FixHours (SG);
+    SG = Angle.FixHours (SG);
     return SG;
 }
 
@@ -762,7 +618,7 @@ function CreateAsteroid (
 {
     var day = epochJD - 2451543.5;              // convert Julian Date to "0.0 January 2000" standard epoch day value.
     var Mc = 360.0 / T;                         // "mean motion": how many degrees per day the body orbits around the Sun, on average.
-    var M0 = AngleX.FixDegrees (Mx - Mc*day);    // work backwards to figure out mean anomoly at standard epoch.
+    var M0 = Angle.FixDegrees (Mx - Mc*day);    // work backwards to figure out mean anomoly at standard epoch.
 
     var N0 = Nx;    //!!! FIXFIXFIX
     var Nc = 0.0;   //!!! FIXFIXFIX
@@ -826,7 +682,7 @@ function CreatePlanetJPL(       //  Designed for use with JPL orbital data
     var ic = jIc/dpc;
     
     // w = ju - jQ
-    var w0 = AngleX.FixDegrees((ju0 - cofs*juc) - (jQ0 - cofs*jQc));
+    var w0 = Angle.FixDegrees((ju0 - cofs*juc) - (jQ0 - cofs*jQc));
     var wc = (juc - jQc)/dpc;
     
     var a0 = ja0 - cofs*jac;
@@ -836,7 +692,7 @@ function CreatePlanetJPL(       //  Designed for use with JPL orbital data
     var ec = jec/dpc;
     
     // M = jL - ju
-    var M0 = AngleX.FixDegrees((jL0 - cofs*jLc) - (ju0 - cofs*juc));
+    var M0 = Angle.FixDegrees((jL0 - cofs*jLc) - (ju0 - cofs*juc));
     var Mc = (jLc - juc)/dpc;
 
     return new PlanetPS(
@@ -896,16 +752,16 @@ function CreateSaturnJPL()
         var planetMagnitude = this.__BaseVisualMagnitude(day);  // get magnitude of the planet body itself.
         
         var Ir = 28.06;    // inclination of Saturn's rings to ecliptic, in degrees
-        var cosIr = AngleX.CosDeg (Ir);
-        var sinIr = AngleX.SinDeg (Ir);
+        var cosIr = Math.cosd (Ir);
+        var sinIr = Math.sind (Ir);
 
         var gc = this.GeocentricCoordinates (day);
-        var Los = AngleX.FixDegrees (AngleX.AtanDeg2 (gc.y, gc.x));
-        var Las = AngleX.FixDegrees (AngleX.AtanDeg2 (gc.z, Math.sqrt(gc.x*gc.x + gc.y*gc.y)));
-        var sinLas = AngleX.SinDeg (Las);
-        var cosLas = AngleX.CosDeg (Las);
+        var Los = Angle.FixDegrees (Math.atan2d (gc.y, gc.x));
+        var Las = Angle.FixDegrees (Math.atan2d (gc.z, Math.sqrt(gc.x*gc.x + gc.y*gc.y)));
+        var sinLas = Math.sind (Las);
+        var cosLas = Math.cosd (Las);
         var Nr = 169.51 + (3.82e-5 * day);     // ascending node of the plane of Saturn's rings
-        var sinLosMinusNr = AngleX.SinDeg (Los - Nr);
+        var sinLosMinusNr = Math.sind (Los - Nr);
 
         var B = Math.asin (sinLas*cosIr - cosLas*sinIr*sinLosMinusNr);
         var sinB = Math.abs (Math.sin (B));     // ??? can we get rid of doing both Asin and Sin?
@@ -936,16 +792,16 @@ function CreateSaturn()
         var planetMagnitude = this.__BaseVisualMagnitude(day);  // get magnitude of the planet body itself.
         
         var Ir = 28.06;    // inclination of Saturn's rings to ecliptic, in degrees
-        var cosIr = AngleX.CosDeg (Ir);
-        var sinIr = AngleX.SinDeg (Ir);
+        var cosIr = Math.cosd (Ir);
+        var sinIr = Math.sind (Ir);
 
         var gc = this.GeocentricCoordinates (day);
-        var Los = AngleX.FixDegrees (AngleX.AtanDeg2 (gc.y, gc.x));
-        var Las = AngleX.FixDegrees (AngleX.AtanDeg2 (gc.z, Math.sqrt(gc.x*gc.x + gc.y*gc.y)));
-        var sinLas = AngleX.SinDeg (Las);
-        var cosLas = AngleX.CosDeg (Las);
+        var Los = Angle.FixDegrees (Math.atan2d (gc.y, gc.x));
+        var Las = Angle.FixDegrees (Math.atan2d (gc.z, Math.sqrt(gc.x*gc.x + gc.y*gc.y)));
+        var sinLas = Math.sind (Las);
+        var cosLas = Math.cosd (Las);
         var Nr = 169.51 + (3.82e-5 * day);     // ascending node of the plane of Saturn's rings
-        var sinLosMinusNr = AngleX.SinDeg (Los - Nr);
+        var sinLosMinusNr = Math.sind (Los - Nr);
 
         var B = Math.asin (sinLas*cosIr - cosLas*sinIr*sinLosMinusNr);
         var sinB = Math.abs (Math.sin (B));     // ??? can we get rid of doing both Asin and Sin?
@@ -1026,31 +882,31 @@ function CreateMoon()
         var F = Lm - Nm;                             // argument of latitude for the Moon
 
         var deltaLong =
-            -1.274 * AngleX.SinDeg(Mm - 2*D)      +   // the Evection
-             0.658 * AngleX.SinDeg(2*D)           -   // the Variation
-             0.186 * AngleX.SinDeg(Ms)            -   // the Yearly Equation
-             0.059 * AngleX.SinDeg(2*Mm - 2*D)    -
-             0.057 * AngleX.SinDeg(Mm - 2*D + Ms) +
-             0.053 * AngleX.SinDeg(Mm + 2*D)      +
-             0.046 * AngleX.SinDeg(2*D - Ms)      +
-             0.041 * AngleX.SinDeg(Mm - Ms)       -
-             0.035 * AngleX.SinDeg(D)             -   // the Parallactic Equation
-             0.031 * AngleX.SinDeg(Mm + Ms)       -
-             0.015 * AngleX.SinDeg(2*F - 2*D)     +
-             0.011 * AngleX.SinDeg(Mm - 4*D)
+            -1.274 * Math.sind(Mm - 2*D)      +   // the Evection
+             0.658 * Math.sind(2*D)           -   // the Variation
+             0.186 * Math.sind(Ms)            -   // the Yearly Equation
+             0.059 * Math.sind(2*Mm - 2*D)    -
+             0.057 * Math.sind(Mm - 2*D + Ms) +
+             0.053 * Math.sind(Mm + 2*D)      +
+             0.046 * Math.sind(2*D - Ms)      +
+             0.041 * Math.sind(Mm - Ms)       -
+             0.035 * Math.sind(D)             -   // the Parallactic Equation
+             0.031 * Math.sind(Mm + Ms)       -
+             0.015 * Math.sind(2*F - 2*D)     +
+             0.011 * Math.sind(Mm - 4*D)
         ;
 
         var deltaLat =
-            -0.173 * AngleX.SinDeg(F - 2*D)       -
-             0.055 * AngleX.SinDeg(Mm - F - 2*D)  -
-             0.046 * AngleX.SinDeg(Mm + F - 2*D)  +
-             0.033 * AngleX.SinDeg(F + 2*D)       +
-             0.017 * AngleX.SinDeg(2*Mm + F)
+            -0.173 * Math.sind(F - 2*D)       -
+             0.055 * Math.sind(Mm - F - 2*D)  -
+             0.046 * Math.sind(Mm + F - 2*D)  +
+             0.033 * Math.sind(F + 2*D)       +
+             0.017 * Math.sind(2*Mm + F)
         ;
 
         var deltaRadius =
-            -0.58 * AngleX.CosDeg (Mm - 2*D)   -
-             0.46 * AngleX.CosDeg (2*D)
+            -0.58 * Math.cosd (Mm - 2*D)   -
+             0.46 * Math.cosd (2*D)
         ;
 
         var ecliptic = Astronomy.EclipticLatLon (xh, yh, zh);
@@ -1063,10 +919,10 @@ function CreateMoon()
         latecl += deltaLat;
         r += deltaRadius / EARTH_RADII_PER_ASTRONOMICAL_UNIT;
 
-        var coslon = AngleX.CosDeg (lonecl);
-        var sinlon = AngleX.SinDeg (lonecl);
-        var coslat = AngleX.CosDeg (latecl);
-        var sinlat = AngleX.SinDeg (latecl);
+        var coslon = Math.cosd (lonecl);
+        var sinlon = Math.sind (lonecl);
+        var coslat = Math.cosd (latecl);
+        var sinlat = Math.sind (latecl);
 
         var xp = r * coslon * coslat;
         var yp = r * sinlon * coslat;
@@ -1085,13 +941,6 @@ function CreateMoon()
 
 function AstronomyClass()
 {
-    this.DayValue = function(utc)
-    {
-        // http://www.elated.com/articles/working-with-dates/
-        // Return number of days since 0/Jan/2000 00:00 UTC...
-        return 1.0 + (utc.getTime() - Date.UTC(2000, 0, 1)) / (3600.0 * 24.0 * 1000.0);
-    }
-    
     this.DaysSinceJ2000 = function(day)
     {
         return day - 1.5;
@@ -1104,7 +953,8 @@ function AstronomyClass()
     
     this.CurrentDayValue = function(utc)
     {
-        return this.DayValue(new Date());
+		var temp = new DateTime();
+		return temp.getDayNumber();
     }
     
     this.DayValueToDate = function (day)
@@ -1118,7 +968,7 @@ function AstronomyClass()
     
     this.EclipticLatLon = function (x, y, z)
     {
-        return { 'longitude': AngleX.AtanDeg2(y, x), 'latitude': AngleX.AtanDeg2(z, Math.sqrt(x*x + y*y)) };
+        return { 'longitude': Math.atan2d(y, x), 'latitude': Math.atan2d(z, Math.sqrt(x*x + y*y)) };
     }
     
     this.NextRiseTime = function (body, day, location)
@@ -1252,9 +1102,9 @@ function AstronomyClass()
         var bc = body.GeocentricCoordinates (day);
         var sc = this.Sun.GeocentricCoordinates (day);
         
-        var blon = AngleX.AtanDeg2 (bc.y, bc.x);
-        var slon = AngleX.AtanDeg2 (sc.y, sc.x);
-        var rlon = AngleX.FixDegrees (blon - slon);
+        var blon = Math.atan2d (bc.y, bc.x);
+        var slon = Math.atan2d (sc.y, sc.x);
+        var rlon = Angle.FixDegrees (blon - slon);
         return rlon;
     }
     
@@ -1308,8 +1158,8 @@ function AstronomyClass()
     {
         // Don says: in the original C code, the RA1 and DEC1 passed in were always in radians.
         // I want to pass in hours and degrees, respectively, so convert to radians here...
-        var RA1  = AngleX.RAD_FROM_HOURS * eq.longitude;
-        var DEC1 = AngleX.RAD_FROM_DEG   * eq.latitude;
+        var RA1  = Math.H2R * eq.longitude;
+        var DEC1 = Math.DEGRAD   * eq.latitude;
 
         /* Compute input direction cosines */
         var A = Math.cos (DEC1);
@@ -1329,12 +1179,12 @@ function AstronomyClass()
         }
 
         // Don says: for my purposes, I always want RA in hours and DEC in degrees...
-        var RA2  = AngleX.HOURS_FROM_RAD * Math.atan2 (x2[1], x2[0]);
+        var RA2  = Math.R2H * Math.atan2 (x2[1], x2[0]);
         if (RA2 < 0) {
             RA2 += 24.0;
         }
         
-        var DEC2 = AngleX.SafeArcSinInDegrees (x2[2]);
+        var DEC2 = Angle.SafeArcSinInDegrees (x2[2]);
 
         return new SphericalCoordinates (RA2, DEC2, eq.radius);
     }
@@ -1425,7 +1275,7 @@ function Astronomy_AngularRadius (body, day, location)
     } else {
         // FIXFIXFIX:  use location to figure out distance from body to observer, not just center of Earth!
         var distance = body.DistanceFromEarth (day) * METERS_PER_ASTRONOMICAL_UNIT;        
-        return AngleX.DEG_FROM_RAD * (body.RadiusInMeters / distance);
+        return Math.RADEG * (body.RadiusInMeters / distance);
     }
 }
 
@@ -1462,11 +1312,11 @@ function Astronomy_CulminateCondition (body, day1, day2, location)
     // An azimuth is eastern if sin(azimuth) > 0, or western if sin(azimuth) < 0.
     // The altitude at both times must be above the horizon (altitude > 0).
     if (hc1.altitude > 0) {
-        var sin1 = AngleX.SinDeg (hc1.azimuth);
+        var sin1 = Math.sind (hc1.azimuth);
         if (sin1 >= 0) {
             var hc2 = body.HorizontalCoordinates (day2, location);
             if (hc2.altitude > 0) {
-                var sin2 = AngleX.SinDeg (hc2.azimuth);
+                var sin2 = Math.sind (hc2.azimuth);
                 if (sin2 <= 0) {
                     culm = true;
                 }
@@ -1595,9 +1445,9 @@ function Astronomy_RelativeLongitudeCondition (body, day1, day2, location, longi
 
 function AnglesInOrder (a, b, c)
 {
-    a = AngleX.FixDegrees (a);
-    b = AngleX.FixDegrees (b);
-    c = AngleX.FixDegrees (c);
+    a = Angle.FixDegrees (a);
+    b = Angle.FixDegrees (b);
+    c = Angle.FixDegrees (c);
 
     var MARGIN = 45.0;
     if (c < a) {
@@ -1697,33 +1547,12 @@ function AngleBetweenVectorsInDegrees (va, vb)
             return (dotprod < 0) ? 180.0 : 0.0;
         }
     } else {
-        return AngleX.DEG_FROM_RAD * Math.acos (dotprod);
+        return Math.RADEG * Math.acos (dotprod);
     }
 }
 
 //----------------------------------------------------------------------------------------------
 
-function SphericalCoordinates (longitude, latitude, radius)
-{
-    this.longitude = longitude;
-    this.latitude  = latitude;
-    this.radius    = radius;
-}
-
-//----------------------------------------------------------------------------------------------
-
-function GeographicCoordinates (longitude, latitude, elevationInMetersAboveSeaLevel)
-{
-    if (elevationInMetersAboveSeaLevel == null) {
-        elevationInMetersAboveSeaLevel = 0.0;
-    }
-
-    this.longitude = longitude;
-    this.latitude  = latitude;
-    this.radius    = (elevationInMetersAboveSeaLevel / METERS_PER_ASTRONOMICAL_UNIT) + EARTH_RADII_PER_ASTRONOMICAL_UNIT;
-}
-
-//----------------------------------------------------------------------------------------------
 // Create a singleton instance "Astronomy", as a substitute for a namespace...
 
 var Astronomy = new AstronomyClass();
