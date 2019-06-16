@@ -472,6 +472,7 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
       </table>
 </td>
 </tr>
+<!--
 <tr>
 <td>
 <p><strong>Equation Of Time</strong></p>
@@ -494,6 +495,7 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
 </script>
 </td>
 </tr>
+-->
 <tr>
 <td>
 <p><strong>Test</strong></p>
@@ -576,25 +578,6 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
                         </td>
                       </tr>
                   </tbody></table>    <!-- date/time controls end -->
-</p>
-<p>
-<table class="ControlBox">  <!-- angle mode options -->
-                      <tbody><tr>
-                          <td colspan="2" class="OptionHeader">Angle display mode</td>
-                      </tr>
-                      <tr>
-                          <td><input type="radio" name="rbGroup_AngleMode" id="rb_AngleMode_dms" onClick="SetAngleMode(&#39;dms&#39;)"></td>
-                          <td class="FlatText">dd° mm' ss"</td>
-                      </tr>
-                      <tr>
-                          <td><input type="radio" name="rbGroup_AngleMode" id="rb_AngleMode_dmm" onClick="SetAngleMode(&#39;dmm&#39;)"></td>
-                          <td class="FlatText">dd° mm.mm'</td>
-                      </tr>
-                      <tr>
-                          <td><input type="radio" name="rbGroup_AngleMode" id="rb_AngleMode_decimal" onClick="SetAngleMode(&#39;decimal&#39;)"></td>
-                          <td class="FlatText">dd.ddddd</td>
-                      </tr>
-                  </tbody></table>
 </p>
 </td>
 </tr>
@@ -733,6 +716,26 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
                       </tr>
                   </tbody></table>              </td>       
               <!-- end geographic coordinate column -->
+              <td>
+<table class="ControlBox">  <!-- angle mode options -->
+                      <tbody><tr>
+                          <td colspan="2" class="OptionHeader">Angle display mode</td>
+                      </tr>
+                      <tr>
+                          <td><input type="radio" name="rbGroup_AngleMode" id="rb_AngleMode_dms" onClick="SetAngleMode(&#39;dms&#39;)"></td>
+                          <td class="FlatText">dd° mm' ss"</td>
+                      </tr>
+                      <tr>
+                          <td><input type="radio" name="rbGroup_AngleMode" id="rb_AngleMode_dmm" onClick="SetAngleMode(&#39;dmm&#39;)"></td>
+                          <td class="FlatText">dd° mm.mm'</td>
+                      </tr>
+                      <tr>
+                          <td><input type="radio" name="rbGroup_AngleMode" id="rb_AngleMode_decimal" onClick="SetAngleMode(&#39;decimal&#39;)"></td>
+                          <td class="FlatText">dd.ddddd</td>
+                      </tr>
+                  </tbody></table>
+
+              </td>
           </tr>
     </tbody></table>
   <div id="divDateTime"><code>Wed May 29 2019 23:55:40 GMT-0300 (Horário Padrão de Brasília)</code><br><code>Day Value = 7090.12199</code><br></div>
