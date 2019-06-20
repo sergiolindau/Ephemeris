@@ -5,8 +5,6 @@
       var AngularCoordinateColor = { 'equatorial': "#ccff80", 'ecliptic': "ffdf80", 'horizontal': "ccccff" };
       var AstroDateTime = dateUTC.copy();//new DateTime();
       var GeographicPosition = [ { lat: null, lng:null } , 0.0 ];
-      var GeographicLatitude = null;
-      var GeographicLongitude = null;
       var GeographicElevationInMeters = 0.0;      // FIXFIXFIX:  Allow user to edit this too!
       var SelectedBody = null;            // celestial body selected for extra info: rise time, culm time, set time, visual magnitude, etc.
       
@@ -127,7 +125,7 @@
                   throw ("Internal error - unknown cartesian coordinate type '" + CartesianCoordinateType + "'");
           }
   
-          var location = new GeographicCoordinates (GeographicLongitude, GeographicLatitude, GeographicElevationInMeters);
+          var location = new GeographicCoordinates (mylocation.lng.get(Angle.DEC), mylocation.lat.get(Angle.DEC), GeographicElevationInMeters);
           var mag = (p.Name == "Earth") ? "&nbsp;" : p.VisualMagnitude(day).toFixed(2);
           var sunAngle = (p.Name == "Earth") ? "&nbsp;" : Astronomy.AngleWithSunInDegrees (p, day).toFixed(1) + "&deg;";
   
@@ -316,7 +314,7 @@
       function CalculateSelectedBody (day)
       {
           if (SelectedBody != null) {
-              var location = new GeographicCoordinates (GeographicLongitude, GeographicLatitude, GeographicElevationInMeters);
+              var location = new GeographicCoordinates (mylocation.lng.get(Angle.DEC), mylocation.lat.get(Angle.DEC), GeographicElevationInMeters);
   
               if (SelectedBody.NextRiseTime == null || SelectedBody.NextRiseTime < day) {
                   SelectedBody.NextRiseTime = Astronomy.NextRiseTime (SelectedBody.Body, day, location);
@@ -343,154 +341,11 @@
           SelectObjectForExtraInfo (name);
       }
   
-      function ReflectDateTime (date)
-      {
-          $.$.i('edit_Year').value = date.getFullYear();
-          $.$.i('edit_Month').value = 1 + date.getMonth();
-          $.$.i('edit_Day').value = date.getDate();
-          $.$.i('edit_Hour').value = date.getHours();
-          $.$.i('edit_Minute').value = date.getMinutes();
-          $.$.i('edit_Second').value = date.getSeconds();
-      }
-  
-      function ParseDateTimeBox (id, min, max)
-      {
-          var rv = null;
-          var s = $.$.i(id).value;
-          if (/^\d+$/.test(s)) {
-              var n = parseInt (s, 10);   // explicit radix==10 prevents interpreting "010" as octal!
-              if (!isNaN(n) && (n >= min) && (n <= max)) {
-                  rv = n;
-              }
-          }
-  
-          if (rv == null) {
-              var box = id.replace(/^edit_/,"").toLowerCase();
-              alert ("The " + box + " value is not valid.  It must be an integer between " + min + " and " + max + ", inclusive.");
-              $.$.i(id).focus();
-          }
-  
-          return rv;
-      }
-  
-      function SaveDateTime (d)
-      {
-          var cookieText = d.getFullYear() + "/" + (d.getMonth() + 1) + "/" + d.getDate() + "/" + d.getHours() + "/" + d.getMinutes() + "/" + d.getSeconds();
-          Cookie.write ("AstroDateTime", cookieText, COOKIE_EXPIRATION_DAYS);
-      }
-  
-      function LoadDateTime()
-      {
-          var d = new DateTime();
-  
-          /*
-          // Put this code back in, if restoring last date/time is desired...
-          var cookieText = Cookie.read ("AstroDateTime", "");
-          if (cookieText != "") {
-              var a = cookieText.split(/\//);
-              if (a.length == 6) {
-                  d.setFullYear (parseInt(a[0],10));
-                  d.setMonth (parseInt(a[1],10) - 1);
-                  d.setDate (parseInt(a[2],10));
-                  d.setHours (parseInt(a[3],10));
-                  d.setMinutes (parseInt(a[4],10));
-                  d.setSeconds (parseInt(a[5],10));
-                  d.setMilliseconds (0);
-              }
-          }
-          */
-          return d;
-      }
-  
-      function ParseDateTime()
-      {
-          // Validate contents of the edit boxes.
-          // If valid, update AstroDateTime and disable button.
-          var year = ParseDateTimeBox ('edit_Year', 1000, 3000);
-          if (year != null) {
-              var month = ParseDateTimeBox ('edit_Month', 1, 12);
-              if (month != null) {
-                  var day = ParseDateTimeBox ('edit_Day', 1, 31);
-                  if (day != null) {
-                      var hour = ParseDateTimeBox ('edit_Hour', 0, 23);
-                      if (hour != null) {
-                          var minute = ParseDateTimeBox ('edit_Minute', 0, 59);
-                          if (minute != null) {
-                              var second = ParseDateTimeBox ('edit_Second', 0, 59);
-                              if (second != null) {
-                                  var date = new DateTime();
-  
-                                  date.setFullYear (year);
-                                  date.setMonth (month - 1);
-                                  date.setDate (day);
-                                  date.setHours (hour);
-                                  date.setMinutes (minute);
-                                  date.setSeconds (second);
-                                  date.setMilliseconds (0);
-  
-                                  return date;
-                              }
-                          }
-                      }
-                  }
-              }
-          }
-  
-          return null;
-      }
-  
-      function SetUpdatedDateTime (date)
-      {
-          AstroDateTime = date;
-          $.$.i('button_SetDateTime').disabled = true;
-  
-          SaveDateTime (AstroDateTime);
-          ResetSelectedBodyEvents();
-  
-          CalculateSolarSystem();
-      }
-  
-      function OnSetDateTime()
-      {
-          var date = ParseDateTime();
-          if (date != null) {
-              SetUpdatedDateTime (date);
-          }
-      }
-  
-      function AddDays (d)
-      {
-          var date = ParseDateTime();
-          if (date != null) {
-              date.setDate (date.getDate() + d);
-              ReflectDateTime (date);
-              SetUpdatedDateTime (date);
-          }
-      }
-  
       function updateEphemerisPanel()
 	  {
 			AstroDateTime = dateUTC.copy();
-			ReflectDateTime (AstroDateTime);
 			CalculateSolarSystem();
 	  }
-  
-      function OnDateTimeDirty()
-      {
-          $.$.i('button_SetDateTime').disabled = false;       // the user may have changed date/time
-      }
-  
-      function OnCheckBoxRealTime()
-      {/*********/
-//          Flag_RealTimeUpdate = $.$.i('checkbox_RealTime').checked;
-          Cookie.write ("RealTimeMode", Flag_RealTimeUpdate.toString(), COOKIE_EXPIRATION_DAYS);
-          if (Flag_RealTimeUpdate) {
-              ResetSelectedBodyEvents();
-          } else {
-              // Since we are not updating the clock constantly, save this as a sticky date/time...
-              SaveDateTime (AstroDateTime);
-          }
-      }
   
       var NakedEyeObjects = {
           'Sun':      true,
@@ -510,7 +365,7 @@
           // This function's job is to hide/unhide rows based on all relevant GUI control states.
   
           var day = AstroDateTime.getDayNumber();
-          var location = new GeographicCoordinates (GeographicLongitude, GeographicLatitude, GeographicElevationInMeters);
+          var location = new GeographicCoordinates (mylocation.lng.get(Angle.DEC), mylocation.lat.get(Angle.DEC), GeographicElevationInMeters);
           var hideBelowHorizon = $.$.i('checkbox_RisenObjectsOnly' ).checked;     // should we hide any object that is below the horizon?
           var hideDimObjects   = $.$.i('checkbox_BrightObjectsOnly').checked;     // should we hide any object too dim to be seen with the naked eye?
           var showComets       = $.$.i('checkbox_ShowComets').checked;            // should comets be included in the list?
@@ -608,7 +463,7 @@
       function OnDetailsButton()
       {
           if (SelectedBody!=null && SelectedBody.Body!=null) {
-              var location = new GeographicCoordinates (GeographicLongitude, GeographicLatitude, GeographicElevationInMeters);
+              var location = new GeographicCoordinates (mylocation.lng.get(Angle.DEC), mylocation.lat.get(Angle.DEC), GeographicElevationInMeters);
               var body = SelectedBody.Body;
               var w = window.open ("", "CelestialBodyDetails");
               if (w!=null && w.document!=null) {
@@ -751,20 +606,6 @@
           SetAngleMode (angleDisplayMode);
       }
   
-      function LoadOption_RealTime()
-      {
-          // Load realtime check box state.
-          var realTimeEnabled = (Cookie.read ("RealTimeMode", "true") == "true");
-          // If realtime check box is unchecked, load saved date/time.
-          if (!realTimeEnabled) {
-              AstroDateTime = LoadDateTime();
-              ReflectDateTime (AstroDateTime);
-          }
-  
-//          $.$.i('checkbox_RealTime').checked = realTimeEnabled;
-          OnCheckBoxRealTime();
-      }
-      
       function LoadOption_BrightObjectsOnly()
       {
           var brightOnly = (Cookie.read ("BrightObjectsOnly", "false") == "true");

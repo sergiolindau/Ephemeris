@@ -46,8 +46,9 @@ TheLocation.onset = function(pos){
 	updateCoordSelect("lat");
 	updateCoordSelect("lng");
 
-	$.$.i("latdec").value = mylocation.lat.get(Angle.DEC);
-	$.$.i("lngdec").value = mylocation.lng.get(Angle.DEC);
+	GeographicLatitude = $.$.i("latdec").value = mylocation.lat.get(Angle.DEC);
+	GeographicLongitude = $.$.i("lngdec").value = mylocation.lng.get(Angle.DEC);
+
 };
 /***********************************************************************/
 function clickGetLocation(){

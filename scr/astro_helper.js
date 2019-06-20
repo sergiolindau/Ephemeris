@@ -111,8 +111,9 @@ function ShowAngleFeedback (divName, value, editName)
 
 function CommitGeographicCoordinates()
 {
-    var lat = ParseAngle ($.$.i('GeoLat_Value').value);
-    var lon = ParseAngle ($.$.i('GeoLong_Value').value);
+    var lat = ParseAngle ($.$.i('latdec').value);
+    var lon = ParseAngle ($.$.i('lngdec').value);
+alert(lat);
 
     if (lat == null) {
         alert ("The geographic latitude you have entered is not valid. It must be between 0 and 90 degrees.  You may enter it with a decimal fraction, or in ddd:mm:ss notation.");
@@ -142,82 +143,6 @@ function CommitGeographicCoordinates()
         return false;   // not valid
     }
 }
-
-function SaveGeographicCoordinates()
-{
-    if (CommitGeographicCoordinates()) {
-        var expiration = 3650;  // 10 years
-    
-        Cookie.write ("GeographicLatitudeValue",  $.$.i('GeoLat_Value').value,  expiration);
-        Cookie.write ("GeographicLongitudeValue", $.$.i('GeoLong_Value').value, expiration);
-        
-        Cookie.write ("GeographicLatitudeDirection",  (($.$.i('GeoLat_NS') .selectedIndex == 0) ? "N" : "S"), expiration);
-        Cookie.write ("GeographicLongitudeDirection", (($.$.i('GeoLong_EW').selectedIndex == 0) ? "W" : "E"), expiration);
-        
-        $.$.i('SaveButton').disabled = true;
-    }
-}
-
-function LoadGeographicCoordinates()
-{
-    $.$.i('GeoLat_Value').value  = Cookie.read ("GeographicLatitudeValue",  "27.41305");
-    $.$.i('GeoLong_Value').value = Cookie.read ("GeographicLongitudeValue", "82.66034");
-    
-    $.$.i('GeoLat_NS').selectedIndex  = Cookie.read("GeographicLatitudeDirection","N")  == "N" ? 0 : 1;
-    $.$.i('GeoLong_EW').selectedIndex = Cookie.read("GeographicLongitudeDirection","W") == "W" ? 0 : 1;
-    
-    CommitGeographicCoordinates();
-}
-
-
-function OnGeoLatLongChange()
-{
-    $.$.i('SaveButton').disabled = false;
-}
-
-
-function ParseAngle (s, max)
-{
-    // Look for 1..3 floating pointer numbers, delimited by colons.
-    // For example:  37.35   or   43:15.373   or  23:44:55.7  
-    // These represent degrees[:minutes[:seconds]].
-    // We ignore any white space outside the floating point numbers.
-    var angle = null;
-    var array = s.split(/\s*:\s*/);
-    if (array.length >= 1 && array.length <= 3) {
-        var denom = 1.0;
-        angle = 0.0;
-        for (var i=0; i < array.length; ++i) {
-            if (!RegExp_Float.test(array[i])) {
-                return null;    // does not look like a valid floating point number
-            }
-            
-            var x = parseFloat (array[i]);
-            if (isNaN(x)) {
-                return null;    // could not parse a floating point number
-            }
-            
-            if (x < 0) {
-                return null;    // user must specify direction by using E/W, N/S controls, not '+' or '-'.
-            }
-            if (i > 0) {
-                if (x >= 60.0) {
-                    return null;    // not a valid minute or second value
-                }
-            }
-            
-            angle += x / denom;
-            denom *= 60.0;
-        }
-        
-        if (angle < 0.0 || angle > max) {
-            return null;
-        }
-    }
-    return angle;
-}
-
-
 /*
     $Log: astro_helper.js,v $
     Revision 1.3  2009/03/08 00:02:10  Don.Cross

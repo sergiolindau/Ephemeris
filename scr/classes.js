@@ -184,6 +184,47 @@ function GeographicCoordinates (longitude, latitude, elevationInMetersAboveSeaLe
 }
 
 //----------------------------------------------------------------------------------------------
+function ParseAngle (s, max)
+{
+    // Look for 1..3 floating pointer numbers, delimited by colons.
+    // For example:  37.35   or   43:15.373   or  23:44:55.7  
+    // These represent degrees[:minutes[:seconds]].
+    // We ignore any white space outside the floating point numbers.
+    var angle = null;
+    var array = s.split(/\s*:\s*/);
+    if (array.length >= 1 && array.length <= 3) {
+        var denom = 1.0;
+        angle = 0.0;
+        for (var i=0; i < array.length; ++i) {
+            if (!RegExp_Float.test(array[i])) {
+                return null;    // does not look like a valid floating point number
+            }
+            
+            var x = parseFloat (array[i]);
+            if (isNaN(x)) {
+                return null;    // could not parse a floating point number
+            }
+            
+            if (x < 0) {
+                return null;    // user must specify direction by using E/W, N/S controls, not '+' or '-'.
+            }
+            if (i > 0) {
+                if (x >= 60.0) {
+                    return null;    // not a valid minute or second value
+                }
+            }
+            
+            angle += x / denom;
+            denom *= 60.0;
+        }
+        
+        if (angle < 0.0 || angle > max) {
+            return null;
+        }
+    }
+    return angle;
+}
+
 
 
 /***********************************************************************

@@ -76,14 +76,11 @@ addPanelRefreshAction(RefreshAction);
           LoadOption_Cartesian();
           LoadOption_Angular();
           LoadOption_AngleMode();
-          LoadOption_RealTime();
-          LoadGeographicCoordinates();
           LoadOption_SelectedObject();
           LoadOption_BrightObjectsOnly();
           LoadOption_RisenObjectsOnly();
           OnVisibilityChange();          // do this AFTER loading all options that can affect the display
 //          Timer();    // prime the pump for the self-perpetuating every-1-second timer event
-//			ephemerisTimer();
       }
   </script>
 <div>
@@ -496,91 +493,6 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
 </td>
 </tr>
 -->
-<tr>
-<td>
-<p><strong>Test</strong></p>
-<p><!-- begin geographic coordinate column -->
-                  <table>
-                      <tbody><tr>
-                          <td colspan="2" class="OptionHeader">Observer's&nbsp;location</td>
-                      </tr>
-                      <tr>
-                          <td>
-                              <select id="GeoLat_NS" class="PullDown" onChange="OnGeoLatLongChange()">
-                                  <option value="N">N</option>
-                                  <option value="S">S</option>
-                              </select>
-                          </td>
-                          <td>
-                              <input id="GeoLat_Value" type="text" size="10" class="EditLatLonBox" onKeyUp="OnGeoLatLongChange()">&nbsp;°&nbsp;lat
-                          </td>
-                          <td>
-                              <div id="GeoLat_Feedback" style="font-family:Monospace;">&nbsp;=&nbsp;&nbsp;027°&nbsp;24'&nbsp;47.0"</div>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td>
-                              <select id="GeoLong_EW" class="PullDown" onChange="OnGeoLatLongChange()">
-                                  <option value="W">W</option>
-                                  <option value="E">E</option>
-                              </select>
-                          </td>
-                          <td>
-                              <input id="GeoLong_Value" type="text" size="10" class="EditLatLonBox" onKeyUp="OnGeoLatLongChange()">&nbsp;°&nbsp;long
-                          </td>
-                          <td>
-                              <div id="GeoLong_Feedback" style="font-family:Monospace;">&nbsp;=&nbsp;&#8722;082°&nbsp;39'&nbsp;37.2"</div>
-                          </td>
-                      </tr>
-                      <tr>
-                          <td></td>
-                          <td><input id="SaveButton" disabled="disabled" type="button" value="Save" title="Saves your edited coordinates and starts using them." onClick="SaveGeographicCoordinates();CalculateSolarSystem();"></td>
-                      </tr>
-                  </tbody></table>
-                     <!-- end geographic coordinate column -->
-</p>
-<p>
-                  <table class="ControlBox">     <!-- date/time controls begin -->
-                      <tbody><tr>
-                          <td colspan="6">
-                              <center>
-                                  <table>
-                                      <tbody><tr title="Selects whether the data on this page is refreshed once every second.">
-                                          <td>&nbsp;</td>
-                                          <td class="OptionHeader">Real-time update</td>
-                                      </tr>
-                                  </tbody></table>
-                              </center>
-                          </td>
-                      </tr>
-  
-                      <tr>
-                          <td><input type="text" size="4" id="edit_Year" class="EditDateBox" onKeyUp="OnDateTimeDirty()" disabled=""></td>
-                          <td><input type="text" size="2" id="edit_Month" class="EditDateBox" onKeyUp="OnDateTimeDirty()" disabled=""></td>
-                          <td><input type="text" size="2" id="edit_Day" class="EditDateBox" onKeyUp="OnDateTimeDirty()" disabled=""></td>
-                          <td><input type="text" size="2" id="edit_Hour" class="EditDateBox" onKeyUp="OnDateTimeDirty()" disabled=""></td>
-                          <td><input type="text" size="2" id="edit_Minute" class="EditDateBox" onKeyUp="OnDateTimeDirty()" disabled=""></td>
-                          <td><input type="text" size="2" id="edit_Second" class="EditDateBox" onKeyUp="OnDateTimeDirty()" disabled=""></td>
-  
-                          <td><input type="button" value="Set" id="button_SetDateTime" onClick="OnSetDateTime()" disabled=""></td>
-                      </tr>
-                      <tr class="DateTimeCaption">
-                          <td>year</td>
-                          <td>mon</td>
-                          <td>day</td>
-                          <td>hr</td>
-                          <td>min</td>
-                          <td>sec</td>
-  
-                          <td>
-                              <input type="button" value="&#8722;" id="button_SubtractOneDay" onClick="AddDays(-1)" disabled="" title="Subtract 1 day">
-                              <input type="button" value="+" id="button_AddOneDay" onClick="AddDays(1)" disabled="" title="Add 1 day">
-                        </td>
-                      </tr>
-                  </tbody></table>    <!-- date/time controls end -->
-</p>
-</td>
-</tr>
   <tr>
   <td>
 <strong>Ephemeris</strong>
@@ -595,7 +507,8 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
           Include comets.<br>
           
           <input type="checkbox" id="checkbox_ShowMinor" onClick="OnVisibilityChange()">
-          Include minor asteroids.<br>
+          Include minor asteroids.
+          <br>
       </p>
 <table>     <!-- begin outer table for coordinate controls -->
       <tbody><tr valign="top">
@@ -804,19 +717,20 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
 
   </td>
   </tr>
-  <tr>
+<!--  <tr>
     <td><strong>Planetarium</strong>
 <center>                        
 <div id="frame_visor" style="width:1030px;position:relative;background-color:#000000;padding-top:20px;padding-bottom:20px">                                 
 </div>
 </center>
     </td>
-  </tr>
+  </tr>-->
 </table>
-
+<!--
 <iframe width="1080" height="796" src="file:///X:/Javascript%20Astronomy%20Algorithms/GitHub/scr/references.html"></iframe>
  
 <hr />
+-->
  <div id="TimeZoneContainer">  
 <input type="button" value="Time zone" onclick="document.getElementById('TimeZone').hidden=false"/>
 <div id="TimeZone" hidden="true">
