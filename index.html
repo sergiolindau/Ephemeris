@@ -44,6 +44,9 @@
 <script language="javascript" src="./scr/astronomy-s.js"></script>
 <script language="javascript" src="./scr/astro_helper.js"></script>
 <script language="javascript" src="./scr/astronomy.js"></script>
+<script language="javascript" src="./scr/EphemerisPanel.js"></script>
+<script language="javascript" src="./scr/linha_efem.js"></script>
+<script language="javascript" src="./scr/Planetarium.js"></script>
 <script type="text/javascript" src="./scr/Cookie.js"></script>
 <script type="text/javascript" src="./scr/CanvasGraph.js"></script>
 
@@ -60,19 +63,22 @@ function setJ2000() {
 	panelUpdate(dateUTC);
 }
 function RefreshAction(){
-//	console.log("====== DateTimePanelRefresh ======");
-//	console.log("==================================");
+	console.log("====== DateTimePanelRefresh ======");
+	console.log("==================================");
 }
-addPanelRefreshAction(RefreshAction);
+//addPanelRefreshAction(RefreshAction);
+var $now_split = new Array();
+
 </script>
 
 </head>
 <body onLoad="InitPage()">
 
-<script language="javascript" src="./scr/SS-DonCross.js"></script>
+<script language="javascript" src="./scr/EphemerisPanel.js"></script>
   <script>
       function InitPage()
       {
+		  clickGetLocation();
           LoadOption_Cartesian();
           LoadOption_Angular();
           LoadOption_AngleMode();
@@ -80,7 +86,6 @@ addPanelRefreshAction(RefreshAction);
           LoadOption_BrightObjectsOnly();
           LoadOption_RisenObjectsOnly();
           OnVisibilityChange();          // do this AFTER loading all options that can affect the display
-//          Timer();    // prime the pump for the self-perpetuating every-1-second timer event
       }
   </script>
 <div>
@@ -288,7 +293,7 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
     <table>
       <tr>
         <td>&nbsp;</td>
-        <td><input type="button" id="RunStop" value="Run" onclick="clickRunStop()" /></td>
+        <td><input type="button" class="RunStop" value="Run" onclick="clickRunStop()" /></td>
         <td>&nbsp;</td>
       </tr>
       <tr>
@@ -717,14 +722,7 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
 
   </td>
   </tr>
-<!--  <tr>
-    <td><strong>Planetarium</strong>
-<center>                        
-<div id="frame_visor" style="width:1030px;position:relative;background-color:#000000;padding-top:20px;padding-bottom:20px">                                 
-</div>
-</center>
-    </td>
-  </tr>-->
+
 </table>
 <!--
 <iframe width="1080" height="796" src="file:///X:/Javascript%20Astronomy%20Algorithms/GitHub/scr/references.html"></iframe>

@@ -32,10 +32,48 @@ https://www.digitalocean.com/community/tutorials/understanding-classes-in-javasc
 https://www.w3schools.com/jsref/jsref_obj_date.asp
 /***********************************************************************/
 
+function key(str) {
+	var temp = 0;
+	for(var i=0;i<str.length;i++){
+		temp += str.charCodeAt(i);
+	}
+	return temp;
+}
+
 
 /***********************************************************************
  DOM Helper
 /***********************************************************************/
+class $$ {
+	static $(type,descr,index) {
+		var result = [];
+		if (type==='tn') result = document.getElementsByTagNameNS(descr,arguments[2])
+		else switch(type) {
+			case 'i' : result = [ document.getElementById(descr) ]; break;
+			case 'n' : result = document.getElementsByName(descr); break;
+			case 'c' : result = document.getElementsByClassName(descr); break;
+			case 't' : result = document.getElementsByTagName(descr); break;
+			default  : result = [];
+		}
+		if (arguments.length>2) {
+			return result[index];
+		}
+		else {
+			return result;
+		}
+	}
+	static create(tag,parent) {
+		if (arguments.length==1)
+			return document.createElement(tag)
+		else {
+			var result = document.createElement(tag)
+			parent.lastChild.appendChild(result);
+			return result;
+		}
+	}
+}
+/***********************************************************************/
+
 class $ {
 	static $ = {
 		i : function(i) { return document.getElementById(i) },
@@ -330,7 +368,7 @@ class Angle {
 			case Angle.RADSTR:
 				return Math.round10(this.dec/180,-9)+"π";
 			case Angle.HSTR:
-				return (this.get(Angle.SIG)*this.get(Angle.HOUR))+"º"+this.get(Angle.MIN)+"'"+this.get(Angle.SEC)+"''";
+				return (this.get(Angle.SIG)*this.get(Angle.HOUR))+"<sup>h</sup>"+this.get(Angle.MIN)+"<sup>m</sup>"+this.get(Angle.SEC)+"<sup>s</sup>";
 			case Angle.SIN:
 				return Math.sin(this.dec*Angle.RAD_FROM_DEG);
 			case Angle.COS:
@@ -395,7 +433,7 @@ class Angle {
 			case Angle.DATE:
 				this.dec = Angle.DEG_FROM_RAD * Math.atan2(x,y);
 				break;
-			case Angle.UNIXTIME:
+			case Angle.UNIXTIME://*******
 				this.dec = Angle.DEG_FROM_RAD * Math.atan2(x,y);
 				break;
 			case Angle.DOTPROD:

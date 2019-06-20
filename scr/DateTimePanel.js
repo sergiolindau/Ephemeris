@@ -61,12 +61,16 @@ function initDateTimePanel() {
 
 var dateUTC = new DateTimeTick(), dateTAI, dateTT, dateTCG;
 
-dateUTC.setStartAction(function(){
-	$.$.i("RunStop").value = "Stop";
+dateUTC.setStartAction(
+	function(){
+		$.$.c("RunStop")[0].value = "Stop";
+		$.$.c("RunStop")[1].value = "Stop";
 });
 
 dateUTC.setStopAction(
-	function(){$.$.i("RunStop").value = "Run";
+	function(){
+		$.$.c("RunStop")[0].value = "Run";
+		$.$.c("RunStop")[1].value = "Run";
 });
 
 //alert(dateUTC.oldMethods.getFullYear());
