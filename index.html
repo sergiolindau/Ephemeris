@@ -54,63 +54,52 @@ function RefreshAction(){
 }
 //addPanelRefreshAction(RefreshAction);
 var $now_split = new Array();
+</script>
+
+<script>
 function LoadAction()
 {
 	clickGetLocation();
 	InitPage();
 }
-
-	</script>
+</script>
 
 </head>
 <body onLoad="LoadAction()">
-<!--
-	<script>
-		function InitPage()
-		{
-		InitPageSolarSystem();
-		InitPageCalendar();
-		InitPageSkyView();
-/*          LoadOption_Cartesian();
-          LoadOption_Angular();
-          LoadOption_AngleMode();
-          LoadOption_SelectedObject();
-          LoadOption_BrightObjectsOnly();
-          LoadOption_RisenObjectsOnly();
-          OnVisibilityChange();          // do this AFTER loading all options that can affect the display*/
-		}
-	</script>
--->
 	<div>
 		<h1 align="center">Javascript Astronomy Algorithms</h1>
-		<p align="center"><a href="https://github.com/sergiolindau/JavaScript-Astronomy-Algorithms/">GitHub Repository</a></p>
-		<h2>JavaScript Files</h2>
+		<p align="center"><a href="https://github.com/sergiolindau/JavaScript-Astronomy-Algorithms/" title="GitHub Repository of Javascript Astronomy Algorithms" target="_blank">GitHub Repository</a></p>
+		<h2>Project Files</h2>
 		<script>
-var jsfiles = ["Math.js","classes.js","GeoLocation.js","language.js","fastiCircuitum.js","Tick.js","DateTimeTick.js","TimeZone.js","astronomy.js","sunPanel.js","XMLHttpRequest.js","CanvasGraph.js"];
+var project_files = [
+	"Math.js",
+	"classes.js",
+	"GeoLocation.js",
+	"language.js",
+	"fastiCircuitum.js",
+	"Tick.js",
+	"DateTimeTick.js",
+	"TimeZone.js",
+	"astronomy.js",
+	"sunPanel.js",
+	"XMLHttpRequest.js",
+	"CanvasGraph.js"
+];
+
 function MakeFileMenu(Menu){
 	document.writeln("<ol>");
 	for(var i=0; i<Menu.length; i++) {
-		document.writeln("<li><a href=\""+Menu[i]+"\">"+Menu[i]+"</a><br /><details><summary>View File</summary>");
-		document.writeln("<div id=\""+Menu[i]+"_container\"><center><iframe width=\"1024\" height=\"768\" src=\"./scr/"+Menu[i]+"\"></iframe></center></div>");
+		document.writeln("<li><a href=\"./scr/"+Menu[i]+"\">"+Menu[i]+"</a><br /><details><summary>View File</summary>");
+		document.writeln("<div id=\""+Menu[i]+"_container\"><center><iframe width=\"1024\" height=\"768\" src=\"./scr/"+
+		Menu[i]+"\"></iframe></center></div>");
 		document.writeln("</details></li>");
 	}
 	document.writeln("</ol>");
 }
-MakeFileMenu(jsfiles);
 
-for(var i in Date.prototype){
-	alert(i);
-}
+MakeFileMenu(project_files);
 
-		</script>
-<!--
-<h2>HTML Files</h2>
-<script>
-var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","Tick.html","DateTimeTick.html","CanvasGraph.html","TimeZone.html"];
-//MakeFileMenu(htmlfiles);
 </script>
--->
-
 	</div>
 
 	<hr />
@@ -679,7 +668,7 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
   </tr>
   <tr>
     <td><strong>Sky View</strong>
-    <table>
+    <table align="center">
         <tr>
             <td><div id="divAstronomyHeader" class="FlatText"></div></td>
         </tr>
