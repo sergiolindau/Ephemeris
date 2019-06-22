@@ -216,7 +216,7 @@ function changeStepPanelValue() {
 function panelUpdate(date){
 	setFromUTC();
 	updateDateTimePanel();
-	updateEphemerisPanel();
+	updateEphemerisPanel()
 }
 //dateUTC.runAction = panelUpdate;
 dateUTC.setRunAction(panelUpdate);

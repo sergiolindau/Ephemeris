@@ -1,0 +1,55 @@
+    .Weekday {
+        text-align: center;
+        width: 120px;
+        height: 30px;
+        background-color: #e0ffff;
+        border-style:solid;
+        border-width:1px;
+    }
+    .Weekend {
+        text-align: center;
+        width: 120px;
+        height: 30px;
+        background-color: #ffffc0;
+        border-style:solid;
+        border-width:1px;
+    }
+    .CalendarMonthYear {
+        text-align: center;
+        height: 30px;
+        font-family: Sans-Serif;
+        font-size:xx-large;
+        border-style:solid;
+        border-width:1px;
+    }
+    .Day {
+        height: 90px;
+        vertical-align: top;
+        border-style:solid;
+        border-width:1px;
+    }
+    .ExtraInfo {
+        width: 400px;
+        border-style: solid;
+        border-width: 1px;
+    }
+    .PreCalc {
+        font-family: monospace;
+        font-size: smaller;
+    }
+    .AstroBodyStyle {
+        color: #ffffaf;
+        background-color: #00001f;
+    }
+    .TableHeader { background-color: #efefff;  }
+    .NumericData { font-family: Monospace; text-align: right; width: 8em; font-size:9pt; }
+    .SmallNumericData { font-family: Monospace; text-align: right; width: 5em; font-size:9pt; }
+    .FlatText { font-family: Monospace; text-align: center; }
+    .EventTimeData { font-family: Monospace; }
+    .UnitSup { font-style:normal; font-family: Arial; }
+    .EditDateBox { color: Black; text-align: center; font-family: Monospace; }
+    .EditLatLonBox { font-family: Monospace; }
+    .OptionHeader { font-size: larger; text-decoration: underline; }
+    .ControlBox { border-style: inset; border-width: thin; }
+    .PullDown { font-family: Monospace; }
+    .DateTimeCaption { text-align: center; font-size: smaller; font-family: sans-serif; }

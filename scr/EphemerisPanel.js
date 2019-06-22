@@ -26,7 +26,7 @@
       var CartesianCoordinateType = "heliocentric";
       var CartesianCoordinateColor = { 'geocentric': "#cfffcf", 'heliocentric': "#ffff9f", 'none':"#000000" };
       var AngularCoordinateType = "equatorial";
-      var AngularCoordinateColor = { 'equatorial': "#ccff80", 'ecliptic': "ffdf80", 'horizontal': "ccccff" };
+      var AngularCoordinateColor = { 'equatorial': "#ccff80", 'ecliptic': "#ffdf80", 'horizontal': "#ccccff" };
       var AstroDateTime = dateUTC.copy();//new DateTime();
       var GeographicPosition = [ { lat: null, lng:null } , 0.0 ];
       var GeographicElevationInMeters = 0.0;      // FIXFIXFIX:  Allow user to edit this too!
@@ -70,7 +70,7 @@
                       if (color != null) {
                           NameCurrentlyHighlighted = (flavor == "mouseover") ? name : null;
                           for (var i=0; i < CellSuffix.length; ++i) {
-                              var cell = $(name + CellSuffix[i]);
+                              var cell = $.$.i(name + CellSuffix[i]);
                               if (cell) {
                                   cell.style.backgroundColor = color;
                               }
@@ -247,7 +247,7 @@
               $.$.i('Earth_distance').style.backgroundColor = bgColorEarth;
           }
           $.$.i('row_Geocentric').style.backgroundColor = bgColorEarth;
-  
+
           $.$.i('row_Ecliptic'  ).style.backgroundColor = (AngularCoordinateType == "ecliptic"  ) ? AngularCoordinateColor[AngularCoordinateType] : "";
           $.$.i('row_Equatorial').style.backgroundColor = (AngularCoordinateType == "equatorial") ? AngularCoordinateColor[AngularCoordinateType] : "";
           $.$.i('row_Horizontal').style.backgroundColor = (AngularCoordinateType == "horizontal") ? AngularCoordinateColor[AngularCoordinateType] : "";
@@ -574,7 +574,7 @@
           $.$.i('th_Angle1').innerHTML = header1;
           $.$.i('th_Angle2').innerHTML = header2;
   
-          Cookie.write ("AngularCoordinateType", id.substring("rb_Angular_".length), COOKIE_EXPIRATION_DAYS);
+//          Cookie.write ("AngularCoordinateType", id.substring("rb_Angular_".length), COOKIE_EXPIRATION_DAYS);
           CalculateSolarSystem();
       }
   

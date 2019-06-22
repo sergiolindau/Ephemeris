@@ -941,6 +941,12 @@ function CreateMoon()
 
 function AstronomyClass()
 {
+    this.DayValue = function(utc)
+    {
+        // http://www.elated.com/articles/working-with-dates/
+        // Return number of days since 0/Jan/2000 00:00 UTC...
+        return 1.0 + (utc.getTime() - Date.UTC(2000, 0, 1)) / (3600.0 * 24.0 * 1000.0);
+    }
     this.DaysSinceJ2000 = function(day)
     {
         return day - 1.5;

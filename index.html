@@ -1,56 +1,42 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-  <title>Javascript Astronomy Algorithms - by Sergio Lindau</title>
-  <style type="text/css">
-      .TableHeader { background-color: #efefff;  }
-      .NumericData { font-family: Monospace; text-align: right; width: 8em; font-size:9pt; }
-      .SmallNumericData { font-family: Monospace; text-align: right; width: 5em; font-size:9pt; }
-      .FlatText { font-family: Monospace; }
-      .EventTimeData { font-family: Monospace; }
-      .UnitSup { font-style:normal; font-family: Arial; }
-      .EditDateBox { color: Black; text-align: center; font-family: Monospace; }
-      .EditLatLonBox { font-family: Monospace; }
-      .OptionHeader { font-size: larger; text-decoration: underline; }
-      .ControlBox { border-style: inset; border-width: thin; }
-      .PullDown { font-family: Monospace; }
-      .DateTimeCaption { text-align: center; font-size: smaller; font-family: sans-serif; }
-  </style>
-<!--<link rel="manifest" href="./src/manifest.json">-->
-<script language="javascript" src="./scr/MITLicense.js"></script>
-<script language="javascript" src="./scr/Math.js"></script>
-<script language="javascript" src="./scr/fastiCircuitum.js"></script>
-<script language="javascript" src="./scr/classes.js"></script>
-<script language="javascript" src="./scr/GeoLocation.js"></script>
-<script language="javascript" src="./scr/interface.js"></script>
-<script language="javascript" src="./scr/StringData.js"></script>
-<script language="javascript" src="./scr/language.js"></script>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<title>Javascript Astronomy Algorithms - by Sergio Lindau</title>
+	<link rel="stylesheet" type="text/css" href="./scr/style.css">
+	<!--<link rel="manifest" href="./src/manifest.json">-->
+	<script language="javascript" type="text/javascript" src="./scr/MITLicense.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/Math.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/fastiCircuitum.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/classes.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/GeoLocation.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/interface.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/StringData.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/language.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/GeoLocationPanel.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/XMLHttpRequest.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/TimeZone.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/TimeZonePanel.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/Tick.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/DateTimeTick.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/DateTimePanel.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/sunPanel.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/wz_jsgraphics.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/star_catalog.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/Constellation.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/sofa.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/astronomy-s.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/astronomy-s.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/astro_helper.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/astronomy.js"></script>
+	<!--<script language="javascript" type="text/javascript" src="./scr/EphemerisPanel.js"></script>-->
+	<script language="javascript" type="text/javascript" src="./scr/linha_efem.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/Planetarium.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/Cookie.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/CanvasGraph.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/astro_header.js"></script>
 
-<script language="javascript" src="./scr/GeoLocationPanel.js"></script>
-
-<script type="text/javascript" src="./scr/XMLHttpRequest.js"></script>
-<script type="text/javascript" src="./scr/TimeZone.js"></script>
-<script type="text/javascript" src="./scr/TimeZonePanel.js"></script>
-
-
-<script language="javascript" src="./scr/Tick.js"></script>
-<script language="javascript" src="./scr/DateTimeTick.js"></script>
-<script language="javascript" src="./scr/DateTimePanel.js"></script>
-<script language="javascript" src="./scr/sunPanel.js"></script>
-<script language="javascript" src="./scr/Constellation.js"></script>
-<script language="javascript" src="./scr/sofa.js"></script>
-<script language="javascript" src="./scr/astronomy-s.js"></script>
-<script language="javascript" src="./scr/astronomy-s.js"></script>
-<script language="javascript" src="./scr/astro_helper.js"></script>
-<script language="javascript" src="./scr/astronomy.js"></script>
-<script language="javascript" src="./scr/EphemerisPanel.js"></script>
-<script language="javascript" src="./scr/linha_efem.js"></script>
-<script language="javascript" src="./scr/Planetarium.js"></script>
-<script type="text/javascript" src="./scr/Cookie.js"></script>
-<script type="text/javascript" src="./scr/CanvasGraph.js"></script>
-
-<script>
+	<script>
 function setJ2000() {
 	console.log("Start Test...");
 	dateUTC.stop();
@@ -68,31 +54,38 @@ function RefreshAction(){
 }
 //addPanelRefreshAction(RefreshAction);
 var $now_split = new Array();
+function LoadAction()
+{
+	clickGetLocation();
+	InitPage();
+}
 
-</script>
+	</script>
 
 </head>
-<body onLoad="InitPage()">
-
-<script language="javascript" src="./scr/EphemerisPanel.js"></script>
-  <script>
-      function InitPage()
-      {
-		  clickGetLocation();
-          LoadOption_Cartesian();
+<body onLoad="LoadAction()">
+<!--
+	<script>
+		function InitPage()
+		{
+		InitPageSolarSystem();
+		InitPageCalendar();
+		InitPageSkyView();
+/*          LoadOption_Cartesian();
           LoadOption_Angular();
           LoadOption_AngleMode();
           LoadOption_SelectedObject();
           LoadOption_BrightObjectsOnly();
           LoadOption_RisenObjectsOnly();
-          OnVisibilityChange();          // do this AFTER loading all options that can affect the display
-      }
-  </script>
-<div>
- <h1 align="center">Javascript Astronomy Algorithms</h1>
- <p align="center"><a href="https://github.com/sergiolindau/JavaScript-Astronomy-Algorithms/">GitHub Repository</a></p>
-<h2>JavaScript Files</h2>
-<script>
+          OnVisibilityChange();          // do this AFTER loading all options that can affect the display*/
+		}
+	</script>
+-->
+	<div>
+		<h1 align="center">Javascript Astronomy Algorithms</h1>
+		<p align="center"><a href="https://github.com/sergiolindau/JavaScript-Astronomy-Algorithms/">GitHub Repository</a></p>
+		<h2>JavaScript Files</h2>
+		<script>
 var jsfiles = ["Math.js","classes.js","GeoLocation.js","language.js","fastiCircuitum.js","Tick.js","DateTimeTick.js","TimeZone.js","astronomy.js","sunPanel.js","XMLHttpRequest.js","CanvasGraph.js"];
 function MakeFileMenu(Menu){
 	document.writeln("<ol>");
@@ -109,7 +102,7 @@ for(var i in Date.prototype){
 	alert(i);
 }
 
-</script>
+		</script>
 <!--
 <h2>HTML Files</h2>
 <script>
@@ -118,8 +111,10 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
 </script>
 -->
 
-</div>
-<hr />
+	</div>
+
+	<hr />
+
 <h1 align="center">Test Workbench</h1>
 <p><input type="button" value="J2000.0 (0,0)" onclick="setJ2000();" /></p>
 <table width="0%" border="1">
@@ -128,6 +123,7 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
   </tr>
   <tr>
     <td>
+	<input type="button" value="Get Location" onclick="clickGetLocation()" />
 	<table>
 	  <tr>
 	    <td colspan="10" align="left"><strong><span id="translation_locationLabel_t01"> translation_locationLabel_t01 </span><script>makeTranslation("translation_locationLabel_t01");</script></strong> (<span id="glossary_GPL_g01"> glossary_GPL_g01 </span><script>makeTranslation("glossary_GPL_g01");</script>)</td>
@@ -137,7 +133,7 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
         </td>
 	    </tr>
 	  <tr>
-	    <td rowspan="2"><input type="button" value="Get Location" onclick="clickGetLocation()" /></td>
+	    <td rowspan="2">&nbsp;</td>
 	    <td align="right"><span id="glossary_Latitude_g01"> glossary_Latitude_g01 </span><script>makeTranslation("glossary_Latitude_g01");</script>:</td>
 	    <td><select id="latdeg" onchange="changeCoordElement('lat','deg')"></select></td>
 	    <td>º</td>
@@ -549,35 +545,35 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
   
               <td></td>
   
-              <td>        <!-- begin angular coordinate column -->
-                  <table cellspacing="0">
-                      <tbody><tr>
-                          <td></td>
-                          <td class="OptionHeader">Angular&nbsp;coordinates</td>
-                      </tr>
-  
-                      <tr id="row_Ecliptic" title="Angles relative to plane of Earth&#39;s orbit around the Sun." style="background-color: rgb(255, 223, 128);">
-                          <td>
-                              <input type="radio" name="rbGroup_Angular" id="rb_Angular_Ecliptic" onClick="OnRadioButton_Angular(this.id)">
-                          </td>
-                          <td><a href="http://en.wikipedia.org/wiki/Ecliptic_coordinate_system" target="_blank">Ecliptic</a></td>
-                      </tr>
-  
-                      <tr id="row_Equatorial" title="Angles relative to Earth&#39;s equator." style="">
-                          <td>
-                              <input type="radio" name="rbGroup_Angular" id="rb_Angular_Equatorial" onClick="OnRadioButton_Angular(this.id)">
-                          </td>
-                          <td><a href="http://en.wikipedia.org/wiki/Equatorial_coordinate_system" target="_blank">Equatorial</a></td>
-                      </tr>
-  
-                      <tr id="row_Horizontal" title="Angles relative to observer&#39;s horizon." style="">
-                          <td>
-                              <input type="radio" name="rbGroup_Angular" id="rb_Angular_Horizontal" onClick="OnRadioButton_Angular(this.id)">
-                          </td>
-                          <td><a href="http://en.wikipedia.org/wiki/Horizontal_coordinate_system" target="_blank">Horizontal</a></td>
-                      </tr>
-                  </tbody></table>
-              </td>       <!-- end angular coordinate column -->
+            <td>        <!-- begin angular coordinate column -->
+                <table cellspacing="0">
+                    <tr>
+                        <td></td>
+                        <td class="OptionHeader">Angular&nbsp;coordinates</td>
+                    </tr>
+
+                    <tr id="row_Ecliptic" title="Angles relative to plane of Earth's orbit around the Sun.">
+                        <td>
+                            <input type="radio" name="rbGroup_Angular" id="rb_Angular_Ecliptic" onClick="OnRadioButton_Angular(this.id)" />
+                        </td>
+                        <td><a href="http://en.wikipedia.org/wiki/Ecliptic_coordinate_system" target="_blank">Ecliptic</a></td>
+                    </tr>
+
+                    <tr id="row_Equatorial" title="Angles relative to Earth's equator.">
+                        <td>
+                            <input type="radio" name="rbGroup_Angular" id="rb_Angular_Equatorial" onClick="OnRadioButton_Angular(this.id)" />
+                        </td>
+                        <td><a href="http://en.wikipedia.org/wiki/Equatorial_coordinate_system" target="_blank">Equatorial</a></td>
+                    </tr>
+
+                    <tr id="row_Horizontal" title="Angles relative to observer's horizon.">
+                        <td>
+                            <input type="radio" name="rbGroup_Angular" id="rb_Angular_Horizontal" onClick="OnRadioButton_Angular(this.id)" />
+                        </td>
+                        <td><a href="http://en.wikipedia.org/wiki/Horizontal_coordinate_system" target="_blank">Horizontal</a></td>
+                    </tr>
+                </table>
+            </td>       <!-- end angular coordinate column -->
   
               <td></td>
               <td>
@@ -656,73 +652,99 @@ var htmlfiles = ["readme.html", "Math.html","GeoLocation.html","DateTime.html","
               </td>
           </tr>
     </tbody></table>
-  <div id="divDateTime"><code>Wed May 29 2019 23:55:40 GMT-0300 (Horário Padrão de Brasília)</code><br><code>Day Value = 7090.12199</code><br></div>
-<table id="planetTable" border="1" cellpadding="2" cellspacing="0">
-  <tbody>
-  <tr>
-    <th class="TableHeader" style="width: 8em;" title="Names of brighter objects are dark, and names of dimmer objects (invisible to the naked eye) are gray.">Object</th>
-    <th id="th_x" title="heliocentric x-coordinate in AU" style="background-color: rgb(255, 255, 159);">H<sub>x</sub></th>
-    <th id="th_y" title="heliocentric y-coordinate in AU" style="background-color: rgb(255, 255, 159);">H<sub>y</sub></th>
-    <th id="th_z" title="heliocentric z-coordinate in AU" style="background-color: rgb(255, 255, 159);">H<sub>z</sub></th>
-    <th id="th_distance" class="TableHeader" title="Distance of the object from the center of the Earth (when in geocentric mode) or the Sun (when in heliocentric mode), expressed in AU." style="background-color: rgb(255, 255, 159);">distance in <a href="http://en.wikipedia.org/wiki/Astronomical_units" target="_blank">AU</a></th>
-    <th class="TableHeader" title="Visual Magnitude">Mag</th>
-    <th class="TableHeader" title="Elongation: the angle between the object and the Sun, as seen from Earth.">Elong</th>
-    <th class="TableHeader" title="Constellation">Con</th>
-    <th class="TableHeader" id="th_Angle1" title="Ecliptic longitude." style="background-color: rgb(255, 223, 128);"><a href="http://en.wikipedia.org/wiki/Ecliptic_longitude" target="_blank">Ecl. Long.</a></th>
-    <th class="TableHeader" id="th_Angle2" title="Ecliptic latitude." style="background-color: rgb(255, 223, 128);"><a href="http://en.wikipedia.org/wiki/Ecliptic_latitude" target="_blank">Ecl. Lat.</a></th>
-  </tr>
-  <tr id="Sun_row" style="">
-    <td class="" id="Sun_name" style="background-color: rgb(255, 255, 159);"><div style="text-align:center; color:#000000;" id="Sun_namediv">Sun</div></td>
-    <td class="NumericData" id="Sun_x" style="background-color: rgb(255, 255, 159);">0.0000000</td>
-    <td class="NumericData" id="Sun_y" style="background-color: rgb(255, 255, 159);">0.0000000</td>
-    <td class="NumericData" id="Sun_z" style="background-color: rgb(255, 255, 159);">0.0000000</td>
-    <td class="NumericData" id="Sun_distance" style="background-color: rgb(255, 255, 159);">0.0000000</td>
-    <td class="SmallNumericData" id="Sun_mag" style="">-26.70</td>
-    <td class="SmallNumericData" id="Sun_SA" style="">0.0°</td>
-    <td class="SmallNumericData" id="Sun_const" style=""><div style="text-align:center;" id="Sun_constdiv"><span title="Taurus">Tau</span></div></td>
-    <td class="NumericData" id="Sun_RA" style="">&nbsp;</td><td class="NumericData" id="Sun_DEC" style="">&nbsp;</td>
-  </tr>
-  <tr id="Mercury_row" style="">
-    <td class="" id="Mercury_name" style=""><div style="text-align:center; color:#000000;" id="Mercury_namediv">Mercury</div></td>
-    <td class="NumericData" id="Mercury_x" style="">-0.1269568</td>
-    <td class="NumericData" id="Mercury_y" style="">0.2893193</td>
-    <td class="NumericData" id="Mercury_z" style="">0.0352220</td>
-    <td class="NumericData" id="Mercury_distance" style="">0.3179061</td>
-    <td class="SmallNumericData" id="Mercury_mag" style="">-1.40</td>
-    <td class="SmallNumericData" id="Mercury_SA" style="">10.4°</td>
-    <td class="SmallNumericData" id="Mercury_const" style=""><div style="text-align:center;" id="Mercury_constdiv"><span title="Taurus">Tau</span></div></td>
-    <td class="NumericData" id="Mercury_RA" style="">&nbsp;113°&nbsp;41'&nbsp;32.8"</td>
-    <td class="NumericData" id="Mercury_DEC" style="">&nbsp;006°&nbsp;21'&nbsp;39.9"</td>
-  </tr>
-  <tr id="Venus_row" style="">
-    <td class="" id="Venus_name" style=""><div style="text-align:center; color:#000000;" id="Venus_namediv">Venus</div></td>
-    <td class="NumericData" id="Venus_x" style="">0.6869723</td>
-    <td class="NumericData" id="Venus_y" style="">0.2295910</td>
-    <td class="NumericData" id="Venus_z" style="">-0.0365859</td>
-    <td class="NumericData" id="Venus_distance" style="">0.7252458</td>
-    <td class="SmallNumericData" id="Venus_mag" style="">-3.65</td>
-    <td class="SmallNumericData" id="Venus_SA" style="">20.6°</td>
-    <td class="SmallNumericData" id="Venus_const" style=""><div style="text-align:center;" id="Venus_constdiv"><span title="Aries">Ari</span></div></td>
-    <td class="NumericData" id="Venus_RA" style="">&nbsp;018°&nbsp;28'&nbsp;48.0"</td>
-    <td class="NumericData" id="Venus_DEC" style="">&#8722;002°&nbsp;53'&nbsp;29.7"</td>
-  </tr>
-  <tr id="Earth_row" style="">
-    <td class="" id="Earth_name" style=""><div style="text-align:center; color:#000000;" id="Earth_namediv">Earth</div></td>
-    <td class="NumericData" id="Earth_x" style="">-0.3722807</td>
-    <td class="NumericData" id="Earth_y" style="">-0.9427784</td>
-    <td class="NumericData" id="Earth_z" style="">0.0000000</td>
-    <td class="NumericData" id="Earth_distance" style="">1.0136192</td>
-    <td class="SmallNumericData" id="Earth_mag" style="">&nbsp;</td>
-    <td class="SmallNumericData" id="Earth_SA" style="">&nbsp;</td>
-    <td class="SmallNumericData" id="Earth_const" style="">&nbsp;</td>
-    <td class="NumericData" id="Earth_RA" style="">&nbsp;248°&nbsp;27'&nbsp;07.6"</td>
-    <td class="NumericData" id="Earth_DEC" style="">&nbsp;000°&nbsp;00'&nbsp;00.0"</td>
-  </tr>
-  <tr id="Moon_row" style=""><td class="" id="Moon_name" style=""><div style="text-align:center; color:#000000;" id="Moon_namediv">Moon</div></td><td class="NumericData" id="Moon_x" style="">-0.3697499</td><td class="NumericData" id="Moon_y" style="">-0.9420287</td><td class="NumericData" id="Moon_z" style="">-0.0002380</td><td class="NumericData" id="Moon_distance" style="">1.0119946</td><td class="SmallNumericData" id="Moon_mag" style="">-8.24</td><td class="SmallNumericData" id="Moon_SA" style="">52.1°</td><td class="SmallNumericData" id="Moon_const" style=""><div style="text-align:center;" id="Moon_constdiv"><span title="Cetus">Cet</span></div></td><td class="NumericData" id="Moon_RA" style="">&nbsp;248°&nbsp;34'&nbsp;11.3"</td><td class="NumericData" id="Moon_DEC" style="">&#8722;000°&nbsp;00'&nbsp;48.5"</td></tr><tr id="Mars_row"><td class="" id="Mars_name" style=""><div style="text-align:center; color:#000000;" id="Mars_namediv">Mars</div></td><td class="NumericData" id="Mars_x" style="">-0.7514013</td><td class="NumericData" id="Mars_y" style="">1.4442801</td><td class="NumericData" id="Mars_z" style="">0.0486691</td><td class="NumericData" id="Mars_distance" style="">1.6287780</td><td class="SmallNumericData" id="Mars_mag" style="">1.76</td><td class="SmallNumericData" id="Mars_SA" style="">30.6°</td><td class="SmallNumericData" id="Mars_const" style=""><div style="text-align:center;" id="Mars_constdiv"><span title="Gemini">Gem</span></div></td><td class="NumericData" id="Mars_RA" style="">&nbsp;117°&nbsp;29'&nbsp;10.2"</td><td class="NumericData" id="Mars_DEC" style="">&nbsp;001°&nbsp;42'&nbsp;44.3"</td></tr><tr id="Ceres_row" style="display: none;"><td class="" id="Ceres_name" style=""><div style="text-align:center; color:#808060;" id="Ceres_namediv">Ceres</div></td><td class="NumericData" id="Ceres_x" style="">-1.0640785</td><td class="NumericData" id="Ceres_y" style="">-2.5519250</td><td class="NumericData" id="Ceres_z" style="">0.1160062</td><td class="NumericData" id="Ceres_distance" style="">2.7673167</td><td class="SmallNumericData" id="Ceres_mag" style="">7.61</td><td class="SmallNumericData" id="Ceres_SA" style="">175.8°</td><td class="SmallNumericData" id="Ceres_const" style=""><div style="text-align:center;" id="Ceres_constdiv"><span title="Scorpius">Sco</span></div></td><td class="NumericData" id="Ceres_RA" style="">&nbsp;247°&nbsp;21'&nbsp;55.0"</td><td class="NumericData" id="Ceres_DEC" style="">&nbsp;002°&nbsp;24'&nbsp;09.2"</td></tr><tr id="Pallas_row" style="display: none;"><td class="" id="Pallas_name" style=""><div style="text-align:center; color:#808060;" id="Pallas_namediv">Pallas</div></td><td class="NumericData" id="Pallas_x" style="">-2.0975440</td><td class="NumericData" id="Pallas_y" style="">-1.2606411</td><td class="NumericData" id="Pallas_z" style="">1.0466461</td><td class="NumericData" id="Pallas_distance" style="">2.6616489</td><td class="SmallNumericData" id="Pallas_mag" style="">8.83</td><td class="SmallNumericData" id="Pallas_SA" style="">117.1°</td><td class="SmallNumericData" id="Pallas_const" style=""><div style="text-align:center;" id="Pallas_constdiv"><span title="Coma Berenices">Com</span></div></td><td class="NumericData" id="Pallas_RA" style="">&nbsp;211°&nbsp;00'&nbsp;22.4"</td><td class="NumericData" id="Pallas_DEC" style="">&nbsp;023°&nbsp;09'&nbsp;20.8"</td></tr><tr id="Juno_row" style="display: none;"><td class="" id="Juno_name" style=""><div style="text-align:center; color:#808060;" id="Juno_namediv">Juno</div></td><td class="NumericData" id="Juno_x" style="">-1.3031744</td><td class="NumericData" id="Juno_y" style="">1.8190503</td><td class="NumericData" id="Juno_z" style="">-0.3599792</td><td class="NumericData" id="Juno_distance" style="">2.2664493</td><td class="SmallNumericData" id="Juno_mag" style="">10.03</td><td class="SmallNumericData" id="Juno_SA" style="">40.7°</td><td class="SmallNumericData" id="Juno_const" style=""><div style="text-align:center;" id="Juno_constdiv"><span title="Gemini">Gem</span></div></td><td class="NumericData" id="Juno_RA" style="">&nbsp;125°&nbsp;37'&nbsp;04.6"</td><td class="NumericData" id="Juno_DEC" style="">&#8722;009°&nbsp;08'&nbsp;20.3"</td></tr><tr id="Vesta_row" style="display: none;"><td class="" id="Vesta_name" style=""><div style="text-align:center; color:#808060;" id="Vesta_namediv">Vesta</div></td><td class="NumericData" id="Vesta_x" style="">2.3828318</td><td class="NumericData" id="Vesta_y" style="">0.3725357</td><td class="NumericData" id="Vesta_z" style="">-0.3009971</td><td class="NumericData" id="Vesta_distance" style="">2.4304875</td><td class="SmallNumericData" id="Vesta_mag" style="">8.03</td><td class="SmallNumericData" id="Vesta_SA" style="">43.2°</td><td class="SmallNumericData" id="Vesta_const" style=""><div style="text-align:center;" id="Vesta_constdiv"><span title="Pisces">Psc</span></div></td><td class="NumericData" id="Vesta_RA" style="">&nbsp;008°&nbsp;53'&nbsp;08.8"</td><td class="NumericData" id="Vesta_DEC" style="">&#8722;007°&nbsp;06'&nbsp;50.1"</td></tr><tr id="Ida_row" style="display: none;"><td class="" id="Ida_name" style=""><div style="text-align:center; color:#808060;" id="Ida_namediv">Ida</div></td><td class="NumericData" id="Ida_x" style="">2.2133499</td><td class="NumericData" id="Ida_y" style="">-1.8862666</td><td class="NumericData" id="Ida_z" style="">-0.0044752</td><td class="NumericData" id="Ida_distance" style="">2.9080818</td><td class="SmallNumericData" id="Ida_mag" style="">14.46</td><td class="SmallNumericData" id="Ida_SA" style="">88.5°</td><td class="SmallNumericData" id="Ida_const" style=""><div style="text-align:center;" id="Ida_constdiv"><span title="Aquarius">Aqr</span></div></td><td class="NumericData" id="Ida_RA" style="">&nbsp;319°&nbsp;33'&nbsp;41.8"</td><td class="NumericData" id="Ida_DEC" style="">&#8722;000°&nbsp;05'&nbsp;17.4"</td></tr><tr id="Gaspra_row" style="display: none;"><td class="" id="Gaspra_name" style=""><div style="text-align:center; color:#808060;" id="Gaspra_namediv">Gaspra</div></td><td class="NumericData" id="Gaspra_x" style="">-0.5450443</td><td class="NumericData" id="Gaspra_y" style="">2.0222447</td><td class="NumericData" id="Gaspra_z" style="">-0.0794209</td><td class="NumericData" id="Gaspra_distance" style="">2.0959137</td><td class="SmallNumericData" id="Gaspra_mag" style="">15.43</td><td class="SmallNumericData" id="Gaspra_SA" style="">24.9°</td><td class="SmallNumericData" id="Gaspra_const" style=""><div style="text-align:center;" id="Gaspra_constdiv"><span title="Gemini">Gem</span></div></td><td class="NumericData" id="Gaspra_RA" style="">&nbsp;105°&nbsp;05'&nbsp;03.0"</td><td class="NumericData" id="Gaspra_DEC" style="">&#8722;002°&nbsp;10'&nbsp;17.9"</td></tr><tr id="9P/T1_row" style="display: none;"><td class="" id="9P/T1_name" style=""><div style="text-align:center; color:#808060;" id="9P/T1_namediv">9P/T1</div></td><td class="NumericData" id="9P/T1_x" style="">1.6874105</td><td class="NumericData" id="9P/T1_y" style="">4.4356831</td><td class="NumericData" id="9P/T1_z" style="">0.0044608</td><td class="NumericData" id="9P/T1_distance" style="">4.7458044</td><td class="SmallNumericData" id="9P/T1_mag" style="">20.28</td><td class="SmallNumericData" id="9P/T1_SA" style="">0.6°</td><td class="SmallNumericData" id="9P/T1_const" style=""><div style="text-align:center;" id="9P/T1_constdiv"><span title="Taurus">Tau</span></div></td><td class="NumericData" id="9P/T1_RA" style="">&nbsp;069°&nbsp;10'&nbsp;20.4"</td><td class="NumericData" id="9P/T1_DEC" style="">&nbsp;000°&nbsp;03'&nbsp;13.9"</td></tr><tr id="19P/B_row" style="display: none;"><td class="" id="19P/B_name" style=""><div style="text-align:center; color:#808060;" id="19P/B_namediv">19P/B</div></td><td class="NumericData" id="19P/B_x" style="">-1.2232270</td><td class="NumericData" id="19P/B_y" style="">-5.5989128</td><td class="NumericData" id="19P/B_z" style="">-0.1343615</td><td class="NumericData" id="19P/B_distance" style="">5.7325528</td><td class="SmallNumericData" id="19P/B_mag" style="">16.07</td><td class="SmallNumericData" id="19P/B_SA" style="">168.7°</td><td class="SmallNumericData" id="19P/B_const" style=""><div style="text-align:center;" id="19P/B_constdiv"><span title="Ophiuchus">Oph</span></div></td><td class="NumericData" id="19P/B_RA" style="">&nbsp;257°&nbsp;40'&nbsp;33.3"</td><td class="NumericData" id="19P/B_DEC" style="">&#8722;001°&nbsp;20'&nbsp;34.9"</td></tr><tr id="67P/C-G_row" style="display: none;"><td class="" id="67P/C-G_name" style=""><div style="text-align:center; color:#808060;" id="67P/C-G_namediv">67P/C-G</div></td><td class="NumericData" id="67P/C-G_x" style="">-1.7105131</td><td class="NumericData" id="67P/C-G_y" style="">-5.2769326</td><td class="NumericData" id="67P/C-G_z" style="">-0.2554974</td><td class="NumericData" id="67P/C-G_distance" style="">5.5531209</td><td class="SmallNumericData" id="67P/C-G_mag" style="">20.56</td><td class="SmallNumericData" id="67P/C-G_SA" style="">174.6°</td><td class="SmallNumericData" id="67P/C-G_const" style=""><div style="text-align:center;" id="67P/C-G_constdiv"><span title="Scorpius">Sco</span></div></td><td class="NumericData" id="67P/C-G_RA" style="">&nbsp;252°&nbsp;02'&nbsp;23.8"</td><td class="NumericData" id="67P/C-G_DEC" style="">&#8722;002°&nbsp;38'&nbsp;13.5"</td></tr><tr id="81P/W2_row" style="display: none;"><td class="" id="81P/W2_name"><div style="text-align:center; color:#808060;" id="81P/W2_namediv">81P/W2</div></td><td class="NumericData" id="81P/W2_x" style="">5.1891962</td><td class="NumericData" id="81P/W2_y" style="">-0.8378429</td><td class="NumericData" id="81P/W2_z" style="">-0.1693579</td><td class="NumericData" id="81P/W2_distance" style="">5.2591273</td><td class="SmallNumericData" id="81P/W2_mag">15.93</td><td class="SmallNumericData" id="81P/W2_SA">67.4°</td><td class="SmallNumericData" id="81P/W2_const"><div style="text-align:center;" id="81P/W2_constdiv"><span title="Pisces">Psc</span></div></td><td class="NumericData" id="81P/W2_RA">&nbsp;350°&nbsp;49'&nbsp;41.6"</td><td class="NumericData" id="81P/W2_DEC">&#8722;001°&nbsp;50'&nbsp;43.4"</td></tr><tr id="Jupiter_row"><td class="" id="Jupiter_name" style=""><div style="text-align:center; color:#000000;" id="Jupiter_namediv">Jupiter</div></td><td class="NumericData" id="Jupiter_x" style="">-1.0722211</td><td class="NumericData" id="Jupiter_y" style="">-5.1952558</td><td class="NumericData" id="Jupiter_z" style="">0.0456174</td><td class="NumericData" id="Jupiter_distance" style="">5.3049432</td><td class="SmallNumericData" id="Jupiter_mag" style="">-2.42</td><td class="SmallNumericData" id="Jupiter_SA" style="">167.8°</td><td class="SmallNumericData" id="Jupiter_const" style=""><div style="text-align:center;" id="Jupiter_constdiv"><span title="Ophiuchus">Oph</span></div></td><td class="NumericData" id="Jupiter_RA" style="">&nbsp;258°&nbsp;20'&nbsp;19.5"</td><td class="NumericData" id="Jupiter_DEC" style="">&nbsp;000°&nbsp;29'&nbsp;33.7"</td></tr><tr id="Saturn_row" style=""><td class="" id="Saturn_name" style=""><div style="text-align:center; color:#000000;" id="Saturn_namediv">Saturn</div></td><td class="NumericData" id="Saturn_x" style="">2.7724298</td><td class="NumericData" id="Saturn_y" style="">-9.6811735</td><td class="NumericData" id="Saturn_z" style="">0.0585004</td><td class="NumericData" id="Saturn_distance" style="">10.0704970</td><td class="SmallNumericData" id="Saturn_mag" style="">0.17</td><td class="SmallNumericData" id="Saturn_SA" style="">138.7°</td><td class="SmallNumericData" id="Saturn_const" style=""><div style="text-align:center;" id="Saturn_constdiv"><span title="Sagittarius">Sgr</span></div></td><td class="NumericData" id="Saturn_RA" style="">&nbsp;285°&nbsp;58'&nbsp;49.1"</td><td class="NumericData" id="Saturn_DEC" style="">&nbsp;000°&nbsp;19'&nbsp;58.2"</td></tr><tr id="Uranus_row" style="display: none;"><td class="" id="Uranus_name" style=""><div style="text-align:center; color:#808060;" id="Uranus_namediv">Uranus</div></td><td class="NumericData" id="Uranus_x" style="">16.7013139</td><td class="NumericData" id="Uranus_y" style="">10.7199161</td><td class="NumericData" id="Uranus_z" style="">-0.1766127</td><td class="NumericData" id="Uranus_distance" style="">19.8464525</td><td class="SmallNumericData" id="Uranus_mag" style="">5.92</td><td class="SmallNumericData" id="Uranus_SA" style="">34.1°</td><td class="SmallNumericData" id="Uranus_const" style=""><div style="text-align:center;" id="Uranus_constdiv"><span title="Aries">Ari</span></div></td><td class="NumericData" id="Uranus_RA" style="">&nbsp;032°&nbsp;41'&nbsp;41.3"</td><td class="NumericData" id="Uranus_DEC" style="">&#8722;000°&nbsp;30'&nbsp;35.6"</td></tr><tr id="Neptune_row" style="display: none;"><td class="" id="Neptune_name" style=""><div style="text-align:center; color:#808060;" id="Neptune_namediv">Neptune</div></td><td class="NumericData" id="Neptune_x" style="">29.1132450</td><td class="NumericData" id="Neptune_y" style="">-6.8805467</td><td class="NumericData" id="Neptune_z" style="">-0.5258407</td><td class="NumericData" id="Neptune_distance" style="">29.9198841</td><td class="SmallNumericData" id="Neptune_mag" style="">7.87</td><td class="SmallNumericData" id="Neptune_SA" style="">79.8°</td><td class="SmallNumericData" id="Neptune_const" style=""><div style="text-align:center;" id="Neptune_constdiv"><span title="Aquarius">Aqr</span></div></td><td class="NumericData" id="Neptune_RA" style="">&nbsp;346°&nbsp;42'&nbsp;10.3"</td><td class="NumericData" id="Neptune_DEC" style="">&#8722;001°&nbsp;00'&nbsp;25.3"</td></tr><tr id="Pluto_row" style="display: none;"><td class="" id="Pluto_name" style=""><div style="text-align:center; color:#808060;" id="Pluto_namediv">Pluto</div></td><td class="NumericData" id="Pluto_x" style="">12.4507950</td><td class="NumericData" id="Pluto_y" style="">-31.3530678</td><td class="NumericData" id="Pluto_z" style="">-0.1985655</td><td class="NumericData" id="Pluto_distance" style="">33.7353907</td><td class="SmallNumericData" id="Pluto_mag" style="">14.18</td><td class="SmallNumericData" id="Pluto_SA" style="">135.6°</td><td class="SmallNumericData" id="Pluto_const" style=""><div style="text-align:center;" id="Pluto_constdiv"><span title="Sagittarius">Sgr</span></div></td><td class="NumericData" id="Pluto_RA" style="">&nbsp;291°&nbsp;39'&nbsp;31.7"</td><td class="NumericData" id="Pluto_DEC" style="">&#8722;000°&nbsp;20'&nbsp;14.1"</td></tr></tbody></table>
+    
 
+
+
+<!-- -->    
+<div id="divDateTime"></div>
+<table id="planetTable" border="1" cellpadding="2" cellspacing="0">
+    <tr>
+        <th class="TableHeader" style="width: 8em;" title="Names of brighter objects are dark, and names of dimmer objects (invisible to the naked eye) are gray.">Object</th>
+        <th id="th_x">x</th>
+        <th id="th_y">y</th>
+        <th id="th_z">z</th>
+        <th id="th_distance" class="TableHeader" title="Distance of the object from the center of the Earth (when in geocentric mode) or the Sun (when in heliocentric mode), expressed in AU.">distance in <a href="http://en.wikipedia.org/wiki/Astronomical_units" target="_blank">AU</a></th>
+        <th class="TableHeader" title="Visual Magnitude">Mag</th>
+        <th class="TableHeader" title="Elongation: the angle between the object and the Sun, as seen from Earth.">Elong</th>
+        <th class="TableHeader" title="Constellation">Con</th>
+        <th class="TableHeader" id="th_Angle1"></th>
+        <th class="TableHeader" id="th_Angle2"></th>
+    </tr>
+</table>
+<!-- -->    
+    
+    
+    </td>
+  </tr>
+  <tr>
+    <td><strong>Sky View</strong>
+    <table>
+        <tr>
+            <td><div id="divAstronomyHeader" class="FlatText"></div></td>
+        </tr>
+        <tr>
+            <td><div id="divAstronomyCanvas" style="position:relative;"></div></td>
+        </tr>
+        <tr>
+          <td>
+            <table align="center">     <!-- facing direction begin -->
+                <tr><td class="FlatText">Direction Faced</td></tr>
+                <tr>
+                    <td>
+                        <select id="selectFacingAzimuth" onChange="OnFacingAzimuthChange()">
+                            <option value="0.0">N</option>
+                            <option value="45.0">NE</option>
+                            <option value="90.0">E</option>
+                            <option value="135.0">SE</option>
+                            <option value="180.0" selected="selected">S</option>
+                            <option value="225.0">SW</option>
+                            <option value="270.0">W</option>
+                            <option value="315.0">NW</option>
+                        </select>
+                    </td>
+                </tr>
+            </table>    <!-- facing direction end -->
+          </td>
+        </tr>
+    </table>
+    </td>
+  </tr>
+  <tr>
+  <td>
+<p align="center">
+    <a href="javascript:ChangeMonth(-1)">&larr; Previous Month</a>
+    &nbsp;
+    <a href="javascript:SetCurrentDate()">[Current Date]</a>
+    &nbsp;
+    <a href="javascript:ChangeMonth(1)">Next Month &rarr;</a>
+</p>
+
+<table id="tableCalendar" border="0" cellpadding="3" cellspacing="0">
+    <tr>
+        <td colspan="7" id="CalendarMonthYear" class="CalendarMonthYear"></td>
+    </tr>
+    <tr>
+        <td class="Weekday">Monday</td>
+        <td class="Weekday">Tuesday</td>
+        <td class="Weekday">Wednesday</td>
+        <td class="Weekday">Thursday</td>
+        <td class="Weekday">Friday</td>
+        <td class="Weekend">Saturday</td>
+        <td class="Weekend">Sunday</td>
+    </tr>
+</table>
+
+<table>
+    <tr>
+        <td><div id="divExtraDayInfo" class="ExtraInfo"></div></td>
+    </tr>
+</table>
+
+<div id="divPreCalculatePast" class="PreCalc"></div>
+<div id="divPreCalculateFuture" class="PreCalc"></div>
   </td>
   </tr>
-
 </table>
 <!--
 <iframe width="1080" height="796" src="file:///X:/Javascript%20Astronomy%20Algorithms/GitHub/scr/references.html"></iframe>
