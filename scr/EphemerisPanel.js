@@ -671,3 +671,18 @@
           }
           alert ("LoadOption_SelectedObject(): could not find option for '" + name + "'");
       }
+	  
+    function InitPageSolarSystem()
+    {
+        LoadOption_Cartesian();
+        LoadOption_Angular();
+        LoadOption_AngleMode();
+//        LoadOption_RealTime();
+//        LoadGeographicCoordinates();
+//CommitGeographicCoordinates();
+        LoadOption_SelectedObject();
+        LoadOption_BrightObjectsOnly();
+        LoadOption_RisenObjectsOnly();
+        OnVisibilityChange();          // do this AFTER loading all options that can affect the display
+//        Timer();    // prime the pump for the self-perpetuating every-1-second timer event
+    }

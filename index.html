@@ -29,12 +29,13 @@
 	<script language="javascript" type="text/javascript" src="./scr/astronomy-s.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/astro_helper.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/astronomy.js"></script>
-	<!--<script language="javascript" type="text/javascript" src="./scr/EphemerisPanel.js"></script>-->
+	<script language="javascript" type="text/javascript" src="./scr/EphemerisPanel.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/SkyViewPanel.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/CalendarPanel.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/linha_efem.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/Planetarium.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/Cookie.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/CanvasGraph.js"></script>
-	<script language="javascript" type="text/javascript" src="./scr/astro_header.js"></script>
 
 	<script>
 function setJ2000() {
@@ -57,6 +58,14 @@ var $now_split = new Array();
 </script>
 
 <script>
+    function InitPage()
+    {
+		InitPageSolarSystem();
+		InitPageCalendar();
+		InitPageSkyView();
+	    UpdateNow();
+    }
+
 function LoadAction()
 {
 	clickGetLocation();
@@ -72,17 +81,26 @@ function LoadAction()
 		<h2>Project Files</h2>
 		<script>
 var project_files = [
+	"MITLicense.js",
 	"Math.js",
+	"fastiCircuitum.js",
 	"classes.js",
 	"GeoLocation.js",
+	"GeoLocationPanel.js",
+	"StringData.js",
 	"language.js",
-	"fastiCircuitum.js",
+	"TimeZone.js",
+	"TimeZonePanel.js",
 	"Tick.js",
 	"DateTimeTick.js",
-	"TimeZone.js",
-	"astronomy.js",
+	"DateTimePanel.js",
 	"sunPanel.js",
+	"astronomy.js",
 	"XMLHttpRequest.js",
+	"Cookie.js",
+	"EphemerisPanel.js",
+	"SkyViewPanel.js",
+	"CalendarPanel.js",
 	"CanvasGraph.js"
 ];
 
@@ -800,6 +818,7 @@ MakeFileMenu(project_files);
 
   </div>
 </div></div>
+<h1 align="center">License</h1>
 <script language="javascript">
 	initLocationPanel();
 	initDateTimePanel();
