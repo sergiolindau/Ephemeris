@@ -7,14 +7,16 @@
 	<!--<link rel="manifest" href="./src/manifest.json">-->
 	<script language="javascript" type="text/javascript" src="./scr/MITLicense.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/Math.js"></script>
-	<script language="javascript" type="text/javascript" src="./scr/fastiCircuitum.js"></script>
-	<script language="javascript" type="text/javascript" src="./scr/classes.js"></script>
-	<script language="javascript" type="text/javascript" src="./scr/GeoLocation.js"></script>
-	<script language="javascript" type="text/javascript" src="./scr/interface.js"></script>
-	<script language="javascript" type="text/javascript" src="./scr/StringData.js"></script>
-	<script language="javascript" type="text/javascript" src="./scr/language.js"></script>
-	<script language="javascript" type="text/javascript" src="./scr/GeoLocationPanel.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/XMLHttpRequest.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/Cookie.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/CanvasGraph.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/FastiCircuitum.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/Classes.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/GeoLocation.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/Interface.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/StringData.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/Language.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/GeoLocationPanel.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/TimeZone.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/TimeZonePanel.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/Tick.js"></script>
@@ -22,22 +24,17 @@
 	<script language="javascript" type="text/javascript" src="./scr/DateTimePanel.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/sunPanel.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/wz_jsgraphics.js"></script>
-	<script language="javascript" type="text/javascript" src="./scr/star_catalog.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/StarCatalog.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/Constellation.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/sofa.js"></script>
-	<script language="javascript" type="text/javascript" src="./scr/astronomy-s.js"></script>
-	<script language="javascript" type="text/javascript" src="./scr/astronomy-s.js"></script>
-	<script language="javascript" type="text/javascript" src="./scr/astro_helper.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/astronomy.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/astro_helper.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/EphemerisPanel.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/SkyViewPanel.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/CalendarPanel.js"></script>
-	<script language="javascript" type="text/javascript" src="./scr/linha_efem.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/Planetarium.js"></script>
-	<script language="javascript" type="text/javascript" src="./scr/Cookie.js"></script>
-	<script language="javascript" type="text/javascript" src="./scr/CanvasGraph.js"></script>
 
-	<script>
+<script>
 function setJ2000() {
 	console.log("Start Test...");
 	dateUTC.stop();
@@ -49,22 +46,15 @@ function setJ2000() {
 	updateCoordSelect("lng");
 	panelUpdate(dateUTC);
 }
-function RefreshAction(){
-	console.log("====== DateTimePanelRefresh ======");
-	console.log("==================================");
-}
-//addPanelRefreshAction(RefreshAction);
-var $now_split = new Array();
-</script>
 
-<script>
-    function InitPage()
-    {
-		InitPageSolarSystem();
-		InitPageCalendar();
-		InitPageSkyView();
-	    UpdateNow();
-    }
+
+function InitPage()
+{
+	InitPageSolarSystem();
+	InitPageCalendar();
+	InitPageSkyView();
+    UpdateNow();
+}
 
 function LoadAction()
 {
@@ -77,18 +67,23 @@ function LoadAction()
 <body onLoad="LoadAction()">
 	<div>
 		<h1 align="center">Javascript Astronomy Algorithms</h1>
+		<p align="center"><a href="#License">Copyright © <span id="copyr_1">2017 Sergio Lindau</span></a>                 <a href="#License">[License]</a></p>
 		<p align="center"><a href="https://github.com/sergiolindau/JavaScript-Astronomy-Algorithms/" title="GitHub Repository of Javascript Astronomy Algorithms" target="_blank">GitHub Repository</a></p>
-		<h2>Project Files</h2>
-		<script>
+
+<script>
 var project_files = [
 	"MITLicense.js",
 	"Math.js",
-	"fastiCircuitum.js",
-	"classes.js",
+	"XMLHttpRequest.js",
+	"Cookie.js",
+	"CanvasGraph.js",
+	"FastiCircuitum.js",
+	"Classes.js",
 	"GeoLocation.js",
 	"GeoLocationPanel.js",
+	"Interface.js",
 	"StringData.js",
-	"language.js",
+	"Language.js",
 	"TimeZone.js",
 	"TimeZonePanel.js",
 	"Tick.js",
@@ -96,32 +91,31 @@ var project_files = [
 	"DateTimePanel.js",
 	"sunPanel.js",
 	"astronomy.js",
-	"XMLHttpRequest.js",
-	"Cookie.js",
 	"EphemerisPanel.js",
 	"SkyViewPanel.js",
 	"CalendarPanel.js",
-	"CanvasGraph.js"
+	"Planetarium.js"
 ];
 
 function MakeFileMenu(Menu){
+	document.writeln("<details><summary><h2>Project source files</h2></summary>");
 	document.writeln("<ol>");
 	for(var i=0; i<Menu.length; i++) {
-		document.writeln("<li><a href=\"./scr/"+Menu[i]+"\">"+Menu[i]+"</a><br /><details><summary>View File</summary>");
+		document.writeln("<li><a href=\"./scr/"+Menu[i]+"\" target=\"_blank\">"+Menu[i]+"</a><br /><details><summary>View File</summary>");
 		document.writeln("<div id=\""+Menu[i]+"_container\"><center><iframe width=\"1024\" height=\"768\" src=\"./scr/"+
 		Menu[i]+"\"></iframe></center></div>");
 		document.writeln("</details></li>");
 	}
 	document.writeln("</ol>");
+	document.writeln("</details>");
 }
 
 MakeFileMenu(project_files);
-
 </script>
-	</div>
+</div>
 
-	<hr />
 
+<hr />
 <h1 align="center">Test Workbench</h1>
 <p><input type="button" value="J2000.0 (0,0)" onclick="setJ2000();" /></p>
 <table width="0%" border="1">
@@ -753,12 +747,18 @@ MakeFileMenu(project_files);
   </td>
   </tr>
 </table>
-<!--
-<iframe width="1080" height="796" src="file:///X:/Javascript%20Astronomy%20Algorithms/GitHub/scr/references.html"></iframe>
- 
+
 <hr />
--->
- <div id="TimeZoneContainer">  
+<h1 align="center">References</h1>
+<iframe width="1080" height="796" src="file:///X:/Javascript%20Astronomy%20Algorithms/GitHub/scr/references.html"></iframe>
+
+
+
+
+
+
+<hr />
+<div id="TimeZoneContainer">  
 <input type="button" value="Time zone" onclick="document.getElementById('TimeZone').hidden=false"/>
 <div id="TimeZone" hidden="true">
  <div>
@@ -767,6 +767,7 @@ MakeFileMenu(project_files);
  <div id="test_tz">test_tz</div>
  </div>
  </div>
+
 <hr />
 <div id="DominicalContainer">  
 <input type="button" value="Dominical" onclick="document.getElementById('Dominical').hidden=false"/>
@@ -774,6 +775,7 @@ MakeFileMenu(project_files);
 	<script>printDominicalTable()</script>
     <script>printSolarCycleTable()</script>  
   </div></div>
+
 <hr />
 <div id="ComputusContainer">
 <input type="button" value="Computus" onclick="document.getElementById('Computus').hidden=false"/>
@@ -818,7 +820,11 @@ MakeFileMenu(project_files);
 
   </div>
 </div></div>
-<h1 align="center">License</h1>
+
+<hr />
+<h1 align="center"><a name="License" id="License"></a>License</h1>
+<script language="javascript">document.write("<div>"+MITLicense.template("2017","Sergio Lindau",MITLicense.HTML)+"</div>");</script>
+
 <script language="javascript">
 	initLocationPanel();
 	initDateTimePanel();
@@ -826,7 +832,6 @@ MakeFileMenu(project_files);
 	addPanelRefreshAction(updateLocationPanel);
 	clickNow();
 	clickRunStop();
-	document.write("<div>"+MITLicense.template("2017","Sergio Lindau",MITLicense.HTML)+"</div>");
 </script>
 </body>
 </html>
