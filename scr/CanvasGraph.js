@@ -22,6 +22,8 @@
  THE SOFTWARE.*/
 
 //https://instructobit.com/tutorial/90/Creating-line-graphs-with-Javascript-using-an-HTML-canvas
+//http://www.javascripter.net/faq/plotafunctiongraph.htm
+// https://jsfiddle.net/canvasjs/qxop72s5/
 
 var CanvasGraph = function(parent,id,width,height) {
 	this.parent = parent;

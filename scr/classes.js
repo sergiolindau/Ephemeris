@@ -47,29 +47,50 @@ function key(str) {
 class $$ {
 	static $(type,descr,index) {
 		var result = [];
-		if (type==='tn') result = document.getElementsByTagNameNS(descr,arguments[2])
-		else switch(type) {
+		switch(type) {
 			case 'i' : result = [ document.getElementById(descr) ]; break;
 			case 'n' : result = document.getElementsByName(descr); break;
 			case 'c' : result = document.getElementsByClassName(descr); break;
 			case 't' : result = document.getElementsByTagName(descr); break;
-			default  : result = [];
+			case 'tn' :
+				if (arguments.length>3) return document.getElementsByTagNameNS(descr,arguments[2])[arguments[3]]
+				else return document.getElementsByTagNameNS(descr,arguments[2]);
+				break;
+			default  : return document.getElementById(type);
 		}
 		if (arguments.length>2) {
-			return result[index];
+			return result[arguments[2]];
 		}
 		else {
 			return result;
 		}
 	}
-	static create(tag,parent) {
+	static _(dest,source,prop) {
+		for(var k=0;i<dest.length;k++) {
+			dest[k][prop] = source[prop];
+		}
+		return dest;
+	}
+	static create(tag,parent,i,c,n) {
 		if (arguments.length==1)
 			return document.createElement(tag)
 		else {
 			var result = document.createElement(tag)
-			parent.lastChild.appendChild(result);
+			if (parent) {
+				parent = (typeof(parent) == 'string') ? document.getElementById(parent) : parent;
+				parent.append(result);
+			}
+			if ((arguments.length>2) && (i)) result.setAttribute('id',i);
+			if ((arguments.length>3) && (c)) result.setAttribute('class',c);
+			if ((arguments.length>4) && (n)) result.setAttribute('name',n);
 			return result;
 		}
+	}
+	static addEventListener(element, event, func, useCapture) {
+		element = (typeof(element) == 'string') ? document.getElementById(element) : element;
+		useCapture = (arguments.length>3) ? useCapture : false;
+		element.addEventListener(event,func,useCapture);
+		return element;
 	}
 }
 /***********************************************************************/

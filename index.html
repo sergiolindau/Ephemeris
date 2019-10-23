@@ -7,7 +7,7 @@
 	<!--<link rel="manifest" href="./src/manifest.json">-->
 	<script language="javascript" type="text/javascript" src="./scr/MITLicense.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/Math.js"></script>
-	<script language="javascript" type="text/javascript" src="./scr/XMLHttpRequest.js"></script>
+	<script language="javascript" type="text/javascript" src="./scr/HttpRequest.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/Cookie.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/CanvasGraph.js"></script>
 	<script language="javascript" type="text/javascript" src="./scr/FastiCircuitum.js"></script>
@@ -47,7 +47,6 @@ function setJ2000() {
 	panelUpdate(dateUTC);
 }
 
-
 function InitPage()
 {
 	InitPageSolarSystem();
@@ -67,7 +66,7 @@ function LoadAction()
 <body onLoad="LoadAction()">
 	<div>
 		<h1 align="center">Javascript Astronomy Algorithms</h1>
-		<p align="center"><a href="#License">Copyright © <span id="copyr_1">2017 Sergio Lindau</span></a>                 <a href="#License">[License]</a></p>
+		<p align="center"><a href="#License">Copyright © 2017 Sergio Lindau</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#License">[License]</a></p>
 		<p align="center"><a href="https://github.com/sergiolindau/JavaScript-Astronomy-Algorithms/" title="GitHub Repository of Javascript Astronomy Algorithms" target="_blank">GitHub Repository</a></p>
 
 <script>
@@ -752,7 +751,13 @@ MakeFileMenu(project_files);
 <h1 align="center">References</h1>
 <iframe width="1080" height="796" src="file:///X:/Javascript%20Astronomy%20Algorithms/GitHub/scr/references.html"></iframe>
 
-
+<hr />
+<div id="DominicalContainer">  
+<input type="button" value="Dominical" onclick="document.getElementById('Dominical').hidden=false"/>
+<div id="Dominical" hidden="true">
+	<script>printDominicalTable()</script>
+    <script>printSolarCycleTable()</script>  
+  </div></div>
 
 
 
@@ -768,58 +773,7 @@ MakeFileMenu(project_files);
  </div>
  </div>
 
-<hr />
-<div id="DominicalContainer">  
-<input type="button" value="Dominical" onclick="document.getElementById('Dominical').hidden=false"/>
-<div id="Dominical" hidden="true">
-	<script>printDominicalTable()</script>
-    <script>printSolarCycleTable()</script>  
-  </div></div>
-
-<hr />
-<div id="ComputusContainer">
-<input type="button" value="Computus" onclick="document.getElementById('Computus').hidden=false"/>
-    <div id="Computus" hidden="true">
-<h1 align="center">Computus</h1>
-  <p><strong>dominicaPaschae()</strong></p>
-  <p><span id="dominicaPaschaeFunction">dominicaPaschaeFunction</span></p>
-  <script>document.getElementById("dominicaPaschaeFunction").innerHTML = "<code style=\"white-space:pre\">"+eval(fastiCircuitum.dominicaPaschae)+"</code>\n";</script>
-  <p><a href="https://fr.wikipedia.org/wiki/Calcul_de_la_date_de_P%C3%A2ques">[FR] Calcul de la date de Pâques</a><br />
-    <a href="https://fr.wikipedia.org/wiki/Histoire_du_calcul_de_la_date_de_P%C3%A2ques">[FR] Histoire du calcul de la date de Pâques</a><br />
-    <a href="https://fr.wikipedia.org/wiki/Comput">[FR] Comput</a><br />
-    <a href="https://fr.wikipedia.org/wiki/%C3%89quation_lunaire">[FR] Équation lunaire</a><br />
-    <a href="https://fr.wikipedia.org/wiki/Nombre_d%27or_(astronomie)">[FR] Nombre d'or (astronomie)</a><br />
-    <a href="https://fr.wikipedia.org/wiki/Proemptose">[FR] Proemptose</a><br />
-    <a href="https://fr.wikipedia.org/wiki/M%C3%A9temptose">[FR] Métemptose</a><br/>
-    <a href="https://fr.wikipedia.org/wiki/Calcul_canonique_de_la_date_de_P%C3%A2ques_julienne">[FR] Calcul canonique de la date de Pâques julienne</a><br />
-    <a href="https://fr.wikipedia.org/wiki/Calcul_canonique_de_la_date_de_P%C3%A2ques_gr%C3%A9gorienne">[FR] Calcul canonique de la date de Pâques grégorienne</a><br />
-    <a href="https://fr.wikipedia.org/wiki/Calcul_de_la_date_de_P%C3%A2ques_selon_la_m%C3%A9thode_de_Gauss">[FR] Calcul de la date de Pâques selon la méthode de Gauss</a><br />
-    <a href="https://fr.wikipedia.org/wiki/Calcul_de_la_date_de_P%C3%A2ques_selon_la_m%C3%A9thode_de_Conway">[FR] Calcul de la date de Pâques selon la méthode de Conway
-    </a><br />
-    <a href="https://fr.wikipedia.org/wiki/Lune_pascale">[FR] Lune pascale</a><br />
-    <a href="https://pt.wikipedia.org/wiki/Ciclo_met%C3%B3nico">[PT] Ciclo metónico<br />
-    </a>
-     <a href="https://pt.wikipedia.org/wiki/C%C3%A1lculo_da_P%C3%A1scoa">[PT] Cálculo da Páscoa</a><br />
-     <a href="https://pt.wikipedia.org/wiki/Calend%C3%A1rio_judaico">[PT] Calendário judaico</a><br />
-    <a href="https://en.wikipedia.org/wiki/Epact">[EN] Epact</a><br />
-    <a href="https://pt.wikipedia.org/wiki/Epacta">[PT] Epacta</a><br />
-    <a href="https://fr.wikipedia.org/wiki/Cycle_solaire_calendaire">[FR] Cycle solaire calendaire</a><br />
-    <a href="https://en.wikipedia.org/wiki/Dominical_letter">[EN] Dominical letter</a><br />
-    <a href="https://pt.wikipedia.org/wiki/Letra_dominical">[PT] Letra dominical</a><br />
-    <a href="https://it.wikipedia.org/wiki/Lettera_dominicale">[IT] Lettera dominicale</a><br />
-    <a href="https://en.wikipedia.org/wiki/Lunar_calendar">[EN] Lunar calendar</a><br />
-    <a href="https://en.wikipedia.org/wiki/Lunar_month">[EN] Lunar month</a><br />
-    <a href="https://en.wikipedia.org/wiki/Computus">[EN] Computus</a></p>
-  <p><a href="https://en.wikipedia.org/wiki/List_of_symbols">List of Symbols</a></p>
-  <p><br />
-    <a href="https://www.ecma-international.org/ecma-262/6.0/#sec-date-objects">ecma-262 date objects</a><br />
-    <a href="https://play.google.com/store/books/details?id=t_cDAAAAQAAJ&amp;rdid=book-t_cDAAAAQAAJ&amp;rdot=1">The seaman's new guide, revised by J.S. Hobbs</a><br />
-    <a href="https://mozilla-comm.github.io/ical.js/api/time.js.html">Mozilla  iCalendar Time representation</a><br />
-    <a href="https://medium.com/@nitinpatel_20236/challenge-of-building-a-calendar-with-pure-javascript-a86f1303267d">Challenge of building a Calendar with Pure JavaScript</a></p>
-    </div></div>
-
-  </div>
-</div></div>
+</div>
 
 <hr />
 <h1 align="center"><a name="License" id="License"></a>License</h1>
