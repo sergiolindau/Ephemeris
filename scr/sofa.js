@@ -70,6 +70,173 @@ function iauZp(p)
    return;
 }
 
+function iauZpv(pv)
+/*
+**  - - - - - - -
+**   i a u Z p v
+**  - - - - - - -
+**
+**  Zero a pv-vector.
+**
+**  This function is part of the International Astronomical Union's
+**  SOFA (Standards Of Fundamental Astronomy) software collection.
+**
+**  Status:  vector/matrix support function.
+**
+**  Returned:
+**     pv       double[2][3]      pv-vector
+**
+**  Called:
+**     iauZp        zero p-vector
+**
+**  This revision:  2013 June 18
+**
+**  SOFA release 2019-07-22
+**
+**  Copyright (C) 2019 IAU SOFA Board.  See notes at end.
+*/
+{
+   iauZp(pv[0]);
+   iauZp(pv[1]);
+
+   return;
+}
+
+
+function iauPm(p)
+/*
+**  - - - - - -
+**   i a u P m
+**  - - - - - -
+**
+**  Modulus of p-vector.
+**
+**  This function is part of the International Astronomical Union's
+**  SOFA (Standards Of Fundamental Astronomy) software collection.
+**
+**  Status:  vector/matrix support function.
+**
+**  Given:
+**     p      double[3]     p-vector
+**
+**  Returned (function value):
+**            double        modulus
+**
+**  This revision:  2013 August 7
+**
+**  SOFA release 2019-07-22
+**
+**  Copyright (C) 2019 IAU SOFA Board.  See notes at end.
+*/
+{
+   return sqrt( p[0]*p[0] + p[1]*p[1] + p[2]*p[2] );
+}
+
+function iauCp(p, c)
+/*
+**  - - - - - -
+**   i a u C p
+**  - - - - - -
+**
+**  Copy a p-vector.
+**
+**  This function is part of the International Astronomical Union's
+**  SOFA (Standards Of Fundamental Astronomy) software collection.
+**
+**  Status:  vector/matrix support function.
+**
+**  Given:
+**     p        double[3]     p-vector to be copied
+**
+**  Returned:
+**     c        double[3]     copy
+**
+**  This revision:  2013 June 18
+**
+**  SOFA release 2019-07-22
+**
+**  Copyright (C) 2019 IAU SOFA Board.  See notes at end.
+*/
+{
+   c[0] = p[0];
+   c[1] = p[1];
+   c[2] = p[2];
+
+   return;
+}
+
+function iauPv2p(pv, p)
+/*
+**  - - - - - - - -
+**   i a u P v 2 p
+**  - - - - - - - -
+**
+**  Discard velocity component of a pv-vector.
+**
+**  This function is part of the International Astronomical Union's
+**  SOFA (Standards Of Fundamental Astronomy) software collection.
+**
+**  Status:  vector/matrix support function.
+**
+**  Given:
+**     pv      double[2][3]     pv-vector
+**
+**  Returned:
+**     p       double[3]        p-vector
+**
+**  Called:
+**     iauCp        copy p-vector
+**
+**  This revision:  2013 June 18
+**
+**  SOFA release 2019-07-22
+**
+**  Copyright (C) 2019 IAU SOFA Board.  See notes at end.
+*/
+{
+   iauCp(pv[0], p);
+   return;
+}
+
+function iauZr(r)
+/*
+**  - - - - - -
+**   i a u Z r
+**  - - - - - -
+**
+**  Initialize an r-matrix to the null matrix.
+**
+**  This function is part of the International Astronomical Union's
+**  SOFA (Standards Of Fundamental Astronomy) software collection.
+**
+**  Status:  vector/matrix support function.
+**
+**  Returned:
+**     r        double[3][3]    r-matrix
+**
+**  This revision:  2013 June 18
+**
+**  SOFA release 2019-07-22
+**
+**  Copyright (C) 2019 IAU SOFA Board.  See notes at end.
+*/
+{
+   r[0][0] = 0.0;
+   r[0][1] = 0.0;
+   r[0][2] = 0.0;
+   r[1][0] = 0.0;
+   r[1][1] = 0.0;
+   r[1][2] = 0.0;
+   r[2][0] = 0.0;
+   r[2][1] = 0.0;
+   r[2][2] = 0.0;
+
+   return;
+   
+   
+}
+
+
 	function iauFalp03(t) {
 /***********************************************************************
 **  Fundamental argument, IERS Conventions (2003):
