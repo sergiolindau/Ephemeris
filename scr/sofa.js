@@ -40,6 +40,35 @@ const iauDJC = 36525.0;
 /* Seconds per day. */
 const iauDAYSEC = 86400.0;
 
+function iauZp(p)
+/*
+**  - - - - - -
+**   i a u Z p
+**  - - - - - -
+**
+**  Zero a p-vector.
+**
+**  This function is part of the International Astronomical Union's
+**  SOFA (Standards Of Fundamental Astronomy) software collection.
+**
+**  Status:  vector/matrix support function.
+**
+**  Returned:
+**     p        double[3]      p-vector
+**
+**  This revision:  2013 June 18
+**
+**  SOFA release 2019-07-22
+**
+**  Copyright (C) 2019 IAU SOFA Board.  See notes at end.
+*/
+{
+   p[0] = 0.0;
+   p[1] = 0.0;
+   p[2] = 0.0;
+
+   return;
+}
 
 	function iauFalp03(t) {
 /***********************************************************************
