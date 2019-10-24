@@ -515,19 +515,6 @@ Math.frac = Math.frac || function(x){
 	return (isNaN(f))?0:f;
 };
 
-Math.sgn = Math.sgn || function(x,y) {
-/***********************************************************************
- Name:    Math.sgn
- Type:    Function
- Purpose: Returns absolute value of x with sign of y.
- Arguments:
-   x : A number.
- Return value:
-   A number representing the absolute value of x with sign of y.
-***********************************************************************/
-	return (y<0)?-this.abs(x):this.abs(x);
-};
-
 Math.sign = Math.sign || function(x) {
 /***********************************************************************
  Name:    Math.sign
