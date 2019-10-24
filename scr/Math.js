@@ -541,6 +541,21 @@ Math.sign = Math.sign || function(x) {
 	return ((x > 0) - (x < 0)) || +x;
 };
 
+Math.dsign = Math.dsign || function(x,y) {
+/***********************************************************************
+ Name:    Math.sign
+ Type:    Function
+ Purpose: Returns the magnitude of x with sign of y (number)
+ Arguments:
+   x : A number.
+   y : A number.
+ Return value:
+   A number representing the magnitude and sign of the given arguments.
+   The magnitude of x with sign of y
+***********************************************************************/
+	return ((y)<0.0?-Math.abs(x):Math.abs(x))
+}
+
 Math.trunc = Math.trunc || function(x) {
 /***********************************************************************
  Name:    Math.trunc

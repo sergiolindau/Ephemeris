@@ -32,7 +32,6 @@
 ** downloaded from: http://www.iausofa.org/
 /***********************************************************************/
 
-
 /* Reference epoch (J2000.0), Julian Date */
 const iauDJ00 = 2451545.0;
 /* Days per Julian century */
@@ -40,12 +39,9 @@ const iauDJC = 36525.0;
 /* Seconds per day. */
 const iauDAYSEC = 86400.0;
 
+
 function iauZp(p)
-/*
-**  - - - - - -
-**   i a u Z p
-**  - - - - - -
-**
+/***********************************************************************
 **  Zero a p-vector.
 **
 **  This function is part of the International Astronomical Union's
@@ -71,11 +67,7 @@ function iauZp(p)
 }
 
 function iauZpv(pv)
-/*
-**  - - - - - - -
-**   i a u Z p v
-**  - - - - - - -
-**
+/***********************************************************************
 **  Zero a pv-vector.
 **
 **  This function is part of the International Astronomical Union's
@@ -104,11 +96,7 @@ function iauZpv(pv)
 
 
 function iauPm(p)
-/*
-**  - - - - - -
-**   i a u P m
-**  - - - - - -
-**
+/***********************************************************************
 **  Modulus of p-vector.
 **
 **  This function is part of the International Astronomical Union's
@@ -129,15 +117,11 @@ function iauPm(p)
 **  Copyright (C) 2019 IAU SOFA Board.  See notes at end.
 */
 {
-   return sqrt( p[0]*p[0] + p[1]*p[1] + p[2]*p[2] );
+   return Math.sqrt( p[0]*p[0] + p[1]*p[1] + p[2]*p[2] );
 }
 
 function iauCp(p, c)
-/*
-**  - - - - - -
-**   i a u C p
-**  - - - - - -
-**
+/***********************************************************************
 **  Copy a p-vector.
 **
 **  This function is part of the International Astronomical Union's
@@ -165,12 +149,40 @@ function iauCp(p, c)
    return;
 }
 
-function iauPv2p(pv, p)
-/*
-**  - - - - - - - -
-**   i a u P v 2 p
-**  - - - - - - - -
+function iauAnp(a)
+/***********************************************************************
+**  Normalize angle into the range 0 <= a < 2pi.
 **
+**  This function is part of the International Astronomical Union's
+**  SOFA (Standards Of Fundamental Astronomy) software collection.
+**
+**  Status:  vector/matrix support function.
+**
+**  Given:
+**     a        double     angle (radians)
+**
+**  Returned (function value):
+**              double     angle in range 0-2pi
+**
+**  This revision:  2013 June 18
+**
+**  SOFA release 2019-07-22
+**
+**  Copyright (C) 2019 IAU SOFA Board.  See notes at end.
+*/
+{
+   var w;
+
+
+   w = a % Math.PI2;
+   if (w < 0) w += Math.PI2;
+
+   return w;
+}
+
+
+function iauPv2p(pv, p)
+/***********************************************************************
 **  Discard velocity component of a pv-vector.
 **
 **  This function is part of the International Astronomical Union's
@@ -199,11 +211,7 @@ function iauPv2p(pv, p)
 }
 
 function iauZr(r)
-/*
-**  - - - - - -
-**   i a u Z r
-**  - - - - - -
-**
+/***********************************************************************
 **  Initialize an r-matrix to the null matrix.
 **
 **  This function is part of the International Astronomical Union's
@@ -232,9 +240,136 @@ function iauZr(r)
    r[2][2] = 0.0;
 
    return;
-   
-   
 }
+
+function iauIr(r)
+/***********************************************************************
+**  Initialize an r-matrix to the identity matrix.
+**
+**  This function is part of the International Astronomical Union's
+**  SOFA (Standards Of Fundamental Astronomy) software collection.
+**
+**  Status:  vector/matrix support function.
+**
+**  Returned:
+**     r       double[3][3]    r-matrix
+**
+**  This revision:  2013 June 18
+**
+**  SOFA release 2019-07-22
+**
+**  Copyright (C) 2019 IAU SOFA Board.  See notes at end.
+*/
+{
+   r[0][0] = 1.0;
+   r[0][1] = 0.0;
+   r[0][2] = 0.0;
+   r[1][0] = 0.0;
+   r[1][1] = 1.0;
+   r[1][2] = 0.0;
+   r[2][0] = 0.0;
+   r[2][1] = 0.0;
+   r[2][2] = 1.0;
+
+   return;
+}
+
+function iauCr(r, c)
+/***********************************************************************
+**  Copy an r-matrix.
+**
+**  This function is part of the International Astronomical Union's
+**  SOFA (Standards Of Fundamental Astronomy) software collection.
+**
+**  Status:  vector/matrix support function.
+**
+**  Given:
+**     r        double[3][3]    r-matrix to be copied
+**
+**  Returned:
+**     c        double[3][3]    copy
+**
+**  Called:
+**     iauCp        copy p-vector
+**
+**  This revision:  2016 May 19
+**
+**  SOFA release 2019-07-22
+**
+**  Copyright (C) 2019 IAU SOFA Board.  See notes at end.
+*/
+{
+   iauCp(r[0], c[0]);
+   iauCp(r[1], c[1]);
+   iauCp(r[2], c[2]);
+
+   return;
+}
+
+function iauAnpm(a)
+/***********************************************************************
+**  Normalize angle into the range -pi <= a < +pi.
+**
+**  This function is part of the International Astronomical Union's
+**  SOFA (Standards Of Fundamental Astronomy) software collection.
+**
+**  Status:  vector/matrix support function.
+**
+**  Given:
+**     a        double     angle (radians)
+**
+**  Returned (function value):
+**              double     angle in range +/-pi
+**
+**  This revision:  2013 June 18
+**
+**  SOFA release 2019-07-22
+**
+**  Copyright (C) 2019 IAU SOFA Board.  See notes at end.
+*/
+{
+   var w;
+
+
+   w = a % Math.PI2;
+   if (Math.abs(w) >= Math.PI) w -= Math.dsign(Math.PI2, a);
+
+   return w;
+}
+
+
+
+function iauCpv(pv, c)
+/***********************************************************************
+**  Copy a position/velocity vector.
+**
+**  This function is part of the International Astronomical Union's
+**  SOFA (Standards Of Fundamental Astronomy) software collection.
+**
+**  Status:  vector/matrix support function.
+**
+**  Given:
+**     pv     double[2][3]    position/velocity vector to be copied
+**
+**  Returned:
+**     c      double[2][3]    copy
+**
+**  Called:
+**     iauCp        copy p-vector
+**
+**  This revision:  2013 June 18
+**
+**  SOFA release 2019-07-22
+**
+**  Copyright (C) 2019 IAU SOFA Board.  See notes at end.
+*/
+{
+   iauCp(pv[0], c[0]);
+   iauCp(pv[1], c[1]);
+
+   return;
+}
+
 
 
 	function iauFalp03(t) {
