@@ -1,0 +1,185 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Fasti Circuitu</title>
+
+<script>
+// DOM Helper
+function $(id) { return document.getElementById(id) }
+
+class fastiCircuitu {
+/***********************************************************************
+ JavaScript static class fastiCircuitu
+ 
+ Copyright (c) 2018 Sergio Lindau
+
+ Permission is hereby granted, free of charge, to any person obtaining a copy
+ of this software and associated documentation files (the "Software"), to deal
+ in the Software without restriction, including without limitation the rights
+ to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ copies of the Software, and to permit persons to whom the Software is
+ furnished to do so, subject to the following conditions:
+
+ The above copyright notice and this permission notice shall be included in
+ all copies or substantial portions of the Software.
+
+ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+ THE SOFTWARE.
+/***********************************************************************/
+
+// Return first year of solar cycle. First cycle is 0 at 9 BCE.
+	static solisCycle(cycle) {
+		return (cycle*28-8);
+	}
+
+// Return index of year in Solar Cycle
+	static solisCircuitum(year) {
+		return (year + 8) % 28;
+	}
+
+//Note: first year of 73th (72) cycle is 2008 (index 0). This cycle ends in year 2035
+
+// Returns true if is the next year after leap year (Julian).
+	static saltuSolisCircuitumJ(year) {
+		return Math.abs(year%4)==1;
+	}
+
+// Return true if is leap year (Gregorian), false otherwise.
+	static saltuSolisCircuitumG(year){
+		return (year % 4 == 0) && (year % 100 != 0 || year % 400 == 0);
+	}
+
+// Return index of year in Solar Cycle with "*" appended if saltu.
+	static solisCircuitumIndex(year) {
+		var s = fastiCircuitu.solisCircuitum(year);
+		return s + (fastiCircuitu.saltuSolisCircuitumJ(year)?"*":"");
+	}
+
+// Return dominical letter index from day of week argument. (returns A=0, G=1, F=2, E=3, D=4, C=5, B=6, A=7;
+	static dominical(d) {
+		d = 7 - (d % 7);
+		return d<7?d:0;
+	}
+
+// Return dominical letter from index argument.
+	static dominicalLetter(d) {
+		return String.fromCharCode(65+fastiCircuitu.dominical(d));
+	}
+
+// Return dominical letter cycle index from year argument.
+	static solisDominical(year) {
+		return (year - 16) % 28;
+	}
+
+// Return dominical letter index from year argument.
+	static dominicalComputus( year ) {
+		var s = fastiCircuitu.solisDominical( year + 11 );
+		return ( (s + 5 + Math.trunc( (s)/4 )) % 7 );
+	}
+
+// Return dominical letter from year argument.
+	static yearDominicalComputus( year ) {
+		var s = fastiCircuitu.dominicalComputus(year);
+		return fastiCircuitu.dominicalLetter(s) + (fastiCircuitu.saltuSolisCircuitumG(year)?fastiCircuitu.dominicalLetter(s+1):"")
+	}
+
+
+// Carnival finnish (-47)
+	saturnaliaFinis = -(6*7+5);
+// Ash Wednesday (-46)
+	mercuriiCinereo = -(6*7+4);
+// Palm Sunday (-7)
+	solisPalmarum = -(0*7+7);
+// Pentecostes (+50)
+	pentaecoste = +(7*7+1);
+// Chorpus Christi (+60)
+	corpusDomini = +(8*7+4);
+
+
+// Easter Sunday
+	static solisPaschae(year){
+		var trunc = Math.trunc, n, c, u, s, t, p, q, e, b, d, m, j, L, h;
+		n = year % 19;                             // ciclo Metônico
+		c = trunc(year / 100);                     // número de séculos completados
+		u = year % 100;                            // anos passados além de séculos completos
+		s = trunc(c / 4);                          // número de ciclos gregorianos de séculos bissextos completados (ciclos de 400 anos, 97 anos bissextos)
+		t = c % 4;                                 // séculos além dos ciclos de bissextos completos
+		p = trunc((c + 8) / 25);                   // ciclos de proemptose completados
+		q = trunc((c - p + 1) / 3);                // proemptose passadas além dos ciclos completos
+		e = (19 * n + c - s - q + 15) % 30;        // epacta
+		b = trunc(u / 4);                          // numero de ciclos julianos de anos bissextos completados
+		d = u % 4;                                 // anos além dos ciclos julianos de anos bissextos completos
+		L = (32 + 2 * t + 2 * b - e - d) % 7;      // letra dominical
+		h = trunc((n + 11 * e + 22 * L) / 451);    // correção
+		m = trunc((e + L - 7 * h + 114) / 31) - 1; //
+		j = 1 + (e + L - 7 * h + 114) % 31;        // 
+		return {month:m, date:j};
+	}
+
+}
+
+function printSolarCycleTable(){
+		document.writeln("<br /><h2>Solar Cycle Table</h2>");
+		var i_solisCycle = 72;
+		document.writeln("<table width=\"0%\" border=\"1\">");
+		document.writeln("<tr><td>Year</td>");
+		for (var i=fastiCircuitu.solisCycle(i_solisCycle);i<fastiCircuitu.solisCycle(i_solisCycle+1);i++){
+			document.writeln("<td>" + i + "</td>");
+		}
+		document.writeln("</tr><tr><td>(solisCircuitum)</td>");
+		for (var i=fastiCircuitu.solisCycle(i_solisCycle);i<fastiCircuitu.solisCycle(i_solisCycle+1);i++){
+			document.writeln("<td>" + fastiCircuitu.solisCircuitum(i) + "</td>");
+		}
+		document.writeln("</tr><tr><td><a href=\"https://fr.wikipedia.org/wiki/Cycle_solaire_calendaire\">Solar Cycle</a> " + (i_solisCycle+1) + ":0 (" + fastiCircuitu.solisCycle(i_solisCycle) + ") (solisCircuitumIndex)</td>");
+		for (var i=fastiCircuitu.solisCycle(i_solisCycle);i<fastiCircuitu.solisCycle(i_solisCycle+1);i++){
+			document.writeln("<td>" + fastiCircuitu.solisCircuitumIndex(i) + "</td>");
+		}
+		document.writeln("</tr><tr><td>(solisDominical)</td>");
+		for (var i=fastiCircuitu.solisCycle(i_solisCycle);i<fastiCircuitu.solisCycle(i_solisCycle+1);i++){
+			document.writeln("<td>" + fastiCircuitu.solisDominical(i) + "</td>");
+		}
+		document.writeln("</tr><tr><td>(dominicalComputus)</td>");
+		for (var i=fastiCircuitu.solisCycle(i_solisCycle);i<fastiCircuitu.solisCycle(i_solisCycle+1);i++){
+			document.writeln("<td>" + fastiCircuitu.dominicalComputus(i) + "</td>");
+		}
+		document.writeln("</tr><tr><td><a href=\"https://de.wikipedia.org/wiki/Sonntagsbuchstabe#Sonntagsbuchstaben_im_julianischen_und_im_gregorianischen_Kalender\">Dominical Letter</a> (yearDominicalComputus)</td>");
+		for (var i=fastiCircuitu.solisCycle(i_solisCycle);i<fastiCircuitu.solisCycle(i_solisCycle+1);i++){
+			document.writeln("<td>" + fastiCircuitu.yearDominicalComputus(i) + "</td>");
+		}
+		document.writeln("</tr><tr><td>Dominical Letter (check)</td>");
+		const checkDominical = ["FE","D","C","B","AG","F","E","D","CB","A","G","F","ED","C","B","A","GF","E","D","C","BA","G","F","E","DC","B","A","G"];
+		for (var i=0;i<checkDominical.length;i++){
+			document.writeln("<td>"+checkDominical[i]+"</td>");
+		}
+		document.writeln("</tr></table>");
+}
+
+function changeYear() {
+	easter = fastiCircuitu.solisPaschae($("year").value);
+	$("month").innerHTML = easter.month;
+	$("date").innerHTML = easter.date;
+}
+</script>
+
+</head>
+
+<body onload="changeYear()">
+    <script>printSolarCycleTable()</script>
+    <hr />
+
+    <h2>Easter Sunday</h2>
+    <p>
+      <span id="date"> day </span> /
+      <span id="month"> month </span> /
+      <input type="text" id="year" onchange="changeYear()" value="2020" />
+    </p>
+    <hr />
+    <script>document.write("<pre>"+fastiCircuitu+"</pre>")</script>
+</body>
+</html>

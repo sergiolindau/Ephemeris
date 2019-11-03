@@ -24,7 +24,7 @@
 
 /* Dependecy: The file "DateTime.js" must be included before this file */
 class fastiCircuitum {
-// Return year of solar cycle. First cycle is 0 at 9 BCE.
+// Return first year of solar cycle. First cycle is 0 at 9 BCE.
 	static solisCycle(cycle) {
 		return (cycle*28-8);
 	}

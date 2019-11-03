@@ -370,6 +370,146 @@ function iauCpv(pv, c)
    return;
 }
 
+function iauPdp(a, b)
+/***********************************************************************
+**  p-vector inner (=scalar=dot) product.
+**
+**  This function is part of the International Astronomical Union's
+**  SOFA (Standards Of Fundamental Astronomy) software collection.
+**
+**  Status:  vector/matrix support function.
+**
+**  Given:
+**     a      double[3]     first p-vector
+**     b      double[3]     second p-vector
+**
+**  Returned (function value):
+**            double        a . b
+**
+**  This revision:  2013 June 18
+**
+**  SOFA release 2019-07-22
+**
+**  Copyright (C) 2019 IAU SOFA Board.  See notes at end.
+*/
+{
+   var w;
+
+
+   w  = a[0] * b[0]
+      + a[1] * b[1]
+      + a[2] * b[2];
+
+   return w;
+}
+
+function iauP2pv(p, pv)
+/***********************************************************************
+**  Extend a p-vector to a pv-vector by appending a zero velocity.
+**
+**  This function is part of the International Astronomical Union's
+**  SOFA (Standards Of Fundamental Astronomy) software collection.
+**
+**  Status:  vector/matrix support function.
+**
+**  Given:
+**     p        double[3]       p-vector
+**
+**  Returned:
+**     pv       double[2][3]    pv-vector
+**
+**  Called:
+**     iauCp        copy p-vector
+**     iauZp        zero p-vector
+**
+**  This revision:  2013 June 18
+**
+**  SOFA release 2019-07-22
+**
+**  Copyright (C) 2019 IAU SOFA Board.  See notes at end.
+*/
+{
+   iauCp(p, pv[0]);
+   iauZp(pv[1]);
+
+   return;
+}
+
+function iauSxp(s, p, sp)
+/***********************************************************************
+**  Multiply a p-vector by a scalar.
+**
+**  This function is part of the International Astronomical Union's
+**  SOFA (Standards Of Fundamental Astronomy) software collection.
+**
+**  Status:  vector/matrix support function.
+**
+**  Given:
+**     s      double        scalar
+**     p      double[3]     p-vector
+**
+**  Returned:
+**     sp     double[3]     s * p
+**
+**  Note:
+**     It is permissible for p and sp to be the same array.
+**
+**  This revision:  2013 June 18
+**
+**  SOFA release 2019-07-22
+**
+**  Copyright (C) 2019 IAU SOFA Board.  See notes at end.
+*/
+{
+   sp[0] = s * p[0];
+   sp[1] = s * p[1];
+   sp[2] = s * p[2];
+
+   return;
+}
+
+function iauS2c(theta, phi, c)
+/***********************************************************************
+**  Convert spherical coordinates to Cartesian.
+**
+**  This function is part of the International Astronomical Union's
+**  SOFA (Standards Of Fundamental Astronomy) software collection.
+**
+**  Status:  vector/matrix support function.
+**
+**  Given:
+**     theta    double       longitude angle (radians)
+**     phi      double       latitude angle (radians)
+**
+**  Returned:
+**     c        double[3]    direction cosines
+**
+**  This revision:  2013 June 18
+**
+**  SOFA release 2019-07-22
+**
+**  Copyright (C) 2019 IAU SOFA Board.  See notes at end.
+*/
+{
+   var cp;
+
+
+   cp = Math.cos(phi);
+   c[0] = Math.cos(theta) * cp;
+   c[1] = Math.sin(theta) * cp;
+   c[2] = Math.sin(phi);
+
+   return;
+}
+
+
+
+
+
+
+
+
+
 
 
 	function iauFalp03(t) {
